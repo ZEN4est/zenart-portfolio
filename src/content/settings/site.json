@@ -1,0 +1,46 @@
+{
+  "brandSubheaderPl": "MICHAŁ PIWOWARCZYK — 3D ARTIST",
+  "brandSubheaderEn": "MICHAŁ PIWOWARCZYK — 3D ARTIST",
+  "heroTitlePl": "Fotorealistyczne Wizualizacje 3D, Animacje & Game Assets",
+  "heroTitleEn": "Photorealistic 3D Visuals, Animations & Game Assets",
+  "heroSubPl": "Tworzę wysokiej jakości modele 3D, tekstury PBR oraz animacje w Blenderze, które pomagają markom i studiom deweloperskim prezentować produkty z maksymalnym efektem wizualnym.",
+  "heroSubEn": "I create high-quality, photorealistic 3D visuals that help brands and developers present their products with impact. My expertise covers modeling, texturing, and animation in Blender.",
+  "showreelUrl": "/uploads/settings/showreelUrl.mp4",
+  "ctaButtonPl": "Wyceń projekt",
+  "ctaButtonEn": "Get a Quote",
+  "contactIntroPl": "Potrzebujesz modelu 3D, wizualizacji produktu lub assetów do gry? Napisz bezpośrednio lub skorzystaj z formularza.",
+  "contactIntroEn": "Need a custom 3D model, product visualization, or game-ready asset? Reach out directly or use the form.",
+  "email": "michalpiwowarczyk3d@gmail.com",
+  "phone": "+48 795 757 323",
+  "location": "Kraków / Remote, Poland",
+  "clients": [
+    {
+      "name": "HC STUDIO",
+      "shortTextLogo": "HC"
+    },
+    {
+      "name": "NEUTREA BIOTECH",
+      "shortTextLogo": "N"
+    },
+    {
+      "name": "KALSI GROUP",
+      "shortTextLogo": "KG"
+    },
+    {
+      "name": "7PUNKT",
+      "shortTextLogo": "7p::"
+    },
+    {
+      "name": "IRONSHIELD",
+      "shortTextLogo": "IS"
+    },
+    {
+      "name": "SPI 55",
+      "shortTextLogo": "SPI55"
+    },
+    {
+      "name": "PRACOWNIA DOBROCI",
+      "shortTextLogo": "PD"
+    }
+  ]
+}
