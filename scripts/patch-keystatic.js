@@ -44,6 +44,14 @@ patchFile('node_modules/@keystatic/core/dist/index-5d64e651.js', [
   [
     "fetch('/api/keystatic/tree'",
     "fetch('/test/api/keystatic/tree'"
+  ],
+  [
+    "window.location.href = `/api/keystatic/github/login?from=${router.params.map(encodeURIComponent).join('/')}`;",
+    "window.location.href = `/test/api/keystatic/github/login?from=${router.params.map(encodeURIComponent).join('/')}`;"
+  ],
+  [
+    "window.location.href = `/api/keystatic/github/repo-not-found?from=${router.params.map(encodeURIComponent).join('/')}`;",
+    "window.location.href = `/test/api/keystatic/github/repo-not-found?from=${router.params.map(encodeURIComponent).join('/')}`;"
   ]
 ]);
 
@@ -72,6 +80,10 @@ patchFile('node_modules/@keystatic/core/dist/keystatic-core-ui.js', [
   [
     'window.location.href = "/api/keystatic/github/login"',
     'window.location.href = "/test/api/keystatic/github/login"'
+  ],
+  [
+    'window.location.href = "/api/keystatic/github/repo-not-found";',
+    'window.location.href = "/test/api/keystatic/github/repo-not-found";'
   ],
   [
     "const t2 = `/api/keystatic/github/login",

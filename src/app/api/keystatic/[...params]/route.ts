@@ -63,6 +63,9 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
           const authUrl = new URL(newLocation);
           const callbackUrl = `${publicOrigin}/test/api/keystatic/github/oauth/callback`;
           authUrl.searchParams.set("redirect_uri", callbackUrl);
+          if (!authUrl.searchParams.has("scope")) {
+            authUrl.searchParams.set("scope", "repo");
+          }
           newLocation = authUrl.toString();
         } catch (e) {
           console.error("Błąd parsowania OAuth authorize URL:", e);
