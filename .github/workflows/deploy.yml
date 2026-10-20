@@ -1,0 +1,36 @@
+name: Deploy do IQHost FTP
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobranie kodu repozytorium
+        uses: actions/checkout@v4
+
+      - name: Konfiguracja Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalacja pakietów
+        run: npm install
+
+      - name: Budowanie Next.js (Build)
+        env:
+          NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID }}
+        run: npm run build
+
+      - name: Wysyłanie plików przez FTP do IQHost
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
