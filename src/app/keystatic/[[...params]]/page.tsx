@@ -88,5 +88,3 @@ const Keystatic = makePage(config);
 export default function Page() {
   return <Keystatic />;
 }
-
-}
