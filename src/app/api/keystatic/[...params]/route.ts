@@ -14,7 +14,7 @@ async function wrapHandler(handler: (req: Request) => Promise<Response>, req: Re
   const url = new URL(req.url);
   let normalizedReq = req;
 
-  // Obcinamy /test, aby Keystatic rozpoznał /api/keystatic/...
+  // Obcinamy /test, aby Keystatic wewnętrznie rozpoznał /api/keystatic/...
   if (url.pathname.startsWith('/test/api/keystatic')) {
     const cleanUrl = new URL(req.url);
     cleanUrl.pathname = cleanUrl.pathname.replace(/^\/test/, '');
@@ -23,20 +23,38 @@ async function wrapHandler(handler: (req: Request) => Promise<Response>, req: Re
 
   const response = await handler(normalizedReq);
 
-  // Zabezpieczenie redirectów OAuth: dopisujemy /test do Location
   const location = response.headers.get('Location');
-  if (location && location.startsWith('/keystatic')) {
-    const newHeaders = new Headers(response.headers);
-    newHeaders.set('Location', `/test${location}`);
-    return new Response(response.body, {
-      status: response.status,
-      statusText: response.statusText,
-      headers: newHeaders,
-    });
+  if (location) {
+    let newLocation = location;
+
+    // Przekierowanie po pomyślnym logowaniu: Location: /keystatic -> /test/keystatic
+    if (newLocation.startsWith('/keystatic')) {
+      newLocation = `/test${newLocation}`;
+    }
+
+    // Przekierowanie do GitHub OAuth: upewniamy się, że callback URL zawiera /test
+    if (newLocation.includes('github.com/login/oauth/authorize')) {
+      newLocation = newLocation.replace(
+        '/api/keystatic/github/oauth/callback',
+        '/test/api/keystatic/github/oauth/callback'
+      );
+    }
+
+    if (newLocation !== location) {
+      const newHeaders = new Headers(response.headers);
+      newHeaders.set('Location', newLocation);
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: newHeaders,
+      });
+    }
   }
 
   return response;
 }
 
 export const GET = (req: Request) => wrapHandler(handleGet, req);
+export const POST = (req: Request) => wrapHandler(handlePost, req);
+
 export const POST = (req: Request) => wrapHandler(handlePost, req);
