@@ -37,15 +37,19 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
   }
 
   try {
-    const url = new URL(req.url);
-    let normalizedReq = req;
+    const proto = req.headers.get("x-forwarded-proto") || "https";
+    const host = req.headers.get("x-forwarded-host") || req.headers.get("host") || "zenart3d.atoma.pl";
+    const publicOrigin = `${proto}://${host}`;
 
-    // Obcinamy /test, aby Keystatic wewnętrznie rozpoznał /api/keystatic/...
-    if (url.pathname.startsWith("/test/api/keystatic")) {
-      const cleanUrl = new URL(req.url);
-      cleanUrl.pathname = cleanUrl.pathname.replace(/^\/test/, "");
-      normalizedReq = new Request(cleanUrl.toString(), req);
+    const url = new URL(req.url);
+    let pathname = url.pathname;
+    if (pathname.startsWith("/test/api/keystatic")) {
+      pathname = pathname.replace(/^\/test/, "");
     }
+
+    // Używamy publicOrigin zamiast wewnętrznego 127.0.0.1:3000
+    const cleanUrl = new URL(`${publicOrigin}${pathname}${url.search}`);
+    const normalizedReq = new Request(cleanUrl.toString(), req);
 
     const response = await handler(normalizedReq);
 
@@ -53,17 +57,33 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
     if (location) {
       let newLocation = location;
 
-      // Przekierowanie po pomyślnym logowaniu: Location: /keystatic -> /test/keystatic
-      if (newLocation.startsWith("/keystatic")) {
+      // 1. Jeśli to przekierowanie na autoryzację GitHub OAuth:
+      if (newLocation.includes("github.com/login/oauth/authorize")) {
+        try {
+          const authUrl = new URL(newLocation);
+          const callbackUrl = `${publicOrigin}/test/api/keystatic/github/oauth/callback`;
+          authUrl.searchParams.set("redirect_uri", callbackUrl);
+          newLocation = authUrl.toString();
+        } catch (e) {
+          console.error("Błąd parsowania OAuth authorize URL:", e);
+        }
+      }
+      // 2. Jeśli to wewnętrzne przekierowanie do /keystatic (np. po pomyślnym zalogowaniu):
+      else if (newLocation.startsWith("/keystatic")) {
         newLocation = `/test${newLocation}`;
       }
-
-      // Przekierowanie do GitHub OAuth: upewniamy się, że callback URL zawiera /test
-      if (newLocation.includes("github.com/login/oauth/authorize")) {
-        newLocation = newLocation.replace(
-          "/api/keystatic/github/oauth/callback",
-          "/test/api/keystatic/github/oauth/callback"
-        );
+      // 3. Jeśli to pełny URL wskazujący na 127.0.0.1:3000 lub localhost:
+      else if (newLocation.includes("127.0.0.1") || newLocation.includes("localhost")) {
+        try {
+          const locUrl = new URL(newLocation);
+          let locPath = locUrl.pathname;
+          if (!locPath.startsWith("/test")) {
+            locPath = `/test${locPath}`;
+          }
+          newLocation = `${publicOrigin}${locPath}${locUrl.search}${locUrl.hash}`;
+        } catch (e) {
+          console.error("Błąd parsowania lokalnego URL przekierowania:", e);
+        }
       }
 
       if (newLocation !== location) {
@@ -92,4 +112,3 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
 
 export const GET = (req: Request) => wrapHandler(handleGet, req);
 export const POST = (req: Request) => wrapHandler(handlePost, req);
-

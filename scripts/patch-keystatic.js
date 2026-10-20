@@ -34,12 +34,28 @@ patchFile('node_modules/@keystatic/core/dist/index-5d64e651.js', [
     '!newUrl.pathname.replace(/^\\/test/, "").startsWith("/keystatic")'
   ],
   [
-    'basePath: "/keystatic"',
-    'basePath: "/test/keystatic"'
+    'const newUrl = new URL(url_0, window.location.href);',
+    'const newUrl = new URL(typeof url_0 === "string" && url_0.startsWith("/keystatic") ? "/test" + url_0 : url_0, window.location.href);'
+  ],
+  [
+    "fetch('/api/keystatic/github/refresh-token'",
+    "fetch('/test/api/keystatic/github/refresh-token'"
+  ],
+  [
+    "fetch('/api/keystatic/tree'",
+    "fetch('/test/api/keystatic/tree'"
   ]
 ]);
 
-// 2. UI in core ui
+// 2. Logout link in index-3c244051.js
+patchFile('node_modules/@keystatic/core/dist/index-3c244051.js', [
+  [
+    '"/api/keystatic/github/logout"',
+    '"/test/api/keystatic/github/logout"'
+  ]
+]);
+
+// 3. UI in core ui
 patchFile('node_modules/@keystatic/core/dist/keystatic-core-ui.js', [
   [
     'basePath = `/keystatic/branch/${encodeURIComponent(branch)}`',
@@ -71,7 +87,7 @@ patchFile('node_modules/@keystatic/core/dist/keystatic-core-ui.js', [
   ]
 ]);
 
-// 3. API route handlers
+// 4. API route handlers
 patchFile('node_modules/@keystatic/core/dist/keystatic-core-api-generic.node.js', [
   [
     "url.pathname.replace(/^\\/api\\/keystatic\\/?/, '')",
@@ -84,6 +100,10 @@ patchFile('node_modules/@keystatic/core/dist/keystatic-core-api-generic.node.js'
   [
     "return redirect(`/keystatic",
     "return redirect(`/test/keystatic"
+  ],
+  [
+    "`${reqUrl.origin}/api/keystatic/github/oauth/callback`",
+    "`${reqUrl.origin}/test/api/keystatic/github/oauth/callback`"
   ]
 ]);
 
@@ -91,6 +111,9 @@ patchFile('node_modules/@keystatic/core/dist/keystatic-core-api-generic.js', [
   [
     "url.pathname.replace(/^\\/api\\/keystatic\\/?/, '')",
     "url.pathname.replace(/^(\\/test)?\\/api\\/keystatic\\/?/, '')"
+  ],
+  [
+    "`${reqUrl.origin}/api/keystatic/github/oauth/callback`",
+    "`${reqUrl.origin}/test/api/keystatic/github/oauth/callback`"
   ]
 ]);
-
