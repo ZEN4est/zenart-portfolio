@@ -10,37 +10,35 @@ const config = (rawConfig as any).default || rawConfig;
 if (typeof window !== "undefined") {
   const SUBPATH = "/test";
 
-  // 1. Patch dla window.URL używanego przez Router w Keystatic
-  const OriginalURL = window.URL;
-  class PatchedURL extends OriginalURL {
-    constructor(url: string | URL, base?: string | URL) {
-      super(url, base);
+  // 1. Kluczowy patch na prototypie URL - działa na WSZYSTKIE instancje URL w aplikacji
+  try {
+    const originalDesc = Object.getOwnPropertyDescriptor(URL.prototype, "pathname");
+    if (originalDesc && originalDesc.get) {
+      const originalGetter = originalDesc.get;
+      Object.defineProperty(URL.prototype, "pathname", {
+        get() {
+          const orig = originalGetter.call(this);
+          if (orig.startsWith(`${SUBPATH}/keystatic`)) {
+            return orig.slice(SUBPATH.length);
+          }
+          if (orig.startsWith(`${SUBPATH}/api/keystatic`)) {
+            return orig.slice(SUBPATH.length);
+          }
+          return orig;
+        },
+        configurable: true,
+        enumerable: true,
+      });
     }
-
-    get pathname() {
-      const orig = super.pathname;
-      if (orig.startsWith(`${SUBPATH}/keystatic`)) {
-        return orig.slice(SUBPATH.length);
-      }
-      if (orig.startsWith(`${SUBPATH}/api/keystatic`)) {
-        return orig.slice(SUBPATH.length);
-      }
-      return orig;
-    }
+  } catch (err) {
+    console.error("Błąd podczas patchowania URL.prototype:", err);
   }
-  // @ts-ignore
-  window.URL = PatchedURL;
 
   // 2. Patch dla history.pushState i replaceState
   const origPushState = window.history.pushState;
   window.history.pushState = function (data: any, unused: string, url?: string | URL | null) {
     if (typeof url === "string" && url.startsWith("/keystatic")) {
       url = SUBPATH + url;
-    } else if (url && typeof url.toString === "function") {
-      const s = url.toString();
-      if (s.includes("/keystatic") && !s.includes(`${SUBPATH}/keystatic`)) {
-        url = s.replace("/keystatic", `${SUBPATH}/keystatic`);
-      }
     }
     return origPushState.call(this, data, unused, url);
   };
@@ -49,11 +47,6 @@ if (typeof window !== "undefined") {
   window.history.replaceState = function (data: any, unused: string, url?: string | URL | null) {
     if (typeof url === "string" && url.startsWith("/keystatic")) {
       url = SUBPATH + url;
-    } else if (url && typeof url.toString === "function") {
-      const s = url.toString();
-      if (s.includes("/keystatic") && !s.includes(`${SUBPATH}/keystatic`)) {
-        url = s.replace("/keystatic", `${SUBPATH}/keystatic`);
-      }
     }
     return origReplaceState.call(this, data, unused, url);
   };
