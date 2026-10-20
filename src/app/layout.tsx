@@ -38,8 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                       void: '#07040e',
                       surface: '#110921',
                       surfaceLight: '#1a0f30',
-                      cyan: '#06b6d4',
-                      cyanlight: '#22d3ee',
+                      cyan: 'var(--accent)',
+                      cyanlight: 'var(--accent-light)',
                       crimsonSubtle: '#881337'
                     },
                     fontFamily: {

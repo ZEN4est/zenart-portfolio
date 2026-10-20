@@ -22,7 +22,7 @@ export default function ProjectHeader({ categories, settings }: any) {
       <style dangerouslySetInnerHTML={{ __html: `@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');` }} />
       <header className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-5xl rounded-full bg-[#0e071c]/85 backdrop-blur-xl border border-white/10 px-6 py-3.5 flex items-center justify-between shadow-[0_10px_35px_rgba(0,0,0,0.6)]">
         <Link href="/" style={{ fontFamily: "'Michroma', sans-serif" }} className="tracking-wider text-sm md:text-base flex items-center gap-2.5 text-left cursor-pointer">
-          <span className="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_10px_#22d3ee]"></span>
+          <span className="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_10px_var(--accent-light)]"></span>
           <span>ZenArt<span className="text-cyanlight">_3D</span></span>
         </Link>
 

@@ -44,7 +44,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
       <style dangerouslySetInnerHTML={{ __html: `@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');` }} />
       <header className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-5xl rounded-full bg-[#0e071c]/85 backdrop-blur-xl border border-white/10 px-6 py-3.5 flex items-center justify-between shadow-[0_10px_35px_rgba(0,0,0,0.6)]">
         <Link href="/" style={{ fontFamily: "'Michroma', sans-serif" }} className="tracking-wider text-sm md:text-base flex items-center gap-2.5 text-left cursor-pointer">
-          <span className="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_10px_#22d3ee]" />
+          <span className="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_10px_var(--accent-light)]" />
           <span>ZenArt<span className="text-cyanlight">_3D</span></span>
         </Link>
 
@@ -124,10 +124,10 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                     <svg className="absolute inset-0 w-full h-full pointer-events-none z-20">
                       <rect 
                         x="0" y="0" width="100%" height="100%" rx="16" 
-                        fill="none" stroke="#22d3ee" strokeWidth="6" 
+                        fill="none" stroke="var(--accent-light)" strokeWidth="6" 
                         pathLength="100" strokeDasharray="100" 
                         className="[stroke-dashoffset:100] lg:group-hover:[stroke-dashoffset:0] transition-all duration-[600ms] ease-[cubic-bezier(.7,0,.32,1)]" 
-                        style={{ filter: "drop-shadow(0 0 8px rgba(34,211,238,0.8))" }} 
+                        style={{ filter: "drop-shadow(0 0 8px var(--accent-light))" }} 
                       />
                     </svg>
                     <div className="absolute inset-0 bg-cyan/10 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-[600ms] ease-out pointer-events-none z-10" />
@@ -135,7 +135,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                     {imgSrc && <img src={getAssetUrl(imgSrc)} alt={cat.entry.titlePl} className="absolute inset-0 w-full h-full object-cover opacity-65 lg:group-hover:scale-105 lg:group-hover:opacity-85 transition duration-700" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-void via-void/30 to-transparent" />
                     <div className="relative z-10 w-full">
-                      <div className="w-8 h-0.5 bg-cyan mb-3 lg:group-hover:w-16 transition-all duration-300 shadow-[0_0_10px_#22d3ee]" />
+                      <div className="w-8 h-0.5 bg-cyan mb-3 lg:group-hover:w-16 transition-all duration-300 shadow-[0_0_10px_var(--accent-light)]" />
                       <h2 className="text-2xl md:text-3xl font-extrabold tracking-wide text-white drop-shadow-md">
                         {lang === "pl" ? cat.entry.titlePl : (cat.entry.titleEn || cat.entry.titlePl)}
                       </h2>
