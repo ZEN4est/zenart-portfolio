@@ -20,3 +20,4 @@ export default async function HomePage() {
     <PortfolioClient settings={settings} categories={categories} projects={projects} />
   );
 }
+

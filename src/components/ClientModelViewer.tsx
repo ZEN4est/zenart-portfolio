@@ -1,4 +1,5 @@
 "use client";
+import { getAssetUrl } from "@/utils/paths";
 import React, { useState, useEffect } from "react";
 
 export default function ClientModelViewer({ glbUrl, lang = "pl" }: { glbUrl: string; lang?: "pl" | "en" }) {
@@ -22,7 +23,7 @@ export default function ClientModelViewer({ glbUrl, lang = "pl" }: { glbUrl: str
     <div className="w-full relative rounded-2xl overflow-hidden border border-white/15 bg-void">
       <div className="w-full h-[380px] md:h-[540px]">
         {React.createElement("model-viewer", {
-          src: glbUrl,
+          src: getAssetUrl(glbUrl),
           "camera-controls": true,
           "auto-rotate": true,
           "shadow-intensity": "1",

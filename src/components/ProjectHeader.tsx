@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 export default function ProjectHeader({ categories, settings }: any) {
@@ -20,17 +21,17 @@ export default function ProjectHeader({ categories, settings }: any) {
     <>
       <style dangerouslySetInnerHTML={{ __html: `@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');` }} />
       <header className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-5xl rounded-full bg-[#0e071c]/85 backdrop-blur-xl border border-white/10 px-6 py-3.5 flex items-center justify-between shadow-[0_10px_35px_rgba(0,0,0,0.6)]">
-        <a href="/" style={{ fontFamily: "'Michroma', sans-serif" }} className="tracking-wider text-sm md:text-base flex items-center gap-2.5 text-left cursor-pointer">
+        <Link href="/" style={{ fontFamily: "'Michroma', sans-serif" }} className="tracking-wider text-sm md:text-base flex items-center gap-2.5 text-left cursor-pointer">
           <span className="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_10px_#22d3ee]"></span>
           <span>ZenArt<span className="text-cyanlight">_3D</span></span>
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-xs font-semibold tracking-wider uppercase text-slate-300">
-          <a href="/" className="hover:text-cyanlight transition cursor-pointer">Home</a>
+          <Link href="/" className="hover:text-cyanlight transition cursor-pointer">Home</Link>
           {categories.map((cat: any) => (
-            <a key={cat.slug} href={`/`} className="hover:text-cyanlight transition uppercase">
+            <Link key={cat.slug} href={`/`} className="hover:text-cyanlight transition uppercase">
               {lang === "pl" ? cat.entry.titlePl : (cat.entry.titleEn || cat.entry.titlePl)}
-            </a>
+            </Link>
           ))}
           <a href="#contact" className="hover:text-cyanlight transition cursor-pointer">
             {lang === "pl" ? "Kontakt" : "Contact"}
@@ -52,7 +53,7 @@ export default function ProjectHeader({ categories, settings }: any) {
 
       {mobileMenuOpen && (
         <div className="fixed inset-x-4 top-22 z-40 rounded-2xl bg-[#110921]/95 backdrop-blur-xl border border-white/15 p-6 flex flex-col gap-4 md:hidden shadow-2xl">
-          <a href="/" className="text-left text-sm font-bold uppercase py-2 border-b border-white/10">Home</a>
+          <Link href="/" className="text-left text-sm font-bold uppercase py-2 border-b border-white/10">Home</Link>
           <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="text-left text-sm font-bold uppercase py-2 border-b border-white/10">
             {lang === "pl" ? "Kontakt" : "Contact"}
           </a>

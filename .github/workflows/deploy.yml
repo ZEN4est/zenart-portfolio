@@ -16,6 +16,13 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Utworzenie pliku .env dla serwera produkcyjnego
+        run: |
+          echo "NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID }}" >> .env
+          echo "KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}" >> .env
+          echo "KEYSTATIC_GITHUB_CLIENT_SECRET=${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}" >> .env
+          echo "KEYSTATIC_SECRET=${{ secrets.KEYSTATIC_SECRET }}" >> .env
+
       - name: Instalacja pakietów
         run: npm install
 
@@ -30,7 +37,10 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ./public_html/test/
           exclude: |
             **/.git*
             **/.git*/**
+            **/node_modules/**
+
             **/node_modules/**

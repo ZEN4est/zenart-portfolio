@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { getAssetUrl } from "@/utils/paths";
 import React, { useState, useEffect } from "react";
 import ProjectGallery from "@/components/ProjectGallery";
 import WireframeSlider from "@/components/WireframeSlider";
@@ -32,9 +34,9 @@ export default function ProjectClientView({ project, settings, categories, allIm
       <ProjectHeader categories={categories} settings={settings} />
 
       <article className="pt-32 pb-24 max-w-6xl mx-auto px-6">
-        <a href="/" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyanlight hover:underline mb-8 cursor-pointer">
+        <Link href="/" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyanlight hover:underline mb-8 cursor-pointer">
           {t.back}
-        </a>
+        </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 mb-12 border-b border-white/10 items-start">
           <div className="lg:col-span-8 space-y-4">
@@ -110,7 +112,7 @@ export default function ProjectClientView({ project, settings, categories, allIm
               {t.videoTitle}
             </h2>
             <video controls className="w-full rounded-2xl border border-white/15 bg-black max-h-[70vh]">
-              <source src={project.videoUrl} type="video/mp4" />
+              <source src={getAssetUrl(project.videoUrl)} type="video/mp4" />
             </video>
           </div>
         )}

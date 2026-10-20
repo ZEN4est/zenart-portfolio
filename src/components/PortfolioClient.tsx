@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import ContactFooter from "@/components/ContactFooter";
+import { getAssetUrl } from "@/utils/paths";
 
 function ClientDefaultIcon({ name }: { name: string }) {
   const n = name.toUpperCase();
@@ -42,15 +43,15 @@ export default function PortfolioClient({ settings, categories, projects }: any)
     <>
       <style dangerouslySetInnerHTML={{ __html: `@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');` }} />
       <header className="fixed top-6 left-1/2 -translate-x-1/2 z-40 w-[92%] max-w-5xl rounded-full bg-[#0e071c]/85 backdrop-blur-xl border border-white/10 px-6 py-3.5 flex items-center justify-between shadow-[0_10px_35px_rgba(0,0,0,0.6)]">
-        <a href="/" style={{ fontFamily: "'Michroma', sans-serif" }} className="tracking-wider text-sm md:text-base flex items-center gap-2.5 text-left cursor-pointer">
+        <Link href="/" style={{ fontFamily: "'Michroma', sans-serif" }} className="tracking-wider text-sm md:text-base flex items-center gap-2.5 text-left cursor-pointer">
           <span className="w-2.5 h-2.5 rounded-full bg-cyan shadow-[0_0_10px_#22d3ee]" />
           <span>ZenArt<span className="text-cyanlight">_3D</span></span>
-        </a>
+        </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-xs font-semibold tracking-wider uppercase text-slate-300">
-          <a href="/" className="hover:text-cyanlight transition cursor-pointer">
+          <Link href="/" className="hover:text-cyanlight transition cursor-pointer">
             Home
-          </a>
+          </Link>
           {categories.map((cat: any) => (
             <button key={cat.slug} onClick={() => setActiveCategory(cat.slug)} className="hover:text-cyanlight transition cursor-pointer uppercase">
               {lang === "pl" ? cat.entry.titlePl : (cat.entry.titleEn || cat.entry.titlePl)}
@@ -76,7 +77,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
 
       {mobileMenuOpen && (
         <div className="fixed inset-x-4 top-22 z-40 rounded-2xl bg-[#110921]/95 backdrop-blur-xl border border-white/15 p-6 flex flex-col gap-4 md:hidden shadow-2xl">
-          <a href="/" className="text-left text-sm font-bold uppercase py-2 border-b border-white/10">Home</a>
+          <Link href="/" className="text-left text-sm font-bold uppercase py-2 border-b border-white/10">Home</Link>
           {categories.map((cat: any) => (
             <button key={cat.slug} onClick={() => { setActiveCategory(cat.slug); setMobileMenuOpen(false); }} className="text-left text-sm font-bold uppercase py-2 border-b border-white/10 text-cyanlight">
               {lang === "pl" ? cat.entry.titlePl : (cat.entry.titleEn || cat.entry.titlePl)}
@@ -93,7 +94,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
           <section className="relative min-h-[95vh] flex items-end pb-16 pt-32 px-6 md:px-16 overflow-hidden border-b border-white/5">
             {settings.showreelUrl && (
               <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-35 scale-105">
-                <source src={settings.showreelUrl} type="video/mp4" />
+                <source src={getAssetUrl(settings.showreelUrl)} type="video/mp4" />
               </video>
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-void via-void/65 to-[#1f0618]/35" />
@@ -131,7 +132,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                     </svg>
                     <div className="absolute inset-0 bg-cyan/10 opacity-0 lg:group-hover:opacity-100 transition-opacity duration-[600ms] ease-out pointer-events-none z-10" />
 
-                    {imgSrc && <img src={imgSrc} alt={cat.entry.titlePl} className="absolute inset-0 w-full h-full object-cover opacity-65 lg:group-hover:scale-105 lg:group-hover:opacity-85 transition duration-700" />}
+                    {imgSrc && <img src={getAssetUrl(imgSrc)} alt={cat.entry.titlePl} className="absolute inset-0 w-full h-full object-cover opacity-65 lg:group-hover:scale-105 lg:group-hover:opacity-85 transition duration-700" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-void via-void/30 to-transparent" />
                     <div className="relative z-10 w-full">
                       <div className="w-8 h-0.5 bg-cyan mb-3 lg:group-hover:w-16 transition-all duration-300 shadow-[0_0_10px_#22d3ee]" />
@@ -154,7 +155,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                 {[...settings.clients, ...settings.clients].map((client: any, idx: number) => (
                   <div key={idx} className="flex flex-col items-center justify-center w-40 shrink-0">
                     <div className="w-20 h-20 rounded-2xl bg-surface/80 border border-white/10 flex items-center justify-center mb-3">
-                      {client.logoImage ? <img src={client.logoImage} alt={client.name} className="max-h-12 max-w-full object-contain" /> : <ClientDefaultIcon name={client.name} />}
+                      {client.logoImage ? <img src={getAssetUrl(client.logoImage)} alt={client.name} className="max-h-12 max-w-full object-contain" /> : <ClientDefaultIcon name={client.name} />}
                     </div>
                     <span className="text-xs font-semibold text-slate-400 tracking-wider">{client.name}</span>
                   </div>
@@ -197,7 +198,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
               return (
                 <Link href={`/projects/${proj.slug}`} key={proj.slug} className={`block break-inside-avoid group relative rounded-2xl overflow-hidden cursor-pointer border border-white/10 bg-surface ${aspectClass(proj.entry.aspectRatio)}`}>
                   
-                  <img src={thumb} alt={proj.entry.titlePl} className="w-full h-full object-cover lg:group-hover:scale-105 transition duration-700" />
+                  <img src={getAssetUrl(thumb)} alt={proj.entry.titlePl} className="w-full h-full object-cover lg:group-hover:scale-105 transition duration-700" />
                   <div className="absolute inset-0 bg-black/70 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6 text-center">
                     <h3 className="text-2xl md:text-3xl font-extrabold text-white drop-shadow-md">
                       {lang === "pl" ? proj.entry.titlePl : (proj.entry.titleEn || proj.entry.titlePl)}
