@@ -1,8 +1,12 @@
 // Załaduj zmienne środowiskowe z pliku .env (natywnie w Node.js 20+)
+const path = require('path');
+
+process.env.NODE_ENV = 'production';
+
 if (typeof process.loadEnvFile === 'function') {
   try {
-    process.loadEnvFile('.env');
-    console.log('[server.js] Załadowano plik .env');
+    process.loadEnvFile(path.join(__dirname, '.env'));
+    console.log('[server.js] Załadowano plik .env z', path.join(__dirname, '.env'));
   } catch (e) {
     console.log('[server.js] Brak pliku .env lub błąd ładowania:', e.message);
   }
@@ -12,7 +16,7 @@ const { createServer } = require('http');
 const { parse } = require('url');
 const next = require('next');
 
-const dev = process.env.NODE_ENV !== 'production';
+const dev = false;
 const hostname = 'localhost';
 const port = process.env.PORT || 3000;
 const app = next({ dev, hostname, port });
