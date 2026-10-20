@@ -16,31 +16,38 @@
   "clients": [
     {
       "name": "HC STUDIO",
-      "shortTextLogo": "HC"
+      "shortTextLogo": "HC",
+      "logoImage": "/uploads/clients/clients/0/logoImage.png"
     },
     {
       "name": "NEUTREA BIOTECH",
-      "shortTextLogo": "N"
+      "shortTextLogo": "N",
+      "logoImage": "/uploads/clients/clients/1/logoImage.png"
     },
     {
       "name": "KALSI GROUP",
-      "shortTextLogo": "KG"
+      "shortTextLogo": "KG",
+      "logoImage": "/uploads/clients/clients/2/logoImage.png"
     },
     {
       "name": "7PUNKT",
-      "shortTextLogo": "7p::"
+      "shortTextLogo": "7p::",
+      "logoImage": "/uploads/clients/clients/3/logoImage.png"
     },
     {
       "name": "IRONSHIELD",
-      "shortTextLogo": "IS"
+      "shortTextLogo": "IS",
+      "logoImage": "/uploads/clients/clients/4/logoImage.png"
     },
     {
       "name": "SPI 55",
-      "shortTextLogo": "SPI55"
+      "shortTextLogo": "SPI55",
+      "logoImage": "/uploads/clients/clients/5/logoImage.png"
     },
     {
       "name": "PRACOWNIA DOBROCI",
-      "shortTextLogo": "PD"
+      "shortTextLogo": "PD",
+      "logoImage": "/uploads/clients/clients/6/logoImage.png"
     }
   ]
 }
