@@ -2,8 +2,7 @@ import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../../keystatic.config";
 import PortfolioClient from '../components/PortfolioClient'
 
-// Ta jedna linijka naprawia błąd prerenderingu w Next.js 15+
-export const instant = false;
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
   const reader = createReader(process.cwd(), keystaticConfig);

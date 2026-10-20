@@ -2,7 +2,7 @@ import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../../../../keystatic.config";
 import { notFound } from "next/navigation";
 import ProjectClientView from '../../../components/ProjectClientView'
-export const instant = false;
+
 
 export async function generateStaticParams() {
   const reader = createReader(process.cwd(), keystaticConfig);
