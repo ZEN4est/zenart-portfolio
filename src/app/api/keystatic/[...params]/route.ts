@@ -3,57 +3,92 @@ import rawConfig from "../../../../../keystatic.config";
 
 const config = (rawConfig as any).default || rawConfig;
 
-const { POST: handlePost, GET: handleGet } = makeRouteHandler({
-  config,
-  clientId: process.env.KEYSTATIC_GITHUB_CLIENT_ID,
-  clientSecret: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
-  secret: process.env.KEYSTATIC_SECRET,
-});
+let handlePost: any = null;
+let handleGet: any = null;
+let initError: any = null;
 
-async function wrapHandler(handler: (req: Request) => Promise<Response>, req: Request) {
-  const url = new URL(req.url);
-  let normalizedReq = req;
+try {
+  const handler = makeRouteHandler({
+    config,
+    clientId: process.env.KEYSTATIC_GITHUB_CLIENT_ID,
+    clientSecret: process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
+    secret: process.env.KEYSTATIC_SECRET,
+  });
+  handlePost = handler.POST;
+  handleGet = handler.GET;
+} catch (err: any) {
+  initError = err;
+}
 
-  // Obcinamy /test, aby Keystatic wewnętrznie rozpoznał /api/keystatic/...
-  if (url.pathname.startsWith('/test/api/keystatic')) {
-    const cleanUrl = new URL(req.url);
-    cleanUrl.pathname = cleanUrl.pathname.replace(/^\/test/, '');
-    normalizedReq = new Request(cleanUrl.toString(), req);
+async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null, req: Request) {
+  if (initError || !handler) {
+    return Response.json(
+      {
+        error: "Błąd inicjalizacji Keystatic API",
+        message: initError?.message || "Handler nie został zainicjalizowany",
+        missingEnv: {
+          KEYSTATIC_GITHUB_CLIENT_ID: !process.env.KEYSTATIC_GITHUB_CLIENT_ID,
+          KEYSTATIC_GITHUB_CLIENT_SECRET: !process.env.KEYSTATIC_GITHUB_CLIENT_SECRET,
+          KEYSTATIC_SECRET: !process.env.KEYSTATIC_SECRET,
+        },
+      },
+      { status: 500 }
+    );
   }
 
-  const response = await handler(normalizedReq);
+  try {
+    const url = new URL(req.url);
+    let normalizedReq = req;
 
-  const location = response.headers.get('Location');
-  if (location) {
-    let newLocation = location;
-
-    // Przekierowanie po pomyślnym logowaniu: Location: /keystatic -> /test/keystatic
-    if (newLocation.startsWith('/keystatic')) {
-      newLocation = `/test${newLocation}`;
+    // Obcinamy /test, aby Keystatic wewnętrznie rozpoznał /api/keystatic/...
+    if (url.pathname.startsWith("/test/api/keystatic")) {
+      const cleanUrl = new URL(req.url);
+      cleanUrl.pathname = cleanUrl.pathname.replace(/^\/test/, "");
+      normalizedReq = new Request(cleanUrl.toString(), req);
     }
 
-    // Przekierowanie do GitHub OAuth: upewniamy się, że callback URL zawiera /test
-    if (newLocation.includes('github.com/login/oauth/authorize')) {
-      newLocation = newLocation.replace(
-        '/api/keystatic/github/oauth/callback',
-        '/test/api/keystatic/github/oauth/callback'
-      );
+    const response = await handler(normalizedReq);
+
+    const location = response.headers.get("Location");
+    if (location) {
+      let newLocation = location;
+
+      // Przekierowanie po pomyślnym logowaniu: Location: /keystatic -> /test/keystatic
+      if (newLocation.startsWith("/keystatic")) {
+        newLocation = `/test${newLocation}`;
+      }
+
+      // Przekierowanie do GitHub OAuth: upewniamy się, że callback URL zawiera /test
+      if (newLocation.includes("github.com/login/oauth/authorize")) {
+        newLocation = newLocation.replace(
+          "/api/keystatic/github/oauth/callback",
+          "/test/api/keystatic/github/oauth/callback"
+        );
+      }
+
+      if (newLocation !== location) {
+        const newHeaders = new Headers(response.headers);
+        newHeaders.set("Location", newLocation);
+        return new Response(response.body, {
+          status: response.status,
+          statusText: response.statusText,
+          headers: newHeaders,
+        });
+      }
     }
 
-    if (newLocation !== location) {
-      const newHeaders = new Headers(response.headers);
-      newHeaders.set('Location', newLocation);
-      return new Response(response.body, {
-        status: response.status,
-        statusText: response.statusText,
-        headers: newHeaders,
-      });
-    }
+    return response;
+  } catch (err: any) {
+    return Response.json(
+      {
+        error: "Błąd wykonania zapytania Keystatic",
+        message: err?.message || String(err),
+        stack: err?.stack,
+      },
+      { status: 500 }
+    );
   }
-
-  return response;
 }
 
 export const GET = (req: Request) => wrapHandler(handleGet, req);
 export const POST = (req: Request) => wrapHandler(handlePost, req);
-
