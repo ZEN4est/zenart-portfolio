@@ -8,3 +8,4 @@ export const dynamic = "force-dynamic";
 const config = (rawConfig as any).default || rawConfig;
 
 export default makePage(config);
+

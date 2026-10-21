@@ -14,8 +14,8 @@ import { getAssetUrl } from "./paths";
  */
 export function getOptimizedImageUrl(
   src: string | null | undefined,
-  width: 256 | 384 | 640 | 750 | 828 | 1080 | 1200 | 1920 = 1080,
-  quality: 75 = 75
+  width: 128 | 256 | 384 | 640 | 750 | 828 | 1080 | 1200 | 1920 = 1080,
+  quality: number = 75
 ): string {
   if (!src) return "";
 
