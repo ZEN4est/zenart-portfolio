@@ -119,49 +119,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&family=Syncopate:wght@400;700&display=swap"
           rel="stylesheet"
         />
-        
-        {/* Wyciszenie ostrzeżenia Tailwind CDN o środowisku produkcyjnym */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                var origWarn = console.warn;
-                console.warn = function() {
-                  if (arguments[0] && typeof arguments[0] === 'string' && arguments[0].indexOf('cdn.tailwindcss.com') !== -1) return;
-                  origWarn.apply(console, arguments);
-                };
-              })();
-            `,
-          }}
-        />
-
-        {/* Silnik Tailwind + konfiguracja motywu w jednym miejscu */}
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              tailwind.config = {
-                darkMode: 'class',
-                theme: {
-                  extend: {
-                    colors: {
-                      void: '#07040e',
-                      surface: '#110921',
-                      surfaceLight: '#1a0f30',
-                      cyan: 'var(--accent)',
-                      cyanlight: 'var(--accent-light)',
-                      crimsonSubtle: '#881337'
-                    },
-                    fontFamily: {
-                      sans: ['Mulish', 'sans-serif'],
-                      logo: ['Syncopate', 'sans-serif']
-                    }
-                  }
-                }
-              }
-            `,
-          }}
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

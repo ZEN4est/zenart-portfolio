@@ -244,6 +244,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
           <section className="relative h-screen min-h-screen w-full flex items-end pb-16 md:pb-24 pt-24 px-6 md:px-16 overflow-hidden border-b border-white/5">
             {settings.showreelUrl && (
               <video
+                key={settings.showreelUrl}
                 autoPlay
                 loop
                 muted
@@ -253,7 +254,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                 tabIndex={-1}
                 className="absolute inset-0 w-full h-full object-cover opacity-40 scale-100"
               >
-                <source src={getAssetUrl(settings.showreelUrl)} type="video/mp4" />
+                <source src={`${getAssetUrl(settings.showreelUrl)}?v=2`} type="video/mp4" />
                 <track kind="captions" srcLang="pl" label="Wideo w tle bez lektora" />
               </video>
             )}

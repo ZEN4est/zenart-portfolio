@@ -1,4 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import "tailwindcss";
+@config "../../tailwind.config.ts";
+
+@theme {
+  --color-void: #07040e;
+  --color-surface: #110921;
+  --color-surface-light: #1a0f30;
+  --color-cyan: var(--accent);
+  --color-cyanlight: var(--accent-light);
+  --color-crimson-subtle: #881337;
+}
 
 :root {
   /* ============================================================
@@ -117,23 +128,15 @@ body {
 .animate-marquee {
   display: flex;
   width: max-content;
-  animation: marquee 30s linear infinite;
+  animation: marquee 24s linear infinite;
 }
 .animate-marquee:hover {
   animation-play-state: paused;
 }
 
-@media (max-width: 640px) {
-  .animate-marquee {
-    animation-duration: 16s !important;
-  }
-}
-
-/* Ukrycie paska przewijania dla horyzontalnego swipe'a na telefonach */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+/* ============================================================
+   🏷️ DOSTOSOWANE STYLE DLA KEYSTATIC (UI PANELU)
+   ============================================================ */
+.keystatic-custom-field {
+  transition: all 0.2s ease-in-out;
 }
