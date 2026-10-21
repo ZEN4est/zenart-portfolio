@@ -1,25 +1,29 @@
 import type { Metadata } from "next";
-import { Mulish, Syncopate, Michroma } from "next/font/google";
+import localFont from "next/font/local";
 import siteSettings from "@/content/settings/site.json";
 import "./globals.css";
 
-const mulish = Mulish({
-  subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+const mulish = localFont({
+  src: [
+    {
+      path: "../fonts/mulish-latin.woff2",
+      weight: "300 900",
+      style: "normal",
+    },
+    {
+      path: "../fonts/mulish-latin-ext.woff2",
+      weight: "300 900",
+      style: "normal",
+    },
+  ],
   display: "swap",
   variable: "--font-mulish",
 });
 
-const syncopate = Syncopate({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  display: "swap",
-  variable: "--font-syncopate",
-});
-
-const michroma = Michroma({
-  subsets: ["latin"],
-  weight: ["400"],
+const michroma = localFont({
+  src: "../fonts/michroma.woff2",
+  weight: "400",
+  style: "normal",
   display: "swap",
   variable: "--font-michroma",
 });
@@ -142,7 +146,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="pl" className={`${mulish.variable} ${syncopate.variable} ${michroma.variable} dark`} suppressHydrationWarning>
+    <html lang="pl" className={`${mulish.variable} ${michroma.variable} dark`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"

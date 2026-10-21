@@ -183,7 +183,23 @@ export default config({
           publicPath: "/uploads/projects/",
         }),
         externalThumbnailUrl: fields.text({ label: "LUB zewnętrzny URL miniaturki" }),
-        /* --- MODELE 3D (INTERAKTYWNE - WIELE MODELI) --- */
+
+        /* --- GALERIA RENDERÓW I UJĘĆ --- */
+        gallery: fields.array(
+          fields.object({
+            image: fields.image({
+              label: "Render / Ujęcie",
+              directory: "public/uploads/projects",
+              publicPath: "/uploads/projects/",
+            }),
+            externalUrl: fields.text({ label: "LUB zewnętrzny URL" }),
+            captionPl: fields.text({ label: "Podpis (PL)" }),
+            captionEn: fields.text({ label: "Podpis (EN)" }),
+          }),
+          { label: "Dodatkowe rendery i ujęcia" }
+        ),
+
+        /* --- MODELE 3D (INTERAKTYWNE) --- */
         models: fields.array(
           fields.object({
             titlePl: fields.text({ label: "Tytuł modelu (PL, np. Render interaktywny / Low Poly)" }),
@@ -195,7 +211,7 @@ export default config({
             }),
             externalUrl: fields.text({
               label: "LUB ścieżka do pliku .glb (np. /uploads/models/plik.glb)",
-              description: "Dla plików > 20MB wgraj plik bezpośrednio na serwer FTP do public/uploads/models i wpisz tutaj /uploads/models/nazwa.glb (omija limit 45MB w Keystatic).",
+              description: "Dla plików > 20MB wgraj plik przez naszą wgrywarkę /test/upload (lub przez FTP do public/uploads/models) i wklej tutaj ścieżkę (omija limit 45MB GitHuba).",
             }),
           }),
           {
@@ -204,7 +220,7 @@ export default config({
           }
         ),
 
-        /* --- WIDEO I ANIMACJE (WIELE WIDEO) --- */
+        /* --- WIDEO I ANIMACJE --- */
         videos: fields.array(
           fields.object({
             titlePl: fields.text({ label: "Tytuł wideo (PL, np. Animacja / Turntable)" }),
@@ -216,7 +232,7 @@ export default config({
             }),
             externalUrl: fields.text({
               label: "LUB link do wideo (YouTube, Vimeo lub bezpośredni plik .mp4)",
-              description: "Możesz wkleić link do YouTube / Vimeo lub wgrać duży plik MP4 bezpośrednio na FTP do public/uploads/videos i wpisać np. /uploads/videos/animacja.mp4.",
+              description: "Wklej link YouTube / Vimeo LUB wgraj plik MP4 przez naszą wgrywarkę /test/upload (lub przez FTP do public/uploads/videos) i wklej tutaj ścieżkę.",
             }),
           }),
           {
@@ -247,39 +263,6 @@ export default config({
             label: "Porównania Wireframe (Suwaki Render vs Siatka)",
             itemLabel: (props) => props.fields?.titlePl?.value || props.fields?.titleEn?.value || "Porównanie Siatki",
           }
-        ),
-
-        /* --- POLA ARCHIWALNE (pojedyncze, dla zachowania wstecznej zgodności) --- */
-        modelGlb: fields.file({
-          label: "[Pojedynczy] Model 3D (.glb) - pole archiwalne",
-          directory: "public/uploads/models",
-          publicPath: "/uploads/models/",
-        }),
-        externalGlbUrl: fields.text({ label: "[Pojedynczy] LUB link do pliku .glb" }),
-        wireframeImage: fields.image({
-          label: "[Pojedynczy] Obrazek siatki (dla miniaturki) - pole archiwalne",
-          directory: "public/uploads/projects",
-          publicPath: "/uploads/projects/",
-        }),
-        externalWireframeUrl: fields.text({ label: "[Pojedynczy] LUB link do obrazka siatki" }),
-        videoUrl: fields.file({
-          label: "[Pojedynczy] Plik wideo / animacja (.mp4) - pole archiwalne",
-          directory: "public/uploads/videos",
-          publicPath: "/uploads/videos/",
-        }),
-        externalVideoUrl: fields.text({ label: "[Pojedynczy] LUB zewnętrzny link do wideo (YouTube / MP4)" }),
-        gallery: fields.array(
-          fields.object({
-            image: fields.image({
-              label: "Render / Ujęcie",
-              directory: "public/uploads/projects",
-              publicPath: "/uploads/projects/",
-            }),
-            externalUrl: fields.text({ label: "LUB zewnętrzny URL" }),
-            captionPl: fields.text({ label: "Podpis (PL)" }),
-            captionEn: fields.text({ label: "Podpis (EN)" }),
-          }),
-          { label: "Dodatkowe rendery i ujęcia" }
         ),
       },
     }),
