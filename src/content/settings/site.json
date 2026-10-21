@@ -1,10 +1,10 @@
 {
-  "brandSubheaderPl": "MICHAŁ PIWOWARCZYK — 3D ARTIST",
+  "brandSubheaderPl": "MICHAŁ PIWOWARCZYK — Artysta 3D",
   "brandSubheaderEn": "MICHAŁ PIWOWARCZYK — 3D ARTIST",
-  "heroTitlePl": "Fotorealistyczne Wizualizacje 3D, Animacje & Game Assets",
-  "heroTitleEn": "Photorealistic 3D Visuals, Animations & Game Assets",
+  "heroTitlePl": "Zoptymalizowane modele, fotorealistyczne Wizualizacje 3D i Animacje",
+  "heroTitleEn": "Optimized models, Photorealistic 3D Visuals & Animations",
   "heroSubPl": "Tworzę wysokiej jakości modele 3D, tekstury PBR oraz animacje w Blenderze, które pomagają markom i studiom deweloperskim prezentować produkty z maksymalnym efektem wizualnym.",
-  "heroSubEn": "I create high-quality, photorealistic 3D visuals that help brands and developers present their products with impact. My expertise covers modeling, texturing, and animation in Blender.",
+  "heroSubEn": "I create high-quality 3D models, PBR textures, and animations in Blender that help brands and development studios showcase their products with maximum visual impact.",
   "showreelUrl": "/uploads/settings/showreelUrl.mp4",
   "ctaButtonPl": "Wyceń projekt",
   "ctaButtonEn": "Get a Quote",
@@ -14,15 +14,15 @@
   "clientsTitleEn": "CLIENTS & COLLABORATIONS",
   "aboutTitlePl": "O MNIE",
   "aboutTitleEn": "ABOUT ME",
-  "aboutSubtitlePl": "Michał Piwowarczyk — 3D Artist & Inżynier",
-  "aboutSubtitleEn": "Michał Piwowarczyk — 3D Artist & Engineer",
-  "aboutBioPl": "Łączę inżynierską precyzję z pasją do sztuki cyfrowej. Jako magister inżynier Informatyki Stosowanej Akademii Górniczo-Hutniczej (AGH) w Krakowie oraz 3D Artist z ponad 4-letnim doświadczeniem, tworzę fotorealistyczne wizualizacje produktów, zaawansowane modele hard-surface oraz zoptymalizowane assety do gier. Prowadzę własną zarejestrowaną firmę, oferując elastyczną współpracę B2B oraz faktury VAT 23%.",
-  "aboutBioEn": "I combine technical engineering precision with a passion for digital 3D artistry. As an M.Sc. Eng. graduate in Applied Computer Science from AGH UST in Kraków and a 3D Artist with over 4 years of experience, I craft photorealistic product visualizations, complex hard-surface models, and game-ready assets. I run a registered business providing B2B contracts with 23% VAT invoices.",
+  "aboutSubtitlePl": "Michał Piwowarczyk — Artysta 3D i Magister-inżynier w dziedzinie IT",
+  "aboutSubtitleEn": "Michał Piwowarczyk — 3D Artist & IT Engineer",
+  "aboutBioPl": "Łączę inżynierską precyzję z pasją do grafiki komputerowej. Jako magister inżynier Informatyki Stosowanej Akademii Górniczo-Hutniczej (AGH) w Krakowie oraz Artysta 3D z ponad 4-letnim doświadczeniem, tworzę fotorealistyczne wizualizacje produktów, zaawansowane modele hard-surface oraz zoptymalizowane pod silniki renderowania w czasie rzeczywistym. Prowadzę własną zarejestrowaną firmę, oferując elastyczną współpracę B2B oraz faktury bez VAT",
+  "aboutBioEn": "I combine engineering precision with a passion for computer graphics. As a Master of Science in Applied Computer Science from the AGH University of Science and Technology in Krakow and a 3D Artist with over 4 years of experience, I create photorealistic product visualizations, advanced hard-surface models, and assets optimized for real-time rendering engines. I run my own registered business, offering flexible B2B cooperation and VAT-exempt invoices.",
   "aboutExperienceYears": "4+",
   "aboutEducationPl": "Mgr inż. Informatyki Stosowanej (AGH w Krakowie)",
   "aboutEducationEn": "M.Sc. Eng. in Applied Computer Science (AGH UST)",
-  "aboutCompanyPl": "Własna zarejestrowana firma — Faktury VAT 23% / B2B",
-  "aboutCompanyEn": "Registered Business — 23% VAT Invoices / B2B",
+  "aboutCompanyPl": "Własna zarejestrowana działalność — Faktury bez VAT / B2B",
+  "aboutCompanyEn": "Registered business — Invoices without VAT / B2B",
   "aboutSkills": [
     "Blender",
     "Substance 3D Painter",
@@ -31,13 +31,15 @@
     "Retopology & UVs",
     "Cycles & Eevee",
     "Product Animation",
-    "Game Assets (UE5 / Unity)"
+    "Game Assets (UE5 / Unity)",
+    "3D Mmodel optimization"
   ],
-  "contactIntroPl": "Potrzebujesz modelu 3D, wizualizacji produktu lub assetów do gry? Napisz bezpośrednio lub skorzystaj z formularza.",
-  "contactIntroEn": "Need a custom 3D model, product visualization, or game-ready asset? Reach out directly or use the form.",
+  "aboutAvatar": "/uploads/about/aboutAvatar.jpg",
+  "contactIntroPl": "Potrzebujesz modelu 3D, wizualizacji produktu lub animacji? Napisz bezpośrednio lub skorzystaj z formularza.",
+  "contactIntroEn": "Need a 3D model, product visualization, or animation? Contact me directly or use the form.",
   "email": "michalpiwowarczyk3d@gmail.com",
   "phone": "+48 795 757 323",
-  "location": "Kraków / Remote, Poland",
+  "location": "Radom / Remote, Poland",
   "clients": [
     {
       "name": "HC STUDIO",
@@ -75,7 +77,7 @@
       "logoImage": "/uploads/clients/clients/6/logoImage.png"
     },
     {
-      "name": "Stoldrew",
+      "name": "STOLDREW",
       "logoImage": "/uploads/clients/clients/7/logoImage.png"
     }
   ]
