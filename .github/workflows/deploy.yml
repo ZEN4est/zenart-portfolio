@@ -39,6 +39,16 @@ jobs:
           date +%s > tmp/restart.txt
           echo "Utworzono znacznik restartu z timestampem: $(cat tmp/restart.txt)"
 
+      - name: Reset pamięci synchronizacji FTP (zapobieganie błędowi 550)
+        run: |
+          echo "Usuwanie ewentualnego zawieszonego pliku stanu .ftp-deploy-sync-state.json..."
+          SERVER="${{ secrets.FTP_SERVER }}"
+          SERVER="${SERVER#ftp://}"
+          SERVER="${SERVER#ftps://}"
+          curl -s --ftp-pasv -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
+            "ftp://${SERVER}/test/" \
+            -Q "-DELE .ftp-deploy-sync-state.json" || true
+
       - name: Wysyłanie plików przez FTP do IQHost
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
