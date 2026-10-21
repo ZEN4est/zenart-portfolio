@@ -31,32 +31,32 @@ body {
 }
 
 /* ============================================================
-   🌌 DELIKATNIE I POWOLI PŁYWAJĄCE TŁO AMBIENTOWE (Zoptymalizowane pod CPU i GPU)
+   🌌 DELIKATNIE I POWOLI PŁYWAJĄCE TŁO AMBIENTOWE (100% GPU Hardware Accelerated)
    ============================================================ */
 @keyframes ambientDrift1 {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) scale(1);
+    transform: translate3d(0px, 0px, 0);
   }
   50% {
-    transform: translate3d(-35px, 25px, 0) scale(1.06);
+    transform: translate3d(-40px, 30px, 0);
   }
 }
 
 @keyframes ambientDrift2 {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) scale(1);
+    transform: translate3d(0px, 0px, 0);
   }
   50% {
-    transform: translate3d(28px, -28px, 0) scale(0.95);
+    transform: translate3d(30px, -30px, 0);
   }
 }
 
 @keyframes ambientDrift3 {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) scale(1);
+    transform: translate3d(0px, 0px, 0);
   }
   50% {
-    transform: translate3d(-25px, -20px, 0) scale(1.04);
+    transform: translate3d(-30px, -25px, 0);
   }
 }
 
@@ -96,11 +96,11 @@ body {
 @keyframes heroFadeIn {
   0% {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translate3d(0, 18px, 0);
   }
   100% {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -118,16 +118,19 @@ body {
 }
 
 /* ============================================================
-   🔄 PŁYNNA KARUZELA KLIENTÓW
+   🔄 PŁYNNA KARUZELA KLIENTÓW (GPU Layer)
    ============================================================ */
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0%, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 .animate-marquee {
   display: flex;
   width: max-content;
   animation: marquee 24s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 .animate-marquee:hover {
   animation-play-state: paused;

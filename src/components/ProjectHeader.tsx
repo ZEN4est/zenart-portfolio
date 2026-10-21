@@ -20,7 +20,7 @@ export default function ProjectHeader({ categories, settings }: any) {
   return (
     <>
       {/* Pasek nawigacji na górze */}
-      <header className="fixed top-0 left-0 right-0 z-40 w-full px-6 md:px-12 py-5 flex items-center justify-between bg-[#07040e]/90 backdrop-blur-md border-b border-white/5 transition-all">
+      <header className="fixed top-0 left-0 right-0 z-40 w-full px-6 md:px-12 py-5 flex items-center justify-between bg-[#07040e]/95 backdrop-blur-sm border-b border-white/5 transition-all">
         <Link 
           href="/" 
           style={{ fontFamily: "'Michroma', sans-serif" }} 

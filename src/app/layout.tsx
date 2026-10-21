@@ -132,7 +132,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="pl" className={`${mulish.variable} ${syncopate.variable} ${michroma.variable} dark scroll-smooth`} suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="pl" className={`${mulish.variable} ${syncopate.variable} ${michroma.variable} dark`} suppressHydrationWarning>
       <head>
         <script
           type="application/ld+json"
@@ -140,11 +140,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-void font-sans min-h-screen selection:bg-cyan selection:text-black relative overflow-x-hidden">
-        {/* Żywe, zoptymalizowane poświaty w tle (Ultra-efficient radial-gradient + lekkie blur-2xl zamiast ciężkiego blur-100px) */}
+        {/* Żywe, zoptymalizowane poświaty w tle (Ultra-efficient radial-gradient bez ciężkiego filtru blur) */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-          <div className="ambient-orb-1 absolute -top-32 -right-20 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_srgb,var(--accent)_20%,transparent)_0%,color-mix(in_srgb,var(--accent)_6%,transparent)_45%,transparent_70%)] blur-2xl opacity-80" />
-          <div className="ambient-orb-2 absolute top-[35%] -left-32 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-[radial-gradient(circle_at_center,rgba(136,19,55,0.16)_0%,rgba(136,19,55,0.05)_45%,transparent_70%)] blur-2xl opacity-80" />
-          <div className="ambient-orb-3 absolute -bottom-32 left-[25%] w-[550px] sm:w-[800px] h-[550px] sm:h-[800px] rounded-full bg-[radial-gradient(circle_at_center,rgba(88,28,135,0.20)_0%,rgba(88,28,135,0.06)_45%,transparent_70%)] blur-2xl opacity-80" />
+          <div className="ambient-orb-1 absolute -top-32 -right-20 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_srgb,var(--accent)_18%,transparent)_0%,color-mix(in_srgb,var(--accent)_5%,transparent)_40%,transparent_70%)] opacity-80" />
+          <div className="ambient-orb-2 absolute top-[35%] -left-32 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-[radial-gradient(circle_at_center,rgba(136,19,55,0.15)_0%,rgba(136,19,55,0.04)_40%,transparent_70%)] opacity-80" />
+          <div className="ambient-orb-3 absolute -bottom-32 left-[25%] w-[550px] sm:w-[800px] h-[550px] sm:h-[800px] rounded-full bg-[radial-gradient(circle_at_center,rgba(88,28,135,0.18)_0%,rgba(88,28,135,0.05)_40%,transparent_70%)] opacity-80" />
         </div>
         
         {/* Główna treść strony */}

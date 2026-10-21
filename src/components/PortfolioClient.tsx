@@ -86,7 +86,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
   return (
     <>
       {/* Pasek nawigacji u góry: Ujednolicona wielkość liter (UPPERCASE) */}
-      <header className="fixed top-0 left-0 right-0 z-40 w-full px-6 md:px-12 py-5 flex items-center justify-between bg-[#07040e]/90 backdrop-blur-md border-b border-white/5 transition-all">
+      <header className="fixed top-0 left-0 right-0 z-40 w-full px-6 md:px-12 py-5 flex items-center justify-between bg-[#07040e]/95 backdrop-blur-sm border-b border-white/5 transition-all">
         <Link 
           href="/" 
           onClick={() => selectCategory(null)}
@@ -252,7 +252,8 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                 preload="metadata"
                 aria-hidden="true"
                 tabIndex={-1}
-                className="absolute inset-0 w-full h-full object-cover opacity-40 scale-100"
+                className="absolute inset-0 w-full h-full object-cover opacity-40 scale-100 pointer-events-none"
+                style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
               >
                 <source src={`${getAssetUrl(settings.showreelUrl)}?v=2`} type="video/mp4" />
                 <track kind="captions" srcLang="pl" label="Wideo w tle bez lektora" />
@@ -412,8 +413,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                           decoding="async"
                           width={112}
                           height={64}
-                          className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain filter brightness-110 contrast-125 opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" 
-                          style={{ imageRendering: "-webkit-optimize-contrast" }}
+                          className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
                         />
                       ) : (
                         <ClientDefaultIcon name={client.name} />
