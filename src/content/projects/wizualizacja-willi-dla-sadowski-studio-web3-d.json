@@ -2,6 +2,7 @@
   "titlePl": "Wizualizacja willi dla Sadowski Studio – Web3D",
   "titleEn": "Modern Villa for Sadowski Studio – Web3D Asset",
   "order": 1,
+  "category": "modelling",
   "aspectRatio": "video",
   "descriptionPl": "Model architektoniczny nowoczesnej willi zrealizowany dla firmy Sadowski Studio z przeznaczeniem na stronę internetową. Skupiłem się na mocnej optymalizacji geometrii i lekkich materiałach czasu rzeczywistego, gwarantując płynne działanie w przeglądarce przy zachowaniu wysokiej estetyki bryły.",
   "descriptionEn": "An architectural 3D model of a modern villa developed for Sadowski Studio for web integration. The project prioritized aggressive polygon optimization and lightweight real-time materials, ensuring seamless browser performance without sacrificing visual quality.",

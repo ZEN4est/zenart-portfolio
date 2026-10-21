@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Utworzenie pliku .env dla serwera produkcyjnego
         run: |
@@ -61,6 +62,39 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/.htaccess
+
+      - name: Synchronizacja usuniętych projektów i kategorii z serwera FTP
+        run: |
+          echo "Sprawdzanie osieroconych projektów i kategorii na FTP..."
+          SERVER="${{ secrets.FTP_SERVER }}"
+          SERVER="${SERVER#ftp://}"
+          SERVER="${SERVER#ftps://}"
+          USER="${{ secrets.FTP_USERNAME }}"
+          PASS="${{ secrets.FTP_PASSWORD }}"
+
+          # Usuwanie projektów usuniętych z repozytorium
+          REMOTE_PROJECTS=$(curl -s -l --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/test/src/content/projects/" || true)
+          for raw_file in $REMOTE_PROJECTS; do
+            file=$(basename "$raw_file" | tr -d '\r')
+            if [ -n "$file" ] && [ "$file" != "." ] && [ "$file" != ".." ] && [[ "$file" == *.json ]]; then
+              if [ ! -f "src/content/projects/$file" ]; then
+                echo "Wykryto usunięty projekt na serwerze: $file - usuwam z FTP..."
+                curl -s --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/" -Q "-DELE test/src/content/projects/$file" || true
+              fi
+            fi
+          done
+
+          # Usuwanie kategorii usuniętych z repozytorium
+          REMOTE_CATS=$(curl -s -l --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/test/src/content/categories/" || true)
+          for raw_file in $REMOTE_CATS; do
+            file=$(basename "$raw_file" | tr -d '\r')
+            if [ -n "$file" ] && [ "$file" != "." ] && [ "$file" != ".." ] && [[ "$file" == *.json ]]; then
+              if [ ! -f "src/content/categories/$file" ]; then
+                echo "Wykryto usuniętą kategorię na serwerze: $file - usuwam z FTP..."
+                curl -s --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/" -Q "-DELE test/src/content/categories/$file" || true
+              fi
+            fi
+          done
 
       - name: Wzbudzenie serwera (Automatyczny Restart LiteSpeed)
         run: |
