@@ -27,6 +27,10 @@
     }
   ],
   "models": [],
-  "videos": [],
+  "videos": [
+    {
+      "externalUrl": "/uploads/videos/camaro_clip_FINAL_5675.mp4"
+    }
+  ],
   "wireframeComparisons": []
 }
