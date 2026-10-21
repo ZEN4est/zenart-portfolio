@@ -10,15 +10,23 @@ interface ServerFile {
   mtime: string;
 }
 
+interface QueueItem {
+  id: string;
+  file: File;
+  status: "pending" | "uploading" | "done" | "error";
+  progress: number;
+  resultUrl?: string;
+  error?: string;
+}
+
 export default function DirectUploaderPage() {
   const [password, setPassword] = useState("zenart3d");
   const [folder, setFolder] = useState<"auto" | "models" | "videos">("auto");
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [queue, setQueue] = useState<QueueItem[]>([]);
+  const [isUploadingAll, setIsUploadingAll] = useState(false);
+  const [overallProgress, setOverallProgress] = useState(0);
+  const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
+  const [copiedAll, setCopiedAll] = useState(false);
 
   // Lista plików na serwerze
   const [serverFiles, setServerFiles] = useState<{ models: ServerFile[]; videos: ServerFile[] }>({
@@ -29,7 +37,6 @@ export default function DirectUploaderPage() {
   const [copiedListItem, setCopiedListItem] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Wczytaj zapamiętane hasło z localStorage
   useEffect(() => {
     const saved = localStorage.getItem("zenart_upload_pass");
     if (saved) setPassword(saved);
@@ -56,23 +63,38 @@ export default function DirectUploaderPage() {
     }
   };
 
+  const addFilesToQueue = (fileList: FileList | File[]) => {
+    const newItems: QueueItem[] = Array.from(fileList).map((f) => ({
+      id: `${f.name}_${f.size}_${Date.now()}_${Math.random()}`,
+      file: f,
+      status: "pending",
+      progress: 0,
+    }));
+    setQueue((prev) => [...prev, ...newItems]);
+  };
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
-      setErrorMsg(null);
-      setUploadedUrl(null);
-      setCopied(false);
+    if (e.target.files && e.target.files.length > 0) {
+      addFilesToQueue(e.target.files);
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      setSelectedFile(e.dataTransfer.files[0]);
-      setErrorMsg(null);
-      setUploadedUrl(null);
-      setCopied(false);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      addFilesToQueue(e.dataTransfer.files);
     }
+  };
+
+  const removeItem = (id: string) => {
+    if (isUploadingAll) return;
+    setQueue((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  const clearQueue = () => {
+    if (isUploadingAll) return;
+    setQueue([]);
   };
 
   const formatBytes = (bytes: number) => {
@@ -83,54 +105,86 @@ export default function DirectUploaderPage() {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
-  const handleUpload = () => {
-    if (!selectedFile) {
-      setErrorMsg("Wybierz plik do wgrania.");
-      return;
+  // Sekwencyjny upload plik po pliku z dokładnym paskiem postępu dla każdego pliku
+  const uploadSingleFile = (item: QueueItem): Promise<{ success: boolean; url?: string; error?: string }> => {
+    return new Promise((resolve) => {
+      const formData = new FormData();
+      formData.append("file", item.file);
+      formData.append("password", password);
+      formData.append("folder", folder);
+
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", getAssetUrl("/api/upload"), true);
+
+      xhr.upload.onprogress = (event) => {
+        if (event.lengthComputable) {
+          const percent = Math.round((event.loaded / event.total) * 100);
+          setQueue((prev) =>
+            prev.map((q) => (q.id === item.id ? { ...q, progress: percent } : q))
+          );
+        }
+      };
+
+      xhr.onload = () => {
+        try {
+          const response = JSON.parse(xhr.responseText);
+          if (xhr.status === 200 && response.success) {
+            resolve({ success: true, url: response.url });
+          } else {
+            resolve({ success: false, error: response.error || "Błąd zapisu pliku." });
+          }
+        } catch {
+          resolve({ success: false, error: `Błąd serwera (kod ${xhr.status}).` });
+        }
+      };
+
+      xhr.onerror = () => {
+        resolve({ success: false, error: "Błąd połączenia z serwerem." });
+      };
+
+      xhr.send(formData);
+    });
+  };
+
+  const handleStartUpload = async () => {
+    const pendingItems = queue.filter((i) => i.status === "pending" || i.status === "error");
+    if (pendingItems.length === 0) return;
+
+    setIsUploadingAll(true);
+    let completedCount = 0;
+
+    for (const item of queue) {
+      if (item.status === "done") {
+        completedCount++;
+        continue;
+      }
+
+      setQueue((prev) =>
+        prev.map((q) => (q.id === item.id ? { ...q, status: "uploading", progress: 0 } : q))
+      );
+
+      const res = await uploadSingleFile(item);
+
+      if (res.success) {
+        setQueue((prev) =>
+          prev.map((q) =>
+            q.id === item.id ? { ...q, status: "done", progress: 100, resultUrl: res.url } : q
+          )
+        );
+      } else {
+        setQueue((prev) =>
+          prev.map((q) =>
+            q.id === item.id ? { ...q, status: "error", error: res.error } : q
+          )
+        );
+      }
+
+      completedCount++;
+      setOverallProgress(Math.round((completedCount / queue.length) * 100));
     }
 
-    setUploading(true);
-    setProgress(0);
-    setErrorMsg(null);
-
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("password", password);
-    formData.append("folder", folder);
-
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", getAssetUrl("/api/upload"), true);
-
-    xhr.upload.onprogress = (event) => {
-      if (event.lengthComputable) {
-        const percent = Math.round((event.loaded / event.total) * 100);
-        setProgress(percent);
-      }
-    };
-
-    xhr.onload = () => {
-      setUploading(false);
-      try {
-        const response = JSON.parse(xhr.responseText);
-        if (xhr.status === 200 && response.success) {
-          setUploadedUrl(response.url);
-          setSelectedFile(null);
-          if (fileInputRef.current) fileInputRef.current.value = "";
-          fetchServerFiles();
-        } else {
-          setErrorMsg(response.error || "Wystąpił błąd podczas wgrywania pliku.");
-        }
-      } catch {
-        setErrorMsg(`Błąd serwera (kod ${xhr.status}).`);
-      }
-    };
-
-    xhr.onerror = () => {
-      setUploading(false);
-      setErrorMsg("Błąd połączenia z serwerem. Upewnij się, że plik nie przekracza limitów serwera.");
-    };
-
-    xhr.send(formData);
+    setIsUploadingAll(false);
+    fetchServerFiles();
   };
 
   const copyToClipboard = (text: string, isFromList: boolean = false) => {
@@ -139,10 +193,22 @@ export default function DirectUploaderPage() {
       setCopiedListItem(text);
       setTimeout(() => setCopiedListItem(null), 2000);
     } else {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 3000);
+      setCopiedUrl(text);
+      setTimeout(() => setCopiedUrl(null), 3000);
     }
   };
+
+  const copyAllUploadedUrls = () => {
+    const urls = queue.filter((i) => i.status === "done" && i.resultUrl).map((i) => i.resultUrl);
+    if (urls.length > 0) {
+      navigator.clipboard.writeText(urls.join("\n"));
+      setCopiedAll(true);
+      setTimeout(() => setCopiedAll(false), 3000);
+    }
+  };
+
+  const doneCount = queue.filter((i) => i.status === "done").length;
+  const pendingCount = queue.filter((i) => i.status === "pending").length;
 
   return (
     <div className="min-h-screen bg-[#07040e] text-slate-100 py-12 px-4 sm:px-6 lg:px-8 font-sans">
@@ -152,13 +218,13 @@ export default function DirectUploaderPage() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-white/10">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan/10 border border-cyan/30 text-cyanlight text-xs font-bold uppercase tracking-wider mb-2">
-              ⚡ Direct Media Uploader
+              ⚡ Multi Direct Media Uploader
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
-              Wgrywarka Mediów (FTP / Serwer)
+              Wgrywarka Mediów (Wiele plików naraz)
             </h1>
             <p className="text-slate-400 text-sm mt-1">
-              Wgrywaj duże modele 3D (.glb) oraz wideo (.mp4) z pominięciem limitów GitHuba (45 MB) i Keystatic.
+              Wgrywaj wiele filmów wideo, modeli 3D i ujęć bezpośrednio na serwer FTP bez limitów GitHuba.
             </p>
           </div>
 
@@ -176,6 +242,19 @@ export default function DirectUploaderPage() {
               Portfolio
             </Link>
           </div>
+        </div>
+
+        {/* Box informacyjny o formatach 3D */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-cyan/5 border border-cyan/20 space-y-2 text-xs text-slate-300 leading-relaxed">
+          <div className="flex items-center gap-2 text-cyanlight font-bold uppercase tracking-wider">
+            <span>💡 Wskazówka: Formaty Modeli 3D (GLB vs FBX i OBJ)</span>
+          </div>
+          <p>
+            Do <strong>interaktywnego obrotu 360° w przeglądarce</strong> standardem internetowym jest format <strong>.GLB</strong> (glTF 2.0). Pakuje on całą geometrię, materiały PBR, mapy tekstur oraz animacje w jeden lekki, binarny plik.
+          </p>
+          <p className="text-slate-400">
+            Pliki <strong>.FBX</strong> i <strong>.OBJ</strong> nie wspierają bezpośredniego PBR w przeglądarkach bez osobnych plików tekstur. Jeśli masz model w FBX/OBJ, wystarczy w Blenderze kliknąć: <code className="bg-black/60 px-1.5 py-0.5 rounded text-cyanlight">Plik → Eksportuj → glTF 2.0 (.glb)</code>, a wyeksportowany plik wrzucić tutaj! (Możesz tu też wgrać spakowane archiwum .ZIP z plikami FBX/OBJ).
+          </p>
         </div>
 
         {/* Hasło i ustawienia folderu */}
@@ -219,7 +298,7 @@ export default function DirectUploaderPage() {
                     : "bg-white/5 text-slate-400 hover:bg-white/10"
                 }`}
               >
-                Modele (.glb)
+                Modele 3D
               </button>
               <button
                 type="button"
@@ -236,7 +315,7 @@ export default function DirectUploaderPage() {
           </div>
         </div>
 
-        {/* Pole Uploadu Drag & Drop */}
+        {/* Strefa Drag & Drop z obsługą wielu plików */}
         <div
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleDrop}
@@ -245,9 +324,10 @@ export default function DirectUploaderPage() {
         >
           <input
             type="file"
+            multiple
             ref={fileInputRef}
             onChange={handleFileChange}
-            accept=".glb,.gltf,.mp4,.webm,.mov,.png,.jpg,.jpeg,.webp"
+            accept=".glb,.gltf,.fbx,.obj,.blend,.zip,.rar,.7z,.mp4,.webm,.mov,.png,.jpg,.jpeg,.webp"
             className="hidden"
           />
 
@@ -258,106 +338,162 @@ export default function DirectUploaderPage() {
           </div>
 
           <h3 className="text-lg font-bold text-white mb-1">
-            {selectedFile ? selectedFile.name : "Przeciągnij i upuść plik tutaj lub kliknij, aby wybrać"}
+            Przeciągnij i upuść pliki tutaj lub kliknij (możesz zaznaczyć wiele plików naraz)
           </h3>
           <p className="text-xs text-slate-400 max-w-md mx-auto">
-            Obsługuje modele 3D (.glb, .gltf), filmy i animacje (.mp4, .webm, .mov) oraz grafiki w wysokiej rozdzielczości.
+            Wideo (.mp4, .webm, .mov), Modele (.glb, .gltf, .fbx, .obj) oraz archiwa zip bez ograniczeń 45 MB.
           </p>
-
-          {selectedFile && (
-            <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-cyan/20 border border-cyan/40 text-cyanlight text-xs font-bold">
-              <span>Rozmiar: {formatBytes(selectedFile.size)}</span>
-              <span>•</span>
-              <span>Typ: {selectedFile.type || "plik binarny"}</span>
-            </div>
-          )}
         </div>
 
-        {/* Pasek postępu i przycisk startu */}
-        {selectedFile && !uploadedUrl && (
-          <div className="flex flex-col sm:flex-row items-center gap-4">
-            <button
-              type="button"
-              disabled={uploading}
-              onClick={handleUpload}
-              className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-sm transition-all ${
-                uploading
-                  ? "bg-slate-700 text-slate-400 cursor-not-allowed"
-                  : "bg-cyan hover:bg-cyanlight text-black shadow-xl shadow-cyan/20 cursor-pointer active:scale-95"
-              }`}
-            >
-              {uploading ? `Wgrywanie... ${progress}%` : "🚀 Rozpocznij Wgrywanie"}
-            </button>
-
-            {uploading && (
-              <div className="w-full flex-1 space-y-1">
-                <div className="w-full bg-white/10 rounded-full h-3 overflow-hidden">
-                  <div
-                    className="bg-cyan h-full transition-all duration-200"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <div className="text-right text-xs text-slate-400 font-bold">{progress}%</div>
+        {/* Kolejka wybranych plików */}
+        {queue.length > 0 && (
+          <div className="p-6 rounded-3xl bg-[#110921] border border-white/10 space-y-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-bold text-white">Wybrane pliki do wgrania:</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-cyan/20 border border-cyan/30 text-cyanlight text-xs font-bold">
+                  {queue.length}
+                </span>
+                {doneCount > 0 && (
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold">
+                    ✓ Wgrano: {doneCount}
+                  </span>
+                )}
               </div>
-            )}
-          </div>
-        )}
 
-        {/* Błąd */}
-        {errorMsg && (
-          <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-sm flex items-center gap-3">
-            <span className="text-lg">⚠️</span>
-            <span>{errorMsg}</span>
-          </div>
-        )}
-
-        {/* Sukces - Gotowy link do skopiowania */}
-        {uploadedUrl && (
-          <div className="p-6 rounded-3xl bg-emerald-500/10 border border-emerald-500/30 space-y-4">
-            <div className="flex items-center gap-2 text-emerald-400 font-bold text-sm">
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-              </svg>
-              Plik został pomyślnie zapisany na serwerze!
+              <div className="flex items-center gap-2">
+                {doneCount > 1 && (
+                  <button
+                    type="button"
+                    onClick={copyAllUploadedUrls}
+                    className="px-3 py-1.5 rounded-xl bg-cyan/20 hover:bg-cyan/30 border border-cyan/40 text-cyanlight font-bold text-xs cursor-pointer active:scale-95 transition-all"
+                  >
+                    {copiedAll ? "✓ Skopiowano wszystkie!" : "📋 Kopiuj wszystkie ścieżki"}
+                  </button>
+                )}
+                {!isUploadingAll && (
+                  <button
+                    type="button"
+                    onClick={clearQueue}
+                    className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white text-xs font-semibold cursor-pointer transition-all"
+                  >
+                    Wyczyść listę
+                  </button>
+                )}
+              </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                Ścieżka do wklejenia w Keystatic:
-              </label>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <input
-                  type="text"
-                  readOnly
-                  value={uploadedUrl}
-                  className="flex-1 bg-[#07040e] border border-white/20 rounded-xl px-4 py-2.5 text-sm text-cyanlight font-mono select-all focus:outline-none"
-                />
+            {/* Lista elementów kolejki */}
+            <div className="space-y-2.5 max-h-96 overflow-y-auto pr-1">
+              {queue.map((item) => (
+                <div
+                  key={item.id}
+                  className="p-3.5 rounded-2xl bg-[#07040e] border border-white/10 space-y-2"
+                >
+                  <div className="flex items-center justify-between gap-3 text-xs">
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <span className="text-base">
+                        {item.file.name.match(/\.(mp4|webm|mov)$/i) ? "🎬" : "🧊"}
+                      </span>
+                      <span className="font-semibold text-white truncate">{item.file.name}</span>
+                      <span className="text-slate-500">({formatBytes(item.file.size)})</span>
+                    </div>
+
+                    <div className="flex items-center gap-2 whitespace-nowrap">
+                      {item.status === "pending" && (
+                        <span className="text-slate-400 text-[11px] font-bold">Oczekuje</span>
+                      )}
+                      {item.status === "uploading" && (
+                        <span className="text-cyanlight text-[11px] font-bold animate-pulse">
+                          Wgrywanie {item.progress}%
+                        </span>
+                      )}
+                      {item.status === "done" && (
+                        <span className="text-emerald-400 text-[11px] font-bold flex items-center gap-1">
+                          ✓ Gotowe
+                        </span>
+                      )}
+                      {item.status === "error" && (
+                        <span className="text-rose-400 text-[11px] font-bold">
+                          ✕ {item.error || "Błąd"}
+                        </span>
+                      )}
+
+                      {!isUploadingAll && item.status !== "uploading" && (
+                        <button
+                          type="button"
+                          onClick={() => removeItem(item.id)}
+                          className="text-slate-500 hover:text-rose-400 p-1 cursor-pointer"
+                          title="Usuń z kolejki"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Pasek postępu dla wgrywanego pliku */}
+                  {item.status === "uploading" && (
+                    <div className="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
+                      <div
+                        className="bg-cyan h-full transition-all duration-150"
+                        style={{ width: `${item.progress}%` }}
+                      />
+                    </div>
+                  )}
+
+                  {/* Wynik po wgraniu: gotowa ścieżka z przyciskiem kopiowania */}
+                  {item.status === "done" && item.resultUrl && (
+                    <div className="flex items-center gap-2 pt-1">
+                      <input
+                        type="text"
+                        readOnly
+                        value={item.resultUrl}
+                        className="flex-1 bg-black/50 border border-white/10 rounded-lg px-2.5 py-1 text-xs text-cyanlight font-mono select-all focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => copyToClipboard(item.resultUrl!)}
+                        className="px-3 py-1 rounded-lg bg-cyan hover:bg-cyanlight text-black font-bold text-xs whitespace-nowrap cursor-pointer active:scale-95 transition-all"
+                      >
+                        {copiedUrl === item.resultUrl ? "✓ Skopiowano" : "Kopiuj"}
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Przycisk startu wgrywania kolejki */}
+            {pendingCount > 0 && (
+              <div className="pt-2 flex flex-col sm:flex-row items-center gap-4">
                 <button
                   type="button"
-                  onClick={() => copyToClipboard(uploadedUrl)}
-                  className="px-6 py-2.5 rounded-xl bg-cyan hover:bg-cyanlight text-black font-bold text-xs uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap active:scale-95"
+                  disabled={isUploadingAll}
+                  onClick={handleStartUpload}
+                  className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl font-bold uppercase tracking-wider text-sm transition-all cursor-pointer ${
+                    isUploadingAll
+                      ? "bg-slate-700 text-slate-400 cursor-not-allowed"
+                      : "bg-cyan hover:bg-cyanlight text-black shadow-xl shadow-cyan/20 active:scale-95"
+                  }`}
                 >
-                  {copied ? "✓ Skopiowano!" : "📋 Kopiuj ścieżkę"}
+                  {isUploadingAll
+                    ? `Wgrywanie plików... (${overallProgress}%)`
+                    : `🚀 Wgraj ${pendingCount} ${pendingCount === 1 ? "plik" : "pliki"} na serwer`}
                 </button>
+
+                {isUploadingAll && (
+                  <div className="w-full flex-1 space-y-1">
+                    <div className="w-full bg-white/10 rounded-full h-2.5 overflow-hidden">
+                      <div
+                        className="bg-cyan h-full transition-all duration-300"
+                        style={{ width: `${overallProgress}%` }}
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
-
-            <p className="text-xs text-slate-400 leading-relaxed">
-              💡 <strong>Co teraz zrobić?</strong> Przejdź do panelu Keystatic, otwórz projekt i wklej tę ścieżkę w polu{" "}
-              <code className="text-cyanlight bg-black/40 px-1.5 py-0.5 rounded">LUB ścieżka do pliku .glb</code> lub{" "}
-              <code className="text-cyanlight bg-black/40 px-1.5 py-0.5 rounded">LUB link do wideo</code>.
-            </p>
-
-            <button
-              type="button"
-              onClick={() => {
-                setUploadedUrl(null);
-                setSelectedFile(null);
-              }}
-              className="text-xs font-bold uppercase tracking-wider text-slate-400 hover:text-white underline cursor-pointer pt-2"
-            >
-              + Wgraj kolejny plik
-            </button>
+            )}
           </div>
         )}
 
@@ -428,4 +564,3 @@ export default function DirectUploaderPage() {
     </div>
   );
 }
-

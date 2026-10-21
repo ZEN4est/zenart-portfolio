@@ -7,9 +7,15 @@ export const runtime = "nodejs";
 
 // Dozwolone rozszerzenia plików
 const ALLOWED_EXTENSIONS = new Set([
-  // Modele 3D
+  // Modele 3D i archiwa
   ".glb",
   ".gltf",
+  ".fbx",
+  ".obj",
+  ".blend",
+  ".zip",
+  ".rar",
+  ".7z",
   // Wideo
   ".mp4",
   ".webm",
@@ -67,7 +73,7 @@ export async function POST(req: NextRequest) {
     if (!ALLOWED_EXTENSIONS.has(ext)) {
       return NextResponse.json(
         {
-          error: `Niedozwolony format pliku (${ext}). Dozwolone: .glb, .gltf, .mp4, .webm, .mov, .png, .jpg, .webp`,
+          error: `Niedozwolony format pliku (${ext}). Dozwolone: .glb, .gltf, .fbx, .obj, .mp4, .webm, .mov, .png, .jpg, .webp, .zip`,
         },
         { status: 400 }
       );
@@ -76,7 +82,7 @@ export async function POST(req: NextRequest) {
     // Automatyczne wykrywanie folderu docelowego
     let folder = requestedFolder;
     if (folder === "auto") {
-      if (ext === ".glb" || ext === ".gltf") {
+      if (ext === ".glb" || ext === ".gltf" || ext === ".fbx" || ext === ".obj" || ext === ".blend") {
         folder = "models";
       } else if (ext === ".mp4" || ext === ".webm" || ext === ".mov") {
         folder = "videos";
