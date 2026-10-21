@@ -1,0 +1,36 @@
+{
+  "titlePl": "Makiety aplikacji mobilnych dla Poliman",
+  "titleEn": "Mobile App Mockups for Poliman",
+  "order": 2,
+  "category": "modelling",
+  "aspectRatio": "square",
+  "descriptionPl": "Seria fotorealistycznych makiet 3D przygotowanych do prezentacji aplikacji mobilnych w portfolio studia Poliman. Od podstaw stworzyłem customowy model smartfona o czystej topologii, dopracowałem shadery materiałów oraz minimalistyczne oświetlenie studyjne eksponujące interfejsy.",
+  "descriptionEn": "A set of photorealistic 3D mockups designed to showcase mobile applications for Poliman’s portfolio. I created a custom smartphone model from scratch with clean topology, realistic material shaders, and subtle studio lighting focused on highlighting the UI.",
+  "tools": "Blender",
+  "client": "Poliman",
+  "completedDate": "29-05-2024",
+  "gallery": [
+    {
+      "image": "/uploads/projects/makiety-aplikacji-mobilnych-dla-poliman/gallery/0/image.png"
+    },
+    {
+      "image": "/uploads/projects/makiety-aplikacji-mobilnych-dla-poliman/gallery/1/image.png"
+    },
+    {
+      "image": "/uploads/projects/makiety-aplikacji-mobilnych-dla-poliman/gallery/2/image.png"
+    }
+  ],
+  "models": [],
+  "videos": [
+    {
+      "externalUrl": "/uploads/videos/mob3.mp4"
+    },
+    {
+      "externalUrl": "/uploads/videos/mob2.mp4"
+    },
+    {
+      "externalUrl": "/uploads/videos/mob1.mp4"
+    }
+  ],
+  "wireframeComparisons": []
+}
