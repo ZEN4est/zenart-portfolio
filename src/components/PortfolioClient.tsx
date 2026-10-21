@@ -432,16 +432,39 @@ export default function PortfolioClient({ settings, categories, projects }: any)
           <section id="about" className="py-24 px-6 md:px-16 border-t border-white/10 relative overflow-hidden">
             <div className="max-w-6xl mx-auto relative z-10">
               
-              <div className="max-w-3xl mb-12">
-                <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-cyanlight mb-3">
-                  {lang === "pl" ? (settings.aboutTitlePl || "O MNIE") : (settings.aboutTitleEn || "ABOUT ME")}
-                </h2>
-                <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-6">
-                  {lang === "pl" ? (settings.aboutSubtitlePl || "Michał Piwowarczyk — 3D Artist & Inżynier") : (settings.aboutSubtitleEn || "Michał Piwowarczyk — 3D Artist & Software Engineer")}
-                </h3>
-                <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
-                  {lang === "pl" ? settings.aboutBioPl : (settings.aboutBioEn || settings.aboutBioPl)}
-                </p>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-16">
+                <div className={settings.aboutAvatar ? "lg:col-span-8" : "lg:col-span-12 max-w-3xl"}>
+                  <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-cyanlight mb-3">
+                    {lang === "pl" ? (settings.aboutTitlePl || "O MNIE") : (settings.aboutTitleEn || "ABOUT ME")}
+                  </h2>
+                  <h3 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-6">
+                    {lang === "pl" ? (settings.aboutSubtitlePl || "Michał Piwowarczyk — 3D Artist & Inżynier") : (settings.aboutSubtitleEn || "Michał Piwowarczyk — 3D Artist & Software Engineer")}
+                  </h3>
+                  <p className="text-base sm:text-lg text-slate-300 font-light leading-relaxed">
+                    {lang === "pl" ? settings.aboutBioPl : (settings.aboutBioEn || settings.aboutBioPl)}
+                  </p>
+                </div>
+
+                {settings.aboutAvatar && (
+                  <div className="lg:col-span-4 flex justify-center lg:justify-end">
+                    <div className="relative group w-56 sm:w-64 md:w-72 lg:w-80 shrink-0">
+                      {/* Subtelny ambient glow z tyłu zdjęcia */}
+                      <div className="absolute -inset-2 rounded-3xl bg-gradient-to-tr from-cyan/30 via-transparent to-purple-600/30 blur-2xl opacity-70 group-hover:opacity-100 transition duration-700 pointer-events-none" />
+                      
+                      {/* Ramka zdjęcia */}
+                      <div className="relative rounded-3xl overflow-hidden border border-white/15 bg-surface/80 shadow-2xl aspect-square">
+                        <img 
+                          src={getOptimizedImageUrl(settings.aboutAvatar, 640)} 
+                          alt={lang === "pl" ? "Michał Piwowarczyk — 3D Artist" : "Michal Piwowarczyk — 3D Artist"} 
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Informacje merytoryczne w układzie kolumnowym */}
