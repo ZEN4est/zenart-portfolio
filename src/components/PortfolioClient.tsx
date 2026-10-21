@@ -446,59 +446,76 @@ export default function PortfolioClient({ settings, categories, projects }: any)
 
               {/* Informacje merytoryczne w układzie kolumnowym */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mb-16 pt-8 border-t border-white/10">
+                {/* 1. Wykształcenie */}
                 <div>
                   <span className="text-xs font-bold uppercase tracking-widest text-cyanlight block mb-1">
-                    {lang === "pl" ? "Wykształcenie" : "Education"}
+                    {lang === "pl" 
+                      ? (settings.aboutEducationLabelPl || "Wykształcenie") 
+                      : (settings.aboutEducationLabelEn || "Education")}
                   </span>
                   <h4 className="text-lg font-bold text-white mb-2">
                     {lang === "pl" ? settings.aboutEducationPl : (settings.aboutEducationEn || settings.aboutEducationPl)}
                   </h4>
                   <p className="text-sm text-slate-400 font-light leading-relaxed">
                     {lang === "pl" 
-                      ? "Akademia Górniczo-Hutnicza w Krakowie — wiedza z zakresu algorytmów grafiki, optymalizacji siatek i pipeline'u cyfrowego." 
-                      : "AGH University of Krakow — computer graphics algorithms, geometry optimization, and digital pipelines."}
+                      ? (settings.aboutEducationDescPl || "Akademia Górniczo-Hutnicza w Krakowie — wiedza z zakresu algorytmów grafiki, optymalizacji siatek i pipeline'u cyfrowego.") 
+                      : (settings.aboutEducationDescEn || "AGH University of Krakow — computer graphics algorithms, geometry optimization, and digital pipelines.")}
                   </p>
                 </div>
 
+                {/* 2. Doświadczenie */}
                 <div>
                   <span className="text-xs font-bold uppercase tracking-widest text-cyanlight block mb-1">
-                    {lang === "pl" ? "Doświadczenie" : "Experience"}
+                    {lang === "pl" 
+                      ? (settings.aboutExperienceLabelPl || "Doświadczenie") 
+                      : (settings.aboutExperienceLabelEn || "Experience")}
                   </span>
                   <h4 className="text-lg font-bold text-white mb-2">
-                    {settings.aboutExperienceYears || "4+"} {lang === "pl" ? "lat w branży 3D" : "years in 3D"}
+                    {settings.aboutExperienceYears || "4+"}{" "}
+                    {lang === "pl" 
+                      ? (settings.aboutExperienceSuffixPl || "lat w branży 3D") 
+                      : (settings.aboutExperienceSuffixEn || "years in 3D")}
                   </h4>
                   <p className="text-sm text-slate-400 font-light leading-relaxed">
                     {lang === "pl" 
-                      ? "Setki zrealizowanych modeli komercyjnych, wizualizacji produktowych, assetów gamedev oraz animacji w Blenderze." 
-                      : "Hundreds of commercial 3D assets, product visualizations, game-ready models, and Blender animations."}
+                      ? (settings.aboutExperienceDescPl || "Setki zrealizowanych modeli komercyjnych, wizualizacji produktowych, assetów gamedev oraz animacji w Blenderze.") 
+                      : (settings.aboutExperienceDescEn || "Hundreds of commercial 3D assets, product visualizations, game-ready models, and Blender animations.")}
                   </p>
                 </div>
 
+                {/* 3. Działalność & B2B */}
                 <div>
                   <span className="text-xs font-bold uppercase tracking-widest text-cyanlight block mb-1">
-                    {lang === "pl" ? "Działalność & B2B" : "Business & B2B"}
+                    {lang === "pl" 
+                      ? (settings.aboutCompanyLabelPl || "Działalność & B2B") 
+                      : (settings.aboutCompanyLabelEn || "Business & B2B")}
                   </span>
                   <h4 className="text-lg font-bold text-white mb-2">
                     {lang === "pl" ? settings.aboutCompanyPl : (settings.aboutCompanyEn || settings.aboutCompanyPl)}
                   </h4>
                   <p className="text-sm text-slate-400 font-light leading-relaxed">
                     {lang === "pl" 
-                      ? "Własna zarejestrowana firma — faktury VAT 23%, bezpieczne umowy B2B i pełne prawa autorskie." 
-                      : "Registered business entity — 23% VAT invoices, B2B agreements, and full copyright transfer."}
+                      ? (settings.aboutCompanyDescPl || "Własna zarejestrowana działalność — Faktury bez VAT / B2B i bezpieczne umowy.") 
+                      : (settings.aboutCompanyDescEn || "Registered business — Invoices without VAT / B2B and copyright agreements.")}
                   </p>
                 </div>
 
+                {/* 4. Pipeline & Narzędzia */}
                 <div>
                   <span className="text-xs font-bold uppercase tracking-widest text-cyanlight block mb-1">
-                    {lang === "pl" ? "Pipeline & Narzędzia" : "Pipeline & Tools"}
+                    {lang === "pl" 
+                      ? (settings.aboutPipelineLabelPl || "Pipeline & Narzędzia") 
+                      : (settings.aboutPipelineLabelEn || "Pipeline & Tools")}
                   </span>
                   <h4 className="text-lg font-bold text-white mb-2">
-                    Blender • Substance 3D
+                    {lang === "pl"
+                      ? (settings.aboutPipelineTitlePl || "Blender • Substance 3D")
+                      : (settings.aboutPipelineTitleEn || settings.aboutPipelineTitlePl || "Blender • Substance 3D")}
                   </h4>
                   <p className="text-sm text-slate-400 font-light leading-relaxed">
                     {lang === "pl" 
-                      ? "Modelowanie hard-surface, teksturowanie PBR, silniki Cycles i Eevee oraz optymalizacja pod silniki gier." 
-                      : "Hard-surface modeling, PBR texturing, Cycles & Eevee render engines, and real-time game engine optimization."}
+                      ? (settings.aboutPipelineDescPl || "Modelowanie hard-surface, teksturowanie PBR, silniki Cycles i Eevee oraz optymalizacja pod silniki gier.") 
+                      : (settings.aboutPipelineDescEn || "Hard-surface modeling, PBR texturing, Cycles & Eevee render engines, and real-time game engine optimization.")}
                   </p>
                 </div>
               </div>

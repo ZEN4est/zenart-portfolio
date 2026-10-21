@@ -89,7 +89,7 @@ export default function ProjectClientView({ project, settings, categories, allIm
             <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
               {t.galleryTitle}
             </h2>
-            <ProjectGallery images={allImages} />
+            <ProjectGallery images={allImages} lang={lang} />
           </div>
         )}
 

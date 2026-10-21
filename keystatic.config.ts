@@ -39,11 +39,38 @@ export default config({
         aboutSubtitleEn: fields.text({ label: "O mnie - Podtytuł (EN)", defaultValue: "Michał Piwowarczyk — 3D Artist & Software Engineer" }),
         aboutBioPl: fields.text({ label: "O mnie - Główny opis (PL)", multiline: true }),
         aboutBioEn: fields.text({ label: "O mnie - Główny opis (EN)", multiline: true }),
-        aboutExperienceYears: fields.text({ label: "O mnie - Liczba lat doświadczenia", defaultValue: "4+" }),
-        aboutEducationPl: fields.text({ label: "O mnie - Wykształcenie (PL)", defaultValue: "Mgr inż. Informatyki Stosowanej (AGH w Krakowie)" }),
-        aboutEducationEn: fields.text({ label: "O mnie - Wykształcenie (EN)", defaultValue: "M.Sc. Eng. in Applied Computer Science (AGH University)" }),
-        aboutCompanyPl: fields.text({ label: "O mnie - Forma działalności (PL)", defaultValue: "Własna zarejestrowana firma — pełne rozliczenia B2B / Faktura VAT 23%" }),
-        aboutCompanyEn: fields.text({ label: "O mnie - Forma działalności (EN)", defaultValue: "Registered business entity — B2B invoices / global collaboration" }),
+        /* O Mnie - Karta 1: Wykształcenie */
+        aboutEducationLabelPl: fields.text({ label: "O mnie: Karta 1 - Etykieta (PL)", defaultValue: "Wykształcenie" }),
+        aboutEducationLabelEn: fields.text({ label: "O mnie: Karta 1 - Etykieta (EN)", defaultValue: "Education" }),
+        aboutEducationPl: fields.text({ label: "O mnie: Karta 1 - Tytuł / Uczelnia (PL)", defaultValue: "Mgr inż. Informatyki Stosowanej (AGH w Krakowie)" }),
+        aboutEducationEn: fields.text({ label: "O mnie: Karta 1 - Tytuł / Uczelnia (EN)", defaultValue: "M.Sc. Eng. in Applied Computer Science (AGH UST)" }),
+        aboutEducationDescPl: fields.text({ label: "O mnie: Karta 1 - Podpis / Opis (PL)", multiline: true, defaultValue: "Akademia Górniczo-Hutnicza w Krakowie — wiedza z zakresu algorytmów grafiki, optymalizacji siatek i pipeline'u cyfrowego." }),
+        aboutEducationDescEn: fields.text({ label: "O mnie: Karta 1 - Podpis / Opis (EN)", multiline: true, defaultValue: "AGH University of Krakow — computer graphics algorithms, geometry optimization, and digital pipelines." }),
+
+        /* O Mnie - Karta 2: Doświadczenie */
+        aboutExperienceLabelPl: fields.text({ label: "O mnie: Karta 2 - Etykieta (PL)", defaultValue: "Doświadczenie" }),
+        aboutExperienceLabelEn: fields.text({ label: "O mnie: Karta 2 - Etykieta (EN)", defaultValue: "Experience" }),
+        aboutExperienceYears: fields.text({ label: "O mnie: Karta 2 - Liczba lat", defaultValue: "4+" }),
+        aboutExperienceSuffixPl: fields.text({ label: "O mnie: Karta 2 - Dopełnienie po liczbie lat (PL)", defaultValue: "lat w branży 3D" }),
+        aboutExperienceSuffixEn: fields.text({ label: "O mnie: Karta 2 - Dopełnienie po liczbie lat (EN)", defaultValue: "years in 3D" }),
+        aboutExperienceDescPl: fields.text({ label: "O mnie: Karta 2 - Podpis / Opis (PL)", multiline: true, defaultValue: "Setki zrealizowanych modeli komercyjnych, wizualizacji produktowych, assetów gamedev oraz animacji w Blenderze." }),
+        aboutExperienceDescEn: fields.text({ label: "O mnie: Karta 2 - Podpis / Opis (EN)", multiline: true, defaultValue: "Hundreds of commercial 3D assets, product visualizations, game-ready models, and Blender animations." }),
+
+        /* O Mnie - Karta 3: Działalność & B2B */
+        aboutCompanyLabelPl: fields.text({ label: "O mnie: Karta 3 - Etykieta (PL)", defaultValue: "Działalność & B2B" }),
+        aboutCompanyLabelEn: fields.text({ label: "O mnie: Karta 3 - Etykieta (EN)", defaultValue: "Business & B2B" }),
+        aboutCompanyPl: fields.text({ label: "O mnie: Karta 3 - Forma działalności (PL)", defaultValue: "Własna zarejestrowana działalność — Faktury bez VAT / B2B" }),
+        aboutCompanyEn: fields.text({ label: "O mnie: Karta 3 - Forma działalności (EN)", defaultValue: "Registered business — Invoices without VAT / B2B" }),
+        aboutCompanyDescPl: fields.text({ label: "O mnie: Karta 3 - Podpis / Opis (PL)", multiline: true, defaultValue: "Własna zarejestrowana firma — faktury, bezpieczne umowy B2B i pełne prawa autorskie." }),
+        aboutCompanyDescEn: fields.text({ label: "O mnie: Karta 3 - Podpis / Opis (EN)", multiline: true, defaultValue: "Registered business entity — invoices, B2B agreements, and full copyright transfer." }),
+
+        /* O Mnie - Karta 4: Pipeline & Narzędzia */
+        aboutPipelineLabelPl: fields.text({ label: "O mnie: Karta 4 - Etykieta (PL)", defaultValue: "Pipeline & Narzędzia" }),
+        aboutPipelineLabelEn: fields.text({ label: "O mnie: Karta 4 - Etykieta (EN)", defaultValue: "Pipeline & Tools" }),
+        aboutPipelineTitlePl: fields.text({ label: "O mnie: Karta 4 - Tytuł / Narzędzia (PL)", defaultValue: "Blender • Substance 3D" }),
+        aboutPipelineTitleEn: fields.text({ label: "O mnie: Karta 4 - Tytuł / Narzędzia (EN)", defaultValue: "Blender • Substance 3D" }),
+        aboutPipelineDescPl: fields.text({ label: "O mnie: Karta 4 - Podpis / Opis (PL)", multiline: true, defaultValue: "Modelowanie hard-surface, teksturowanie PBR, silniki Cycles i Eevee oraz optymalizacja pod silniki gier." }),
+        aboutPipelineDescEn: fields.text({ label: "O mnie: Karta 4 - Podpis / Opis (EN)", multiline: true, defaultValue: "Hard-surface modeling, PBR texturing, Cycles & Eevee render engines, and real-time game engine optimization." }),
         aboutSkillsPl: fields.array(
           fields.text({ label: "Umiejętność / Program / Technologia (PL)" }),
           {
