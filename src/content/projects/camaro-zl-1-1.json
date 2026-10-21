@@ -8,8 +8,29 @@
   "descriptionEn": "My most ambitious early project, built entirely from scratch. While the topology reflects an early stage in my 3D journey, the sheer scale of the asset, intricate detailing, and overall form make it a defining milestone in my development as a 3D artist.",
   "tools": "Blender",
   "completedDate": "24-10-2023",
-  "gallery": [],
+  "thumbnail": "/uploads/projects/camaro-zl-1-1/thumbnail.png",
+  "gallery": [
+    {
+      "image": "/uploads/projects/camaro-zl-1-1/gallery/0/image.png"
+    },
+    {
+      "image": "/uploads/projects/camaro-zl-1-1/gallery/1/image.png"
+    },
+    {
+      "image": "/uploads/projects/camaro-zl-1-1/gallery/2/image.png"
+    },
+    {
+      "image": "/uploads/projects/camaro-zl-1-1/gallery/3/image.png"
+    },
+    {
+      "image": "/uploads/projects/camaro-zl-1-1/gallery/4/image.png"
+    }
+  ],
   "models": [],
-  "videos": [],
+  "videos": [
+    {
+      "externalUrl": "/uploads/videos/camaro_clip_FINAL.mp4"
+    }
+  ],
   "wireframeComparisons": []
 }
