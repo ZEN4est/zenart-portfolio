@@ -1,0 +1,41 @@
+{
+  "titlePl": "AR-15",
+  "titleEn": "AR-15",
+  "order": 1,
+  "category": "modelling",
+  "aspectRatio": "square",
+  "descriptionPl": "Precyzyjny model broni AR-15 wykonany techniką hard-surface w Blenderze. Cały proces – od szczegółowej geometrii high-poly po w pełni autorskie tekstury i shadery proceduralne – zrealizowałem samodzielnie, stawiając na wierne odwzorowanie mechaniki oraz realistyczne wykończenie powierzchni.",
+  "descriptionEn": "A detailed hard-surface recreation of an AR-15 rifle created and textured entirely in Blender. The project features high-poly geometry with an emphasis on mechanical accuracy, complemented by custom-made PBR textures and shaders developed from scratch.",
+  "tools": "Blender",
+  "completedDate": "01-06-2025",
+  "thumbnail": "/uploads/projects/ar-15/thumbnail.png",
+  "gallery": [
+    {
+      "image": "/uploads/projects/ar-15/gallery/0/image.png"
+    },
+    {
+      "image": "/uploads/projects/ar-15/gallery/1/image.png"
+    },
+    {
+      "image": "/uploads/projects/ar-15/gallery/2/image.png"
+    },
+    {
+      "image": "/uploads/projects/ar-15/gallery/3/image.png"
+    },
+    {
+      "image": "/uploads/projects/ar-15/gallery/4/image.png"
+    }
+  ],
+  "models": [
+    {
+      "externalUrl": "/uploads/models/AR15_HighPoly_4K.glb"
+    }
+  ],
+  "videos": [],
+  "wireframeComparisons": [
+    {
+      "mainImage": "/uploads/projects/ar-15/wireframeComparisons/0/mainImage.png",
+      "wireframeImage": "/uploads/projects/ar-15/wireframeComparisons/0/wireframeImage.png"
+    }
+  ]
+}
