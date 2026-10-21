@@ -20,8 +20,11 @@ export default function ProjectClientView({ project, settings, categories, allIm
 
   if (!mounted) return null;
 
+  const catObj = categories?.find((c: any) => c.slug === project.category);
+  const backHref = project.category ? `/?category=${project.category}` : "/";
+
   const t = {
-    back: lang === "pl" ? "← Wróć do portfolio" : "← Back to portfolio",
+    back: lang === "pl" ? "← Wróć do kategorii" : "← Back to category",
     client: lang === "pl" ? "Klient:" : "Client:",
     completed: lang === "pl" ? "Ukończono:" : "Completed:",
     modelTitle: lang === "pl" ? "Model 3D (Interaktywny)" : "3D Model (Interactive)",
@@ -34,18 +37,16 @@ export default function ProjectClientView({ project, settings, categories, allIm
       <ProjectHeader categories={categories} settings={settings} />
 
       <article className="pt-32 pb-24 max-w-6xl mx-auto px-6">
-        <Link href="/" className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyanlight hover:underline mb-8 cursor-pointer">
+        <Link 
+          href={backHref} 
+          className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-cyanlight hover:underline mb-8 cursor-pointer active:scale-95 transition-transform"
+        >
           {t.back}
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 mb-12 border-b border-white/10 items-start">
           <div className="lg:col-span-8 space-y-4">
-            {project.category && (
-              <span className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-surfaceLight border border-cyan/30 text-cyanlight">
-                {project.category}
-              </span>
-            )}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
               {lang === "pl" ? project.titlePl : (project.titleEn || project.titlePl)}
             </h1>
             {(project.descriptionPl || project.descriptionEn) && (
@@ -97,12 +98,11 @@ export default function ProjectClientView({ project, settings, categories, allIm
             <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
               {t.modelTitle}
             </h2>
-            {/* PRZEKAZANIE JĘZYKA DO MODELU 3D */}
             <ClientModelViewer glbUrl={glbUrl} lang={lang} />
           </div>
         )}
 
-       {project.wireframeImage && mainThumb && (
+        {project.wireframeImage && mainThumb && (
           <WireframeSlider mainImage={mainThumb} wireframeImage={project.wireframeImage} lang={lang} />
         )}
 
@@ -111,14 +111,13 @@ export default function ProjectClientView({ project, settings, categories, allIm
             <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
               {t.videoTitle}
             </h2>
-            <video controls className="w-full rounded-2xl border border-white/15 bg-black max-h-[70vh]">
+            <video controls className="w-full rounded-3xl shadow-2xl bg-black max-h-[75vh]">
               <source src={getAssetUrl(project.videoUrl)} type="video/mp4" />
             </video>
           </div>
         )}
       </article>
 
-      {/* PRZEKAZANIE JĘZYKA DO STOPKI */}
       <ContactFooter settings={settings} lang={lang} />
     </>
   );

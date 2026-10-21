@@ -12,7 +12,7 @@ export default function WireframeSlider({ mainImage, wireframeImage, lang = "pl"
       </h2>
       
       {/* Dodane ograniczenie max-h-[75vh], wyśrodkowanie margin-x-auto, a szerokość dopasowuje się do obrazka wewnątrz (w-auto/inline-block) */}
-      <div className="relative w-full max-w-max mx-auto rounded-2xl overflow-hidden border border-white/15 bg-surface group select-none">
+      <div className="relative w-full max-w-max mx-auto rounded-3xl overflow-hidden shadow-2xl group select-none">
         
         {/* max-h-[75vh] upewnia się, że obrazek nigdy nie będzie wyższy niż 75% wysokości ekranu, w-auto zapobiega rozciągnięciu w poziomie */}
         <img src={getAssetUrl(mainImage)} alt="Main render" className="block max-h-[75vh] w-auto h-auto object-contain" />

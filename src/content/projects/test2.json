@@ -1,0 +1,23 @@
+{
+  "titlePl": "test2",
+  "titleEn": "TEST2",
+  "order": 2,
+  "category": "modelling",
+  "aspectRatio": "square",
+  "descriptionPl": "bla bla bla",
+  "descriptionEn": "blah blah blah",
+  "tools": "Substance",
+  "client": "Projekt własny",
+  "thumbnail": "/uploads/projects/test2/thumbnail.png",
+  "gallery": [
+    {
+      "image": "/uploads/projects/test2/gallery/0/image.png"
+    },
+    {
+      "image": "/uploads/projects/test2/gallery/1/image.png"
+    },
+    {
+      "image": "/uploads/projects/test2/gallery/2/image.png"
+    }
+  ]
+}

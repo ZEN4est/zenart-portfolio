@@ -11,7 +11,7 @@ export default function ClientModelViewer({ glbUrl, lang = "pl" }: { glbUrl: str
 
   if (!mounted) {
     return (
-      <div className="w-full relative rounded-2xl overflow-hidden border border-white/15 bg-void h-[380px] md:h-[540px] flex items-center justify-center">
+      <div className="w-full relative rounded-3xl overflow-hidden shadow-2xl bg-void h-[380px] md:h-[540px] flex items-center justify-center">
         <span className="text-slate-500 text-sm font-bold uppercase tracking-widest animate-pulse">
           {lang === "pl" ? "Ładowanie modelu 3D..." : "Loading 3D model..."}
         </span>
@@ -20,7 +20,7 @@ export default function ClientModelViewer({ glbUrl, lang = "pl" }: { glbUrl: str
   }
 
   return (
-    <div className="w-full relative rounded-2xl overflow-hidden border border-white/15 bg-void">
+    <div className="w-full relative rounded-3xl overflow-hidden shadow-2xl bg-void">
       <div className="w-full h-[380px] md:h-[540px]">
         {React.createElement("model-viewer", {
           src: getAssetUrl(glbUrl),

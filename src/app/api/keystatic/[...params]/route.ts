@@ -92,12 +92,44 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
       if (newLocation !== location) {
         const newHeaders = new Headers(response.headers);
         newHeaders.set("Location", newLocation);
+
+        // Usuń nagromadzone ciasteczka ks- przy powrocie z autoryzacji do panelu keystatic
+        const cookieHeader = req.headers.get("cookie") || "";
+        const ksCookies = cookieHeader
+          .split(";")
+          .map((c) => c.trim().split("=")[0])
+          .filter((name) => name.startsWith("ks-") && name !== "keystatic-gh-access-token");
+
+        for (const cName of ksCookies) {
+          newHeaders.append("Set-Cookie", `${cName}=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`);
+        }
+
         return new Response(response.body, {
           status: response.status,
           statusText: response.statusText,
           headers: newHeaders,
         });
       }
+    }
+
+    // Dodatkowe zabezpieczenie: jeśli w jakimkolwiek zapytaniu nagromadziło się więcej niż 2 ciasteczka ks-,
+    // wyczyść nadmiarowe, aby zapobiec przekroczeniu limitu nagłówków LiteSpeed (błąd 500)
+    const cookieHeader = req.headers.get("cookie") || "";
+    const ksCookies = cookieHeader
+      .split(";")
+      .map((c) => c.trim().split("=")[0])
+      .filter((name) => name.startsWith("ks-") && name !== "keystatic-gh-access-token");
+
+    if (ksCookies.length > 2) {
+      const newHeaders = new Headers(response.headers);
+      for (let i = 0; i < ksCookies.length - 1; i++) {
+        newHeaders.append("Set-Cookie", `${ksCookies[i]}=; Path=/; Max-Age=0; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax`);
+      }
+      return new Response(response.body, {
+        status: response.status,
+        statusText: response.statusText,
+        headers: newHeaders,
+      });
     }
 
     return response;
