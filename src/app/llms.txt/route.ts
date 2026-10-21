@@ -12,7 +12,7 @@ export async function GET() {
 ## Contact
 - Email: ${settings?.email}
 - Phone: ${settings?.phone}
-- Location: ${settings?.location}
+- Location: ${settings?.locationPl || settings?.locationEn || "Radom / Zdalnie, Polska"}
 
 ## 3D Portfolio Projects
 ${projects

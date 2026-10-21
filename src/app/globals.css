@@ -135,7 +135,25 @@ body {
 
 /* ============================================================
    🏷️ DOSTOSOWANE STYLE DLA KEYSTATIC (UI PANELU)
+   Naprawa z-index dla nakładek, portali, modali i drawerów
    ============================================================ */
 .keystatic-custom-field {
   transition: all 0.2s ease-in-out;
+}
+
+body > [style*="isolation: isolate"],
+body > [data-overlay-container="true"],
+body > div:has([data-fill="translucent"]),
+body > div:has([data-open="true"]),
+body > div:has([role="dialog"]) {
+  position: relative !important;
+  z-index: 99999 !important;
+}
+
+[data-fill="translucent"] {
+  z-index: 99998 !important;
+}
+
+[role="dialog"] {
+  z-index: 99999 !important;
 }

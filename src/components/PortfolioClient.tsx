@@ -509,7 +509,8 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   {lang === "pl" ? "Kluczowe umiejętności & technologie:" : "Key Skills & Technologies:"}
                 </h4>
                 <div className="flex flex-wrap gap-2.5">
-                  {(settings.aboutSkills || [
+                  {((lang === "pl" ? settings.aboutSkillsPl : settings.aboutSkillsEn) || 
+                    settings.aboutSkills || [
                     "Blender",
                     "Substance 3D Painter",
                     "Hard-Surface Modeling",

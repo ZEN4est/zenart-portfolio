@@ -23,23 +23,11 @@
   "aboutEducationEn": "M.Sc. Eng. in Applied Computer Science (AGH UST)",
   "aboutCompanyPl": "Własna zarejestrowana działalność — Faktury bez VAT / B2B",
   "aboutCompanyEn": "Registered business — Invoices without VAT / B2B",
-  "aboutSkills": [
-    "Blender",
-    "Substance 3D Painter",
-    "Hard-Surface Modeling",
-    "PBR Texturing & Baking",
-    "Retopology & UVs",
-    "Cycles & Eevee",
-    "Product Animation",
-    "Game Assets (UE5 / Unity)",
-    "3D Mmodel optimization"
-  ],
   "aboutAvatar": "/uploads/about/aboutAvatar.jpg",
   "contactIntroPl": "Potrzebujesz modelu 3D, wizualizacji produktu lub animacji? Napisz bezpośrednio lub skorzystaj z formularza.",
   "contactIntroEn": "Need a 3D model, product visualization, or animation? Contact me directly or use the form.",
   "email": "michalpiwowarczyk3d@gmail.com",
   "phone": "+48 795 757 323",
-  "location": "Radom / Remote, Poland",
   "clients": [
     {
       "name": "HC STUDIO",
@@ -80,5 +68,29 @@
       "name": "STOLDREW",
       "logoImage": "/uploads/clients/clients/7/logoImage.png"
     }
-  ]
+  ],
+  "aboutSkillsPl": [
+    "Blender",
+    "Substance 3D Painter",
+    "Modelowanie Hard-Surface",
+    "Teksturowanie PBR & Baking",
+    "Retopologia & Siatki UV",
+    "Silniki Cycles & Eevee",
+    "Animacje Produktowe",
+    "Assety do Gier (UE5 / Unity)",
+    "Optymalizacja modeli 3D"
+  ],
+  "aboutSkillsEn": [
+    "Blender",
+    "Substance 3D Painter",
+    "Hard-Surface Modeling",
+    "PBR Texturing & Baking",
+    "Retopology & UVs",
+    "Cycles & Eevee",
+    "Product Animation",
+    "Game Assets (UE5 / Unity)",
+    "3D Model Optimization"
+  ],
+  "locationPl": "Radom / Zdalnie, Polska",
+  "locationEn": "Radom / Remote, Poland"
 }

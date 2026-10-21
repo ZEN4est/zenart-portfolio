@@ -148,9 +148,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
         
         {/* Główna treść strony */}
-        <div className="relative z-10">
-          {children}
-        </div>
+        {children}
       </body>
     </html>
   );

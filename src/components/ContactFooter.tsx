@@ -44,7 +44,7 @@ export default function ContactFooter({ settings, lang }: { settings: any, lang:
               <span>👤</span> Michał Piwowarczyk (<span style={{ fontFamily: "'Michroma', sans-serif" }} className="text-xs tracking-widest text-cyanlight">ZenArt_3D</span>)
             </p>
             <p className="flex items-center gap-2">
-              <span>📍</span> {settings.location}
+              <span>📍</span> {lang === "pl" ? (settings.locationPl || settings.location) : (settings.locationEn || settings.locationPl || settings.location)}
             </p>
             <p className="flex items-center gap-2">
               <span>✉️</span>

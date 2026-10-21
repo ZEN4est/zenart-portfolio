@@ -44,11 +44,18 @@ export default config({
         aboutEducationEn: fields.text({ label: "O mnie - Wykształcenie (EN)", defaultValue: "M.Sc. Eng. in Applied Computer Science (AGH University)" }),
         aboutCompanyPl: fields.text({ label: "O mnie - Forma działalności (PL)", defaultValue: "Własna zarejestrowana firma — pełne rozliczenia B2B / Faktura VAT 23%" }),
         aboutCompanyEn: fields.text({ label: "O mnie - Forma działalności (EN)", defaultValue: "Registered business entity — B2B invoices / global collaboration" }),
-        aboutSkills: fields.array(
-          fields.text({ label: "Umiejętność / Program / Technologia" }),
+        aboutSkillsPl: fields.array(
+          fields.text({ label: "Umiejętność / Program / Technologia (PL)" }),
           {
-            label: "O mnie - Kluczowe umiejętności (tagi)",
+            label: "O mnie - Kluczowe umiejętności (tagi) (PL)",
             itemLabel: (props) => props.value || "Umiejętność",
+          }
+        ),
+        aboutSkillsEn: fields.array(
+          fields.text({ label: "Skill / Software / Tech (EN)" }),
+          {
+            label: "O mnie - Kluczowe umiejętności (tagi) (EN)",
+            itemLabel: (props) => props.value || "Skill",
           }
         ),
         aboutAvatar: fields.image({
@@ -61,7 +68,8 @@ export default config({
         contactIntroEn: fields.text({ label: "Tekst zachęty w stopce (EN)", multiline: true }),
         email: fields.text({ label: "E-mail kontaktowy" }),
         phone: fields.text({ label: "Telefon" }),
-        location: fields.text({ label: "Lokalizacja" }),
+        locationPl: fields.text({ label: "Lokalizacja (PL)", defaultValue: "Kraków / Praca zdalna, Polska" }),
+        locationEn: fields.text({ label: "Lokalizacja (EN)", defaultValue: "Kraków / Remote, Poland" }),
 
         clients: fields.array(
           fields.object({
