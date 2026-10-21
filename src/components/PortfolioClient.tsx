@@ -546,7 +546,9 @@ export default function PortfolioClient({ settings, categories, projects }: any)
               {/* Kluczowe umiejętności z możliwością edycji w Keystatic */}
               <div className="pt-6">
                 <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-400 mb-4">
-                  {lang === "pl" ? "Kluczowe umiejętności & technologie:" : "Key Skills & Technologies:"}
+                  {lang === "pl" 
+                    ? (settings.aboutSkillsHeaderPl || "Kluczowe umiejętności i technologie:") 
+                    : (settings.aboutSkillsHeaderEn || "Key Skills & Technologies:")}
                 </h4>
                 <div className="flex flex-wrap gap-2.5">
                   {((lang === "pl" ? settings.aboutSkillsPl : settings.aboutSkillsEn) || 
@@ -562,7 +564,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   ]).map((skill: string, i: number) => (
                     <span 
                       key={i} 
-                      className="text-xs font-semibold px-4 py-2 rounded-xl bg-white/5 border border-white/15 text-slate-200 hover:border-cyan/50 hover:text-cyanlight transition-colors"
+                      className="text-xs font-semibold px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 select-none cursor-default"
                     >
                       {skill}
                     </span>

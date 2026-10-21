@@ -71,6 +71,10 @@ export default config({
         aboutPipelineTitleEn: fields.text({ label: "O mnie: Karta 4 - Tytuł / Narzędzia (EN)", defaultValue: "Blender • Substance 3D" }),
         aboutPipelineDescPl: fields.text({ label: "O mnie: Karta 4 - Podpis / Opis (PL)", multiline: true, defaultValue: "Modelowanie hard-surface, teksturowanie PBR, silniki Cycles i Eevee oraz optymalizacja pod silniki gier." }),
         aboutPipelineDescEn: fields.text({ label: "O mnie: Karta 4 - Podpis / Opis (EN)", multiline: true, defaultValue: "Hard-surface modeling, PBR texturing, Cycles & Eevee render engines, and real-time game engine optimization." }),
+
+        /* O Mnie - Kluczowe Umiejętności (Tagi) */
+        aboutSkillsHeaderPl: fields.text({ label: "O mnie - Nagłówek umiejętności (PL)", defaultValue: "Kluczowe umiejętności i technologie:" }),
+        aboutSkillsHeaderEn: fields.text({ label: "O mnie - Nagłówek umiejętności (EN)", defaultValue: "Key Skills & Technologies:" }),
         aboutSkillsPl: fields.array(
           fields.text({ label: "Umiejętność / Program / Technologia (PL)" }),
           {
