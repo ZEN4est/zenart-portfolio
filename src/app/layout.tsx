@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Mulish, Syncopate, Michroma } from "next/font/google";
+import siteSettings from "@/content/settings/site.json";
 import "./globals.css";
 
 const mulish = Mulish({
@@ -25,8 +26,17 @@ const michroma = Michroma({
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zenart3d.atoma.pl/test";
 
+const ogImageUrl = (siteSettings as any)?.ogImage
+  ? `${siteUrl}${(siteSettings as any).ogImage}`
+  : `${siteUrl}/uploads/categories/modelling/coverImage.png`;
+
+const iconUrl = (siteSettings as any)?.favicon
+  ? `${siteUrl}${(siteSettings as any).favicon}`
+  : undefined;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
+  icons: iconUrl ? { icon: iconUrl, apple: iconUrl } : undefined,
   title: {
     default: "ZENART 3D – Michał Piwowarczyk | 3D Artist & Inżynier",
     template: "%s | ZENART 3D",
@@ -58,7 +68,7 @@ export const metadata: Metadata = {
     description: "Fotorealistyczne wizualizacje 3D, modele Hard-Surface, animacje reklamowe oraz zoptymalizowane assety gamedev.",
     images: [
       {
-        url: `${siteUrl}/uploads/categories/modelling/coverImage.png`,
+        url: ogImageUrl,
         width: 1200,
         height: 630,
         alt: "ZENART 3D – Michał Piwowarczyk Portfolio",
@@ -69,7 +79,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ZENART 3D – Michał Piwowarczyk | 3D Artist",
     description: "Fotorealistyczne wizualizacje 3D, modele Hard-Surface i animacje produktowe w Blenderze.",
-    images: [`${siteUrl}/uploads/categories/modelling/coverImage.png`],
+    images: [ogImageUrl],
   },
   robots: {
     index: true,
@@ -91,7 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: "ZENART 3D - Michał Piwowarczyk",
     alternateName: "ZenArt_3D",
     url: siteUrl,
-    image: `${siteUrl}/uploads/categories/modelling/coverImage.png`,
+    image: ogImageUrl,
     jobTitle: "3D Artist & Inżynier Oprogramowania",
     email: "michalpiwowarczyk3d@gmail.com",
     telephone: "+48795757323",

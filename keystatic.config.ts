@@ -10,6 +10,18 @@ export default config({
       path: "src/content/settings/site",
       format: "json",
       schema: {
+        /* Identyfikacja wizualna i Social Media */
+        favicon: fields.image({
+          label: "Ikonka strony (Favicon - PNG, min. 192x192 px)",
+          directory: "public/uploads/settings",
+          publicPath: "/uploads/settings/",
+        }),
+        ogImage: fields.image({
+          label: "Grafika udostępniania linka (Open Graph - 1200x630 px)",
+          directory: "public/uploads/settings",
+          publicPath: "/uploads/settings/",
+        }),
+
         brandSubheaderPl: fields.text({ label: "Nadtytuł Hero (PL)", defaultValue: "MICHAŁ PIWOWARCZYK — 3D ARTIST" }),
         brandSubheaderEn: fields.text({ label: "Nadtytuł Hero (EN)", defaultValue: "MICHAŁ PIWOWARCZYK — 3D ARTIST" }),
         heroTitlePl: fields.text({ label: "Tytuł główny Hero (PL)", multiline: true }),
