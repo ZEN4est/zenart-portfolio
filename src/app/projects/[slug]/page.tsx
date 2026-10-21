@@ -138,9 +138,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   }
 
   const allImages: { url: string; caption: string }[] = [];
-  if (mainThumb) {
-    allImages.push({ url: mainThumb, caption: "Ujęcie Główne" });
-  }
+  // Galeria projektu zawiera wyłącznie ujęcia dodane w Keystatic do sekcji Galerii (bez automatycznego duplikowania miniaturki)
   if (project.gallery && project.gallery.length > 0) {
     project.gallery.forEach((item: any) => {
       const imgUrl = item.image || item.externalUrl;

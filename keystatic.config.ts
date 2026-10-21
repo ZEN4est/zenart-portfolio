@@ -111,6 +111,14 @@ export default config({
         contactIntroEn: fields.text({ label: "Tekst zachęty w stopce (EN)", multiline: true }),
         email: fields.text({ label: "E-mail kontaktowy" }),
         phone: fields.text({ label: "Telefon" }),
+        linkedinUrl: fields.text({
+          label: "Link do profilu LinkedIn",
+          defaultValue: "https://www.linkedin.com/in/michal-piwowarczyk",
+        }),
+        instagramUrl: fields.text({
+          label: "Link do profilu Instagram",
+          defaultValue: "https://www.instagram.com/zenart_3d",
+        }),
         locationPl: fields.text({ label: "Lokalizacja (PL)", defaultValue: "Kraków / Praca zdalna, Polska" }),
         locationEn: fields.text({ label: "Lokalizacja (EN)", defaultValue: "Kraków / Remote, Poland" }),
 

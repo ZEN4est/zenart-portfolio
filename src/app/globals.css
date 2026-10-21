@@ -19,6 +19,17 @@
   --accent-light: #22d3ee;  /* Jaśniejszy odcień do podświetleń i hoverów */
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 .font-logo, .font-logo * {
   font-family: var(--font-michroma), 'Michroma', sans-serif !important;
 }

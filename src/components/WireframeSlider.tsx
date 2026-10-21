@@ -10,17 +10,20 @@ export default function WireframeSlider({
 }: {
   mainImage: string;
   wireframeImage: string;
-  title?: string;
+  title?: string | null;
   lang?: "pl" | "en";
 }) {
   const [sliderValue, setSliderValue] = useState(50);
+  const showHeading = title !== null;
   const heading = title || (lang === "pl" ? "Siatka modelu (Wireframe)" : "Model Wireframe");
 
   return (
     <div className="mb-16">
-      <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
-        {heading}
-      </h2>
+      {showHeading && (
+        <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
+          {heading}
+        </h2>
+      )}
       
       {/* Dodane ograniczenie max-h-[75vh], wyśrodkowanie margin-x-auto, a szerokość dopasowuje się do obrazka wewnątrz (w-auto/inline-block) */}
       <div className="relative w-full max-w-max mx-auto rounded-3xl overflow-hidden shadow-2xl group select-none">

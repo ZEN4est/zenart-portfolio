@@ -120,20 +120,28 @@ export default function ProjectClientView({
           </div>
         )}
 
-        {/* Modele 3D (wsparcie dla wielu modeli lub pojedynczego) */}
-        {displayModels.map((m: any, idx: number) => {
-          const modelTitle = lang === "pl" ? m.titlePl : (m.titleEn || m.titlePl);
-          return (
-            <div key={idx} className="mb-16">
-              <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
-                {modelTitle || (displayModels.length > 1 ? `${t.modelTitle} ${idx + 1}` : t.modelTitle)}
-              </h2>
-              <ClientModelViewer glbUrl={m.url} lang={lang} />
-            </div>
-          );
-        })}
+        {/* Modele 3D (wsparcie dla wielu modeli bez sztucznych numerków 1/2/3) */}
+        {displayModels.length > 0 && (
+          <div className="mb-16 space-y-12">
+            {displayModels.map((m: any, idx: number) => {
+              const modelTitle = lang === "pl" ? m.titlePl : (m.titleEn || m.titlePl);
+              const headingText = modelTitle || (idx === 0 ? t.modelTitle : null);
 
-        {/* Porównania Wireframe (wsparcie dla wielu suwaków lub pojedynczego) */}
+              return (
+                <div key={idx} className="space-y-4">
+                  {headingText && (
+                    <h2 className="text-xl font-extrabold uppercase tracking-wider text-slate-200 border-b border-white/10 pb-4">
+                      {headingText}
+                    </h2>
+                  )}
+                  <ClientModelViewer glbUrl={m.url} lang={lang} />
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Porównania Wireframe (wsparcie dla wielu suwaków bez numeracji) */}
         {displayWireframes.map((wf: any, idx: number) => {
           const wfTitle = lang === "pl" ? wf.titlePl : (wf.titleEn || wf.titlePl);
           return (
@@ -141,24 +149,32 @@ export default function ProjectClientView({
               key={idx}
               mainImage={wf.mainImage}
               wireframeImage={wf.wireframeImage}
-              title={wfTitle || (displayWireframes.length > 1 ? `${t.wireframeTitle} ${idx + 1}` : undefined)}
+              title={wfTitle || (idx === 0 ? t.wireframeTitle : null)}
               lang={lang}
             />
           );
         })}
 
-        {/* Prezentacje Wideo (wsparcie dla wielu wideo, YouTube, Vimeo i plików MP4) */}
-        {displayVideos.map((vid: any, idx: number) => {
-          const vidTitle = lang === "pl" ? vid.titlePl : (vid.titleEn || vid.titlePl);
-          return (
-            <div key={idx} className="mb-16">
-              <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
-                {vidTitle || (displayVideos.length > 1 ? `${t.videoTitle} ${idx + 1}` : t.videoTitle)}
-              </h2>
-              <ProjectVideoPlayer url={vid.url} />
-            </div>
-          );
-        })}
+        {/* Prezentacje Wideo (wsparcie dla wielu wideo bez sztucznych numerków 1/2/3) */}
+        {displayVideos.length > 0 && (
+          <div className="mb-16 space-y-12">
+            {displayVideos.map((vid: any, idx: number) => {
+              const vidTitle = lang === "pl" ? vid.titlePl : (vid.titleEn || vid.titlePl);
+              const headingText = vidTitle || (idx === 0 ? t.videoTitle : null);
+
+              return (
+                <div key={idx} className="space-y-4">
+                  {headingText && (
+                    <h2 className="text-xl font-extrabold uppercase tracking-wider text-slate-200 border-b border-white/10 pb-4">
+                      {headingText}
+                    </h2>
+                  )}
+                  <ProjectVideoPlayer url={vid.url} />
+                </div>
+              );
+            })}
+          </div>
+        )}
       </article>
 
       <ContactFooter settings={settings} lang={lang} />

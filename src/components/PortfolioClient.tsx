@@ -69,11 +69,14 @@ export default function PortfolioClient({ settings, categories, projects }: any)
   const handleNavClick = (targetId: string) => {
     setMobileMenuOpen(false);
     if (activeCategory) {
-      selectCategory(null);
+      setActiveCategory(null);
+      if (typeof window !== "undefined") {
+        window.history.pushState({}, '', window.location.pathname);
+      }
       setTimeout(() => {
         const el = document.getElementById(targetId);
         if (el) el.scrollIntoView({ behavior: "smooth" });
-      }, 100);
+      }, 50);
     } else {
       const el = document.getElementById(targetId);
       if (el) el.scrollIntoView({ behavior: "smooth" });
@@ -298,7 +301,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
               - Komputer: Sklejony, panoramiczny pasek na pełną szerokość z rozszerzaniem na hover
               - Telefon: Płynny horyzontalny snap slider (peek carousel) bez pustego bloku
           */}
-          <section id="categories" className="pt-16 pb-20 md:py-24 w-full overflow-hidden">
+          <section id="categories" className="pt-16 pb-20 md:py-24 w-full overflow-hidden scroll-mt-24">
             <div className="px-6 md:px-16 mb-6 max-w-7xl mx-auto flex items-center justify-between">
               <h2 className="text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-cyanlight">
                 {lang === "pl" ? (settings.categoriesTitlePl || "KATEGORIE") : (settings.categoriesTitleEn || "CATEGORIES")}
@@ -308,7 +311,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
               </span>
             </div>
 
-            {/* Wersja na DESKTOP (od md wzwyż): Panoramiczny sklejony pasek rozszerzający się na hover */}
+            {/* Wersja na DESKTOP (od md wzwyż): Panoramiczny sklejony pasek rozszerzający się subtelnie na hover */}
             <div className="hidden md:flex flex-row h-[520px] lg:h-[600px] w-full overflow-hidden">
               {categories.map((cat: any) => {
                 const imgSrc = cat.entry.coverImage || cat.entry.externalCoverUrl;
@@ -317,7 +320,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   <div 
                     key={cat.slug} 
                     onClick={() => selectCategory(cat.slug)}
-                    className="flex-1 hover:flex-[2.6] transition-[flex] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] relative overflow-hidden cursor-pointer group border-r border-white/10 last:border-none"
+                    className="flex-1 hover:flex-[1.4] transition-[flex] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] relative overflow-hidden cursor-pointer group border-r border-white/10 last:border-none"
                   >
                     {imgSrc && (
                       <img 
@@ -325,7 +328,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                         alt={cat.entry.titlePl} 
                         loading="lazy"
                         decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-105 transition-all duration-700 ease-out" 
+                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-[1.03] transition-all duration-500 ease-out" 
                       />
                     )}
                     <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent group-hover:via-void/25 transition-all duration-500" />
@@ -402,7 +405,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                 {marqueeClients.map((client: any, idx: number) => (
                   <div 
                     key={idx} 
-                    className="flex flex-col items-center justify-center shrink-0 w-32 sm:w-44 md:w-56 group px-2 cursor-pointer"
+                    className="flex flex-col items-center justify-center shrink-0 w-32 sm:w-44 md:w-56 px-2 cursor-default select-none pointer-events-none"
                   >
                     <div className="h-20 sm:h-28 md:h-36 w-full flex items-center justify-center mb-2 sm:mb-3">
                       {client.logoImage ? (
@@ -413,13 +416,13 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                           decoding="async"
                           width={112}
                           height={64}
-                          className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain opacity-75 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+                          className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain opacity-70"
                         />
                       ) : (
                         <ClientDefaultIcon name={client.name} />
                       )}
                     </div>
-                    <span className="text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 group-hover:text-cyanlight transition-colors text-center line-clamp-1">
+                    <span className="text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wider text-slate-400 text-center line-clamp-1">
                       {client.name}
                     </span>
                   </div>
@@ -429,7 +432,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
           </section>
 
           {/* Sekcja O MNIE */}
-          <section id="about" className="py-24 px-6 md:px-16 border-t border-white/10 relative overflow-hidden">
+          <section id="about" className="py-24 px-6 md:px-16 border-t border-white/10 relative overflow-hidden scroll-mt-24">
             <div className="max-w-6xl mx-auto relative z-10">
               
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center mb-16">
@@ -623,8 +626,8 @@ export default function PortfolioClient({ settings, categories, projects }: any)
             </div>
           </div>
 
-          {/* Galeria projektów: Tytuł pojawia się na grafice po najechaniu (desktop) / cały czas na telefonie */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+          {/* Galeria projektów: Smart Masonry (kolumny bez pustych dziur) */}
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 sm:gap-8 [column-fill:_balance]">
             {filteredProjects.map((proj: any) => {
               const thumb = proj.entry.thumbnail || proj.entry.externalThumbnailUrl;
               return (
@@ -632,7 +635,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   href={`/projects/${proj.slug}`} 
                   prefetch={false}
                   key={proj.slug} 
-                  className="block group cursor-pointer active:scale-[0.98] transition-all duration-300"
+                  className="break-inside-avoid mb-6 sm:mb-8 block group cursor-pointer active:scale-[0.98] transition-all duration-300 transform-gpu"
                 >
                   <div className={`relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_45px_rgba(6,182,212,0.22)] ${aspectClass(proj.entry.aspectRatio)}`}>
                     <img 
