@@ -21,46 +21,63 @@ body {
 }
 
 /* ============================================================
-   🌌 DELIKATNIE I POWOLI PŁYWAJĄCE TŁO AMBIENTOWE (GPU)
+   🌌 DELIKATNIE I POWOLI PŁYWAJĄCE TŁO AMBIENTOWE (Zoptymalizowane pod CPU i GPU)
    ============================================================ */
 @keyframes ambientDrift1 {
   0%, 100% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate3d(0px, 0px, 0) scale(1);
   }
   50% {
-    transform: translate(-45px, 30px) scale(1.1);
+    transform: translate3d(-35px, 25px, 0) scale(1.06);
   }
 }
 
 @keyframes ambientDrift2 {
   0%, 100% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate3d(0px, 0px, 0) scale(1);
   }
   50% {
-    transform: translate(35px, -35px) scale(0.92);
+    transform: translate3d(28px, -28px, 0) scale(0.95);
   }
 }
 
 @keyframes ambientDrift3 {
   0%, 100% {
-    transform: translate(0px, 0px) scale(1);
+    transform: translate3d(0px, 0px, 0) scale(1);
   }
   50% {
-    transform: translate(-30px, -25px) scale(1.06);
+    transform: translate3d(-25px, -20px, 0) scale(1.04);
   }
 }
 
 .ambient-orb-1 {
   animation: ambientDrift1 22s ease-in-out infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  contain: strict;
 }
 .ambient-orb-2 {
   animation: ambientDrift2 26s ease-in-out infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  contain: strict;
 }
 .ambient-orb-3 {
   animation: ambientDrift3 28s ease-in-out infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  contain: strict;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-orb-1,
+  .ambient-orb-2,
+  .ambient-orb-3 {
+    animation: none;
+  }
 }
 
 /* ============================================================

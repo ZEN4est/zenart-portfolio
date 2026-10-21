@@ -1,5 +1,5 @@
 "use client";
-import { getAssetUrl } from "@/utils/paths";
+import { getOptimizedImageUrl } from "@/utils/images";
 import React, { useState } from "react";
 
 export default function WireframeSlider({ mainImage, wireframeImage, lang = "pl" }: { mainImage: string; wireframeImage: string; lang?: "pl" | "en" }) {
@@ -15,15 +15,31 @@ export default function WireframeSlider({ mainImage, wireframeImage, lang = "pl"
       <div className="relative w-full max-w-max mx-auto rounded-3xl overflow-hidden shadow-2xl group select-none">
         
         {/* max-h-[75vh] upewnia się, że obrazek nigdy nie będzie wyższy niż 75% wysokości ekranu, w-auto zapobiega rozciągnięciu w poziomie */}
-        <img src={getAssetUrl(mainImage)} alt="Main render" className="block max-h-[75vh] w-auto h-auto object-contain" />
+        <img 
+          src={getOptimizedImageUrl(mainImage, 1200)} 
+          alt="Main render" 
+          loading="lazy"
+          decoding="async"
+          className="block max-h-[75vh] w-auto h-auto object-contain" 
+        />
         
         {/* Kontener z siatką przykrywa obrazek bazowy */}
         <div className="absolute inset-0 w-full h-full overflow-hidden" style={{ clipPath: `inset(0 ${100 - sliderValue}% 0 0)` }}>
-          <img src={getAssetUrl(wireframeImage)} alt="Wireframe" className="absolute inset-0 w-full h-full object-cover" />
+          <img 
+            src={getOptimizedImageUrl(wireframeImage, 1200)} 
+            alt="Wireframe" 
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover" 
+          />
         </div>
 
         <input 
-          type="range" min="0" max="100" value={sliderValue} 
+          type="range" 
+          min="0" 
+          max="100" 
+          value={sliderValue} 
+          aria-label={lang === "pl" ? "Porównanie siatki modelu z renderem" : "Compare wireframe with render"}
           onChange={(e) => setSliderValue(Number(e.target.value))}
           className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-20"
         />

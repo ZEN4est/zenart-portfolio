@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import ContactFooter from "@/components/ContactFooter";
 import { getAssetUrl } from "@/utils/paths";
+import { getOptimizedImageUrl } from "@/utils/images";
 
 function ClientDefaultIcon({ name }: { name: string }) {
   const n = name.toUpperCase();
@@ -242,8 +243,18 @@ export default function PortfolioClient({ settings, categories, projects }: any)
           {/* Sekcja Hero: Zapełnia całą stronę (100vh) + spokojny, elegancki fade-in napisów */}
           <section className="relative h-screen min-h-screen w-full flex items-end pb-16 md:pb-24 pt-24 px-6 md:px-16 overflow-hidden border-b border-white/5">
             {settings.showreelUrl && (
-              <video autoPlay loop muted playsInline className="absolute inset-0 w-full h-full object-cover opacity-40 scale-100">
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+                tabIndex={-1}
+                className="absolute inset-0 w-full h-full object-cover opacity-40 scale-100"
+              >
                 <source src={getAssetUrl(settings.showreelUrl)} type="video/mp4" />
+                <track kind="captions" srcLang="pl" label="Wideo w tle bez lektora" />
               </video>
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-void/25 pointer-events-none" />
@@ -308,8 +319,10 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   >
                     {imgSrc && (
                       <img 
-                        src={getAssetUrl(imgSrc)} 
+                        src={getOptimizedImageUrl(imgSrc, 1080)} 
                         alt={cat.entry.titlePl} 
+                        loading="lazy"
+                        decoding="async"
                         className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-105 transition-all duration-700 ease-out" 
                       />
                     )}
@@ -348,8 +361,10 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   >
                     {imgSrc && (
                       <img 
-                        src={getAssetUrl(imgSrc)} 
+                        src={getOptimizedImageUrl(imgSrc, 750)} 
                         alt={cat.entry.titlePl} 
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-cover opacity-75" 
                       />
                     )}
@@ -390,8 +405,12 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                     <div className="h-20 sm:h-28 md:h-36 w-full flex items-center justify-center mb-2 sm:mb-3">
                       {client.logoImage ? (
                         <img 
-                          src={getAssetUrl(client.logoImage)} 
+                          src={getOptimizedImageUrl(client.logoImage, 384)} 
                           alt={client.name} 
+                          loading="lazy"
+                          decoding="async"
+                          width={180}
+                          height={120}
                           className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain filter brightness-110 contrast-125 opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" 
                           style={{ imageRendering: "-webkit-optimize-contrast" }}
                         />
@@ -573,8 +592,10 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                 >
                   <div className={`relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_45px_rgba(6,182,212,0.22)] ${aspectClass(proj.entry.aspectRatio)}`}>
                     <img 
-                      src={getAssetUrl(thumb)} 
+                      src={getOptimizedImageUrl(thumb, 828)} 
                       alt={proj.entry.titlePl} 
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
                     />
                     

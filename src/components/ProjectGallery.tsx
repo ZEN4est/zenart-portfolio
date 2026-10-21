@@ -1,5 +1,6 @@
 "use client";
 import { getAssetUrl } from "@/utils/paths";
+import { getOptimizedImageUrl } from "@/utils/images";
 import React, { useState } from "react";
 
 export default function ProjectGallery({ images }: { images: { url: string; caption: string }[] }) {
@@ -17,10 +18,12 @@ export default function ProjectGallery({ images }: { images: { url: string; capt
             onClick={() => setLightboxIndex(idx)}
             className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-2xl transition-all duration-500 shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:shadow-[0_20px_45px_rgba(6,182,212,0.15)] active:scale-[0.98]"
           >
-            {/* Zdjęcie w swoich naturalnych proporcjach, bez sztucznego obcinania do kwadratu */}
+            {/* Zdjęcie w galerii ładuje się w zoptymalizowanym, ultra-lekkim formacie WebP */}
             <img 
-              src={getAssetUrl(img.url)} 
+              src={getOptimizedImageUrl(img.url, 1080)} 
               alt={img.caption || `Ujęcie ${idx + 1}`} 
+              loading="lazy"
+              decoding="async"
               className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-700 ease-out" 
             />
             

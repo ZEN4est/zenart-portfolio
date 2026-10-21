@@ -98,40 +98,46 @@ export default function ContactFooter({ settings, lang }: { settings: any, lang:
             </div>
           </div>
 
-          {/* Pola formularza w czystym, nowoczesnym stylu */}
+          {/* Pola formularza w czystym, nowoczesnym stylu z pełnym wsparciem dostępności (WCAG) */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-2">
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+              <label htmlFor="contact-name" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
                 {lang === "pl" ? "Imię / Nazwa firmy *" : "Full Name / Company *"}
               </label>
               <input 
+                id="contact-name"
                 type="text" 
                 name="name" 
                 required 
+                aria-label={lang === "pl" ? "Imię lub Nazwa firmy" : "Full Name or Company"}
                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:border-cyan focus:outline-none transition" 
               />
             </div>
             <div>
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+              <label htmlFor="contact-email" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
                 {lang === "pl" ? "Adres e-mail *" : "Email Address *"}
               </label>
               <input 
+                id="contact-email"
                 type="email" 
                 name="email" 
                 required 
+                aria-label={lang === "pl" ? "Adres e-mail" : "Email Address"}
                 className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:border-cyan focus:outline-none transition" 
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+            <label htmlFor="contact-message" className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
               {lang === "pl" ? "Wiadomość / Opis projektu *" : "Message / Project details *"}
             </label>
             <textarea 
+              id="contact-message"
               name="message" 
               rows={4} 
               required 
+              aria-label={lang === "pl" ? "Wiadomość lub opis projektu" : "Message or project details"}
               className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-sm text-white placeholder-slate-500 focus:border-cyan focus:outline-none transition resize-y" 
             />
           </div>
