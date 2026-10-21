@@ -1,0 +1,36 @@
+{
+  "titlePl": "Makiety laptopa dla Poliman",
+  "titleEn": "Laptop Mockups for Poliman",
+  "order": 2,
+  "category": "modelling",
+  "aspectRatio": "square",
+  "descriptionPl": "Zestaw fotorealistycznych makiet 3D stworzonych do prezentacji projektów stron internetowych w portfolio studia Poliman. Od podstaw zamodelowałem laptopa z dbałością o czystą geometrię, realistyczne materiały i studyjne oświetlenie, które skupia wzrok na interfejsach webowych.",
+  "descriptionEn": "A set of photorealistic 3D mockups crafted to showcase web design projects for Poliman’s portfolio. I modeled the custom laptop from scratch, featuring clean geometry, realistic material shaders, and balanced studio lighting designed to highlight the web UI.",
+  "tools": "Blender",
+  "client": "Poliman",
+  "completedDate": "29-05-2024",
+  "gallery": [
+    {
+      "image": "/uploads/projects/makiety-laptopa-dla-poliman/gallery/0/image.png"
+    },
+    {
+      "image": "/uploads/projects/makiety-laptopa-dla-poliman/gallery/1/image.png"
+    },
+    {
+      "image": "/uploads/projects/makiety-laptopa-dla-poliman/gallery/2/image.png"
+    }
+  ],
+  "models": [],
+  "videos": [
+    {
+      "externalUrl": "/uploads/videos/web1.mp4"
+    },
+    {
+      "externalUrl": "/uploads/videos/web3.mp4"
+    },
+    {
+      "externalUrl": "/uploads/videos/web2.mp4"
+    }
+  ],
+  "wireframeComparisons": []
+}
