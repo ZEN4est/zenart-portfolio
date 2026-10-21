@@ -1,0 +1,30 @@
+{
+  "titlePl": "Demon",
+  "titleEn": "Demon",
+  "order": 2,
+  "category": "modelling",
+  "aspectRatio": "square",
+  "descriptionPl": "Projekt studyjny skupiony na rzeźbieniu w ZBrushu w oparciu o zaawansowane techniki organiczne. Po etapie sculptingu wykonałem pełny proces teksturowania PBR w Substance 3D Painterze, a finalną scenę z dopracowanym oświetleniem i shaderami wyrenderowałem w Blenderze.",
+  "descriptionEn": "A sculpting exercise focused on developing organic modeling workflows in ZBrush. The high-poly sculpt was textured from scratch using PBR workflows in Substance 3D Painter, with final shading, studio lighting, and rendering handled in Blender.",
+  "tools": "Zbrush",
+  "completedDate": "18-12-2023",
+  "thumbnail": "/uploads/projects/demon/thumbnail.jpg",
+  "gallery": [
+    {
+      "image": "/uploads/projects/demon/gallery/0/image.jpg"
+    },
+    {
+      "image": "/uploads/projects/demon/gallery/1/image.jpg"
+    }
+  ],
+  "models": [],
+  "videos": [],
+  "wireframeComparisons": [
+    {
+      "titlePl": "Porównanie modelu bez tekstur",
+      "titleEn": "Comparison of the model without textures",
+      "mainImage": "/uploads/projects/demon/wireframeComparisons/0/mainImage.jpg",
+      "wireframeImage": "/uploads/projects/demon/wireframeComparisons/0/wireframeImage.png"
+    }
+  ]
+}
