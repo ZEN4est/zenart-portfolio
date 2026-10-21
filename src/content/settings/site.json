@@ -23,21 +23,21 @@
   "aboutEducationPl": "Mgr inż. Informatyki Stosowanej (AGH w Krakowie)",
   "aboutEducationEn": "M.Sc. Eng. in Applied Computer Science (AGH UST)",
   "aboutEducationDescPl": "Akademia Górniczo-Hutnicza w Krakowie — wiedza z zakresu algorytmów, programowania, grafiki i AI",
-  "aboutEducationDescEn": "AGH University of Krakow — computer graphics algorithms, geometry optimization, and digital pipelines.",
+  "aboutEducationDescEn": "AGH University of Science and Technology in Krakow — expertise in algorithms, programming, graphics, and AI",
   "aboutExperienceLabelPl": "Doświadczenie",
   "aboutExperienceLabelEn": "Experience",
   "aboutExperienceYears": "4+",
   "aboutExperienceSuffixPl": "lat w branży 3D",
   "aboutExperienceSuffixEn": "years in 3D",
   "aboutExperienceDescPl": "Dziesiątki zrealizowanych projektów komercyjnych, wizualizacji produktowych, assetów gamedev oraz animacji w Blenderze.",
-  "aboutExperienceDescEn": "Hundreds of commercial 3D assets, product visualizations, game-ready models, and Blender animations.",
-  "aboutCompanyLabelPl": "Działalność & B2B",
+  "aboutExperienceDescEn": "Dozens of completed commercial projects, product visualizations, gamedev assets, and Blender animations.",
+  "aboutCompanyLabelPl": "Działalność",
   "aboutCompanyLabelEn": "Business & B2B",
   "aboutCompanyPl": "Własna zarejestrowana działalność — Faktury bez VAT / B2B",
   "aboutCompanyEn": "Registered business — Invoices without VAT / B2B",
   "aboutCompanyDescPl": "Własna zarejestrowana działalność — Faktury bez VAT / B2B i bezpieczne umowy.",
   "aboutCompanyDescEn": "Registered business — Invoices without VAT / B2B and copyright agreements.",
-  "aboutPipelineLabelPl": "Pipeline & Narzędzia",
+  "aboutPipelineLabelPl": "Pipeline i Narzędzia",
   "aboutPipelineLabelEn": "Pipeline & Tools",
   "aboutPipelineTitlePl": "Blender",
   "aboutPipelineTitleEn": "Blender",
@@ -112,7 +112,5 @@
       "name": "STOLDREW",
       "logoImage": "/uploads/clients/clients/7/logoImage.png"
     }
-  ],
-  "aboutSkillsHeaderPl": "Kluczowe umiejętności i technologie:",
-  "aboutSkillsHeaderEn": "Key Skills & Technologies:"
+  ]
 }
