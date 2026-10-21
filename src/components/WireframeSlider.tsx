@@ -2,13 +2,24 @@
 import { getOptimizedImageUrl } from "@/utils/images";
 import React, { useState } from "react";
 
-export default function WireframeSlider({ mainImage, wireframeImage, lang = "pl" }: { mainImage: string; wireframeImage: string; lang?: "pl" | "en" }) {
+export default function WireframeSlider({
+  mainImage,
+  wireframeImage,
+  title,
+  lang = "pl",
+}: {
+  mainImage: string;
+  wireframeImage: string;
+  title?: string;
+  lang?: "pl" | "en";
+}) {
   const [sliderValue, setSliderValue] = useState(50);
+  const heading = title || (lang === "pl" ? "Siatka modelu (Wireframe)" : "Model Wireframe");
 
   return (
     <div className="mb-16">
       <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
-        {lang === "pl" ? "Siatka modelu (Wireframe)" : "Model Wireframe"}
+        {heading}
       </h2>
       
       {/* Dodane ograniczenie max-h-[75vh], wyśrodkowanie margin-x-auto, a szerokość dopasowuje się do obrazka wewnątrz (w-auto/inline-block) */}

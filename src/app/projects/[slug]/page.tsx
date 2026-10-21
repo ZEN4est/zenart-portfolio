@@ -64,7 +64,78 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   const categories = (rawCategories || []).sort((a, b) => (a.entry.order || 99) - (b.entry.order || 99));
 
   const mainThumb = project.thumbnail || project.externalThumbnailUrl;
-  const glbUrl = project.modelGlb || project.externalGlbUrl;
+  const legacyGlb = project.modelGlb || project.externalGlbUrl;
+
+  // Pobieranie wszystkich modeli 3D (nowa tablica + archiwalne pojedyncze pole)
+  const models: { titlePl?: string; titleEn?: string; url: string }[] = [];
+  if (Array.isArray(project.models)) {
+    project.models.forEach((m: any) => {
+      const url = m.modelFile || m.externalUrl;
+      if (url) {
+        models.push({
+          titlePl: m.titlePl || "",
+          titleEn: m.titleEn || "",
+          url,
+        });
+      }
+    });
+  }
+  if (legacyGlb && !models.some((m) => m.url === legacyGlb)) {
+    models.push({
+      titlePl: "",
+      titleEn: "",
+      url: legacyGlb,
+    });
+  }
+
+  // Pobieranie wszystkich wideo (nowa tablica + archiwalne pole)
+  const videos: { titlePl?: string; titleEn?: string; url: string }[] = [];
+  if (Array.isArray(project.videos)) {
+    project.videos.forEach((v: any) => {
+      const url = v.videoFile || v.externalUrl;
+      if (url) {
+        videos.push({
+          titlePl: v.titlePl || "",
+          titleEn: v.titleEn || "",
+          url,
+        });
+      }
+    });
+  }
+  const legacyVideo = project.videoUrl || project.externalVideoUrl;
+  if (legacyVideo && !videos.some((v) => v.url === legacyVideo)) {
+    videos.push({
+      titlePl: "",
+      titleEn: "",
+      url: legacyVideo,
+    });
+  }
+
+  // Pobieranie porównań siatek (nowa tablica + archiwalne pojedyncze pole)
+  const wireframes: { titlePl?: string; titleEn?: string; mainImage: string; wireframeImage: string }[] = [];
+  if (Array.isArray(project.wireframeComparisons)) {
+    project.wireframeComparisons.forEach((wf: any) => {
+      const main = wf.mainImage || wf.externalMainImageUrl || mainThumb;
+      const wire = wf.wireframeImage || wf.externalWireframeUrl;
+      if (main && wire) {
+        wireframes.push({
+          titlePl: wf.titlePl || "",
+          titleEn: wf.titleEn || "",
+          mainImage: main,
+          wireframeImage: wire,
+        });
+      }
+    });
+  }
+  const legacyWireframe = project.wireframeImage || project.externalWireframeUrl;
+  if (legacyWireframe && mainThumb && !wireframes.some((wf) => wf.wireframeImage === legacyWireframe)) {
+    wireframes.push({
+      titlePl: "",
+      titleEn: "",
+      mainImage: mainThumb,
+      wireframeImage: legacyWireframe,
+    });
+  }
 
   const allImages: { url: string; caption: string }[] = [];
   if (mainThumb) {
@@ -84,7 +155,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       categories={categories}
       allImages={allImages}
       mainThumb={mainThumb}
-      glbUrl={glbUrl}
+      models={models}
+      videos={videos}
+      wireframes={wireframes}
+      glbUrl={legacyGlb}
     />
   );
 }

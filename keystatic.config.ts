@@ -183,22 +183,91 @@ export default config({
           publicPath: "/uploads/projects/",
         }),
         externalThumbnailUrl: fields.text({ label: "LUB zewnętrzny URL miniaturki" }),
+        /* --- MODELE 3D (INTERAKTYWNE - WIELE MODELI) --- */
+        models: fields.array(
+          fields.object({
+            titlePl: fields.text({ label: "Tytuł modelu (PL, np. Render interaktywny / Low Poly)" }),
+            titleEn: fields.text({ label: "Tytuł modelu (EN, np. Interactive Model / Low Poly)" }),
+            modelFile: fields.file({
+              label: "Plik .glb (z dysku - max ~15-20MB na zapis)",
+              directory: "public/uploads/models",
+              publicPath: "/uploads/models/",
+            }),
+            externalUrl: fields.text({
+              label: "LUB ścieżka do pliku .glb (np. /uploads/models/plik.glb)",
+              description: "Dla plików > 20MB wgraj plik bezpośrednio na serwer FTP do public/uploads/models i wpisz tutaj /uploads/models/nazwa.glb (omija limit 45MB w Keystatic).",
+            }),
+          }),
+          {
+            label: "Modele 3D (.glb) - Podgląd interaktywny (wiele modeli)",
+            itemLabel: (props) => props.fields?.titlePl?.value || props.fields?.titleEn?.value || "Model 3D",
+          }
+        ),
+
+        /* --- WIDEO I ANIMACJE (WIELE WIDEO) --- */
+        videos: fields.array(
+          fields.object({
+            titlePl: fields.text({ label: "Tytuł wideo (PL, np. Animacja / Turntable)" }),
+            titleEn: fields.text({ label: "Tytuł wideo (EN, np. Animation / Turntable)" }),
+            videoFile: fields.file({
+              label: "Plik wideo .mp4 (z dysku - max ~15-20MB na zapis)",
+              directory: "public/uploads/videos",
+              publicPath: "/uploads/videos/",
+            }),
+            externalUrl: fields.text({
+              label: "LUB link do wideo (YouTube, Vimeo lub bezpośredni plik .mp4)",
+              description: "Możesz wkleić link do YouTube / Vimeo lub wgrać duży plik MP4 bezpośrednio na FTP do public/uploads/videos i wpisać np. /uploads/videos/animacja.mp4.",
+            }),
+          }),
+          {
+            label: "Wideo i Animacje (wiele wideo)",
+            itemLabel: (props) => props.fields?.titlePl?.value || props.fields?.titleEn?.value || "Wideo",
+          }
+        ),
+
+        /* --- PORÓWNANIA WIREFRAME (SUWAKI RENDER VS SIATKA) --- */
+        wireframeComparisons: fields.array(
+          fields.object({
+            titlePl: fields.text({ label: "Tytuł porównania (PL, opcjonalnie)" }),
+            titleEn: fields.text({ label: "Tytuł porównania (EN, opcjonalnie)" }),
+            mainImage: fields.image({
+              label: "Obraz renderu kolorowego (jeśli puste, użyta zostanie miniaturka główna)",
+              directory: "public/uploads/projects",
+              publicPath: "/uploads/projects/",
+            }),
+            externalMainImageUrl: fields.text({ label: "LUB link do renderu kolorowego" }),
+            wireframeImage: fields.image({
+              label: "Obraz siatki (wireframe)",
+              directory: "public/uploads/projects",
+              publicPath: "/uploads/projects/",
+            }),
+            externalWireframeUrl: fields.text({ label: "LUB link do obrazka siatki" }),
+          }),
+          {
+            label: "Porównania Wireframe (Suwaki Render vs Siatka)",
+            itemLabel: (props) => props.fields?.titlePl?.value || props.fields?.titleEn?.value || "Porównanie Siatki",
+          }
+        ),
+
+        /* --- POLA ARCHIWALNE (pojedyncze, dla zachowania wstecznej zgodności) --- */
         modelGlb: fields.file({
-          label: "Model 3D (.glb) do interaktywnego podglądu",
+          label: "[Pojedynczy] Model 3D (.glb) - pole archiwalne",
           directory: "public/uploads/models",
           publicPath: "/uploads/models/",
         }),
-        externalGlbUrl: fields.text({ label: "LUB link do pliku .glb" }),
+        externalGlbUrl: fields.text({ label: "[Pojedynczy] LUB link do pliku .glb" }),
         wireframeImage: fields.image({
-          label: "Obrazek siatki (dla suwaka Render vs Wireframe)",
+          label: "[Pojedynczy] Obrazek siatki (dla miniaturki) - pole archiwalne",
           directory: "public/uploads/projects",
           publicPath: "/uploads/projects/",
         }),
+        externalWireframeUrl: fields.text({ label: "[Pojedynczy] LUB link do obrazka siatki" }),
         videoUrl: fields.file({
-          label: "Plik wideo / animacja (.mp4)",
+          label: "[Pojedynczy] Plik wideo / animacja (.mp4) - pole archiwalne",
           directory: "public/uploads/videos",
           publicPath: "/uploads/videos/",
         }),
+        externalVideoUrl: fields.text({ label: "[Pojedynczy] LUB zewnętrzny link do wideo (YouTube / MP4)" }),
         gallery: fields.array(
           fields.object({
             image: fields.image({

@@ -5,10 +5,21 @@ import React, { useState, useEffect } from "react";
 import ProjectGallery from "@/components/ProjectGallery";
 import WireframeSlider from "@/components/WireframeSlider";
 import ClientModelViewer from "@/components/ClientModelViewer";
+import ProjectVideoPlayer from "@/components/ProjectVideoPlayer";
 import ProjectHeader from "@/components/ProjectHeader";
 import ContactFooter from "@/components/ContactFooter";
 
-export default function ProjectClientView({ project, settings, categories, allImages, mainThumb, glbUrl }: any) {
+export default function ProjectClientView({
+  project,
+  settings,
+  categories,
+  allImages,
+  mainThumb,
+  models = [],
+  videos = [],
+  wireframes = [],
+  glbUrl,
+}: any) {
   const [lang, setLang] = useState<"pl" | "en">("pl");
   const [mounted, setMounted] = useState(false);
 
@@ -29,8 +40,24 @@ export default function ProjectClientView({ project, settings, categories, allIm
     completed: lang === "pl" ? "Ukończono:" : "Completed:",
     modelTitle: lang === "pl" ? "Model 3D (Interaktywny)" : "3D Model (Interactive)",
     videoTitle: lang === "pl" ? "Prezentacja Wideo" : "Video Presentation",
+    wireframeTitle: lang === "pl" ? "Siatka modelu (Wireframe)" : "Model Wireframe",
     galleryTitle: lang === "pl" ? "Galeria Projektu" : "Project Gallery"
   };
+
+  // Bezpieczne zestawienie modeli (tablica z props lub fallback)
+  const displayModels = models.length > 0
+    ? models
+    : (glbUrl ? [{ url: glbUrl, titlePl: "", titleEn: "" }] : []);
+
+  // Bezpieczne zestawienie wideo (tablica z props lub fallback)
+  const displayVideos = videos.length > 0
+    ? videos
+    : (project.videoUrl ? [{ url: project.videoUrl, titlePl: "", titleEn: "" }] : []);
+
+  // Bezpieczne zestawienie porównań wireframe (tablica z props lub fallback)
+  const displayWireframes = wireframes.length > 0
+    ? wireframes
+    : (project.wireframeImage && mainThumb ? [{ mainImage: mainThumb, wireframeImage: project.wireframeImage, titlePl: "", titleEn: "" }] : []);
 
   return (
     <>
@@ -93,29 +120,45 @@ export default function ProjectClientView({ project, settings, categories, allIm
           </div>
         )}
 
-        {glbUrl && (
-          <div className="mb-16">
-            <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
-              {t.modelTitle}
-            </h2>
-            <ClientModelViewer glbUrl={glbUrl} lang={lang} />
-          </div>
-        )}
+        {/* Modele 3D (wsparcie dla wielu modeli lub pojedynczego) */}
+        {displayModels.map((m: any, idx: number) => {
+          const modelTitle = lang === "pl" ? m.titlePl : (m.titleEn || m.titlePl);
+          return (
+            <div key={idx} className="mb-16">
+              <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
+                {modelTitle || (displayModels.length > 1 ? `${t.modelTitle} ${idx + 1}` : t.modelTitle)}
+              </h2>
+              <ClientModelViewer glbUrl={m.url} lang={lang} />
+            </div>
+          );
+        })}
 
-        {project.wireframeImage && mainThumb && (
-          <WireframeSlider mainImage={mainThumb} wireframeImage={project.wireframeImage} lang={lang} />
-        )}
+        {/* Porównania Wireframe (wsparcie dla wielu suwaków lub pojedynczego) */}
+        {displayWireframes.map((wf: any, idx: number) => {
+          const wfTitle = lang === "pl" ? wf.titlePl : (wf.titleEn || wf.titlePl);
+          return (
+            <WireframeSlider
+              key={idx}
+              mainImage={wf.mainImage}
+              wireframeImage={wf.wireframeImage}
+              title={wfTitle || (displayWireframes.length > 1 ? `${t.wireframeTitle} ${idx + 1}` : undefined)}
+              lang={lang}
+            />
+          );
+        })}
 
-        {project.videoUrl && (
-          <div className="mb-16">
-            <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
-              {t.videoTitle}
-            </h2>
-            <video controls className="w-full rounded-3xl shadow-2xl bg-black max-h-[75vh]">
-              <source src={getAssetUrl(project.videoUrl)} type="video/mp4" />
-            </video>
-          </div>
-        )}
+        {/* Prezentacje Wideo (wsparcie dla wielu wideo, YouTube, Vimeo i plików MP4) */}
+        {displayVideos.map((vid: any, idx: number) => {
+          const vidTitle = lang === "pl" ? vid.titlePl : (vid.titleEn || vid.titlePl);
+          return (
+            <div key={idx} className="mb-16">
+              <h2 className="text-xl font-extrabold uppercase tracking-wider mb-6 text-slate-200 border-b border-white/10 pb-4">
+                {vidTitle || (displayVideos.length > 1 ? `${t.videoTitle} ${idx + 1}` : t.videoTitle)}
+              </h2>
+              <ProjectVideoPlayer url={vid.url} />
+            </div>
+          );
+        })}
       </article>
 
       <ContactFooter settings={settings} lang={lang} />
