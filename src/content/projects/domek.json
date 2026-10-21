@@ -1,0 +1,20 @@
+{
+  "titlePl": "Domek",
+  "titleEn": "House",
+  "order": 3,
+  "category": "modelling",
+  "aspectRatio": "square",
+  "descriptionPl": "Zadanie rekrutacyjne zrealizowane dla studia gier AAA. Przygotowałem zoptymalizowany asset wraz z kompletem własnoręcznie wypieczonych i opracowanych tekstur, a całość zaprezentowałem w rzucie ortogonalnym z dopracowanym oświetleniem podkreślającym detale i formę modelu.",
+  "descriptionEn": "A recruitment art test created for an AAA game studio. I developed an optimized 3D asset featuring custom-baked PBR textures, presented in an orthographic view with tailored lighting designed to accentuate surface details and silhouette.",
+  "tools": "Blender",
+  "completedDate": "08-08-2024",
+  "thumbnail": "/uploads/projects/domek/thumbnail.png",
+  "gallery": [
+    {
+      "image": "/uploads/projects/domek/gallery/0/image.png"
+    }
+  ],
+  "models": [],
+  "videos": [],
+  "wireframeComparisons": []
+}
