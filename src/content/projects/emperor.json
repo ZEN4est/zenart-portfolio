@@ -1,0 +1,45 @@
+{
+  "titlePl": "Emperor",
+  "titleEn": "Emperor",
+  "order": 1,
+  "category": "modelling",
+  "aspectRatio": "vertical",
+  "descriptionPl": "Building models made for the Emperor game developed with my team as part of AGH Code Industry",
+  "descriptionEn": "Building models made for Emperor game that I was developing with my team which is part of AGH Code Industry",
+  "tools": "Blender",
+  "client": "Emperor",
+  "completedDate": "19-08-2023",
+  "thumbnail": "/uploads/projects/emperor/thumbnail.png",
+  "gallery": [
+    {
+      "image": "/uploads/projects/emperor/gallery/0/image.png",
+      "captionPl": "Kopalnia zlota",
+      "captionEn": "Gold mine"
+    },
+    {
+      "image": "/uploads/projects/emperor/gallery/1/image.png",
+      "captionPl": "Kopalnia żelaza",
+      "captionEn": "Iron mine"
+    },
+    {
+      "image": "/uploads/projects/emperor/gallery/2/image.png",
+      "captionPl": "Farma warzyw",
+      "captionEn": "Vegetable farm"
+    },
+    {
+      "image": "/uploads/projects/emperor/gallery/3/image.png",
+      "captionPl": "Płatnerz",
+      "captionEn": "Armorer"
+    },
+    {
+      "image": "/uploads/projects/emperor/gallery/4/image.png",
+      "captionPl": "Farma zboża",
+      "captionEn": "Grain farm"
+    },
+    {
+      "image": "/uploads/projects/emperor/gallery/5/image.png",
+      "captionPl": "Fletcher",
+      "captionEn": "Fletcher"
+    }
+  ]
+}
