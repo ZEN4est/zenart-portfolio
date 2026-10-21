@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -32,6 +33,12 @@ jobs:
           NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID }}
         run: npm run build
 
+      - name: Utworzenie znacznika restartu LiteSpeed (tmp/restart.txt)
+        run: |
+          mkdir -p tmp
+          date +%s > tmp/restart.txt
+          echo "Utworzono znacznik restartu z timestampem: $(cat tmp/restart.txt)"
+
       - name: Wysyłanie plików przez FTP do IQHost
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -44,3 +51,10 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/.htaccess
+
+      - name: Wzbudzenie serwera (Automatyczny Restart LiteSpeed)
+        run: |
+          echo "Wysyłam żądanie HTTP, aby LiteSpeed wykrył restart.txt i uruchomił nowy kod..."
+          sleep 3
+          curl -s -i "https://zenart3d.atoma.pl/test" | head -n 15 || true
+          echo "✅ Wdrożenie i automatyczny restart zakończone sukcesem!"
