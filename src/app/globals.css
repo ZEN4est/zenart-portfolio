@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
 
@@ -21,13 +20,13 @@
 }
 
 .font-logo, .font-logo * {
-  font-family: 'Michroma', sans-serif !important;
+  font-family: var(--font-michroma), 'Michroma', sans-serif !important;
 }
 
 body {
   background-color: #07040e;
   color: #f1f5f9;
-  font-family: 'Mulish', sans-serif;
+  font-family: var(--font-mulish), 'Mulish', sans-serif;
   overflow-x: hidden;
 }
 

@@ -1,5 +1,27 @@
 import type { Metadata } from "next";
+import { Mulish, Syncopate, Michroma } from "next/font/google";
 import "./globals.css";
+
+const mulish = Mulish({
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-mulish",
+});
+
+const syncopate = Syncopate({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  display: "swap",
+  variable: "--font-syncopate",
+});
+
+const michroma = Michroma({
+  subsets: ["latin"],
+  weight: ["400"],
+  display: "swap",
+  variable: "--font-michroma",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zenart3d.atoma.pl/test";
 
@@ -110,15 +132,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="pl" className="dark scroll-smooth" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="pl" className={`${mulish.variable} ${syncopate.variable} ${michroma.variable} dark scroll-smooth`} suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
-        {/* Optymalizacja sieciowa pobierania czcionek Google (Preconnect) */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&family=Syncopate:wght@400;700&display=swap"
-          rel="stylesheet"
-        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

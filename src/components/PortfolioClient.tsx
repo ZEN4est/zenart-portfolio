@@ -362,7 +362,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   >
                     {imgSrc && (
                       <img 
-                        src={getOptimizedImageUrl(imgSrc, 750)} 
+                        src={getOptimizedImageUrl(imgSrc, 640)} 
                         alt={cat.entry.titlePl} 
                         loading="lazy"
                         decoding="async"
@@ -406,12 +406,12 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                     <div className="h-20 sm:h-28 md:h-36 w-full flex items-center justify-center mb-2 sm:mb-3">
                       {client.logoImage ? (
                         <img 
-                          src={getOptimizedImageUrl(client.logoImage, 384)} 
+                          src={getOptimizedImageUrl(client.logoImage, 256)} 
                           alt={client.name} 
                           loading="lazy"
                           decoding="async"
-                          width={180}
-                          height={120}
+                          width={120}
+                          height={80}
                           className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain filter brightness-110 contrast-125 opacity-75 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" 
                           style={{ imageRendering: "-webkit-optimize-contrast" }}
                         />
