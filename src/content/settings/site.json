@@ -1,4 +1,6 @@
 {
+  "favicon": "/uploads/settings/favicon.jpg",
+  "ogImage": "/uploads/settings/ogImage.jpg",
   "brandSubheaderPl": "MICHAŁ PIWOWARCZYK — Artysta 3D",
   "brandSubheaderEn": "MICHAŁ PIWOWARCZYK — 3D ARTIST",
   "heroTitlePl": "Zoptymalizowane modele, fotorealistyczne Wizualizacje 3D i Animacje",
@@ -43,6 +45,8 @@
   "aboutPipelineTitleEn": "Blender",
   "aboutPipelineDescPl": "Modelowanie hard-surface, teksturowanie PBR, silniki Cycles i Eevee oraz optymalizacja pod silniki gier.",
   "aboutPipelineDescEn": "Hard-surface modeling, PBR texturing, Cycles & Eevee render engines, and real-time game engine optimization.",
+  "aboutSkillsHeaderPl": "Kluczowe umiejętności i technologie:",
+  "aboutSkillsHeaderEn": "Key Skills & Technologies:",
   "aboutSkillsPl": [
     "Blender",
     "Substance 3D Painter",
@@ -112,9 +116,5 @@
       "name": "STOLDREW",
       "logoImage": "/uploads/clients/clients/7/logoImage.png"
     }
-  ],
-  "aboutSkillsHeaderPl": "Kluczowe umiejętności i technologie:",
-  "aboutSkillsHeaderEn": "Key Skills & Technologies:",
-  "favicon": null,
-  "ogImage": null
+  ]
 }
