@@ -1,0 +1,19 @@
+{
+  "titlePl": "E100",
+  "titleEn": "E100",
+  "order": 2,
+  "category": "modelling",
+  "aspectRatio": "square",
+  "descriptionPl": "Jeden z moich pierwszych w pełni autorskich projektów 3D. Choć etap teksturowania został pominięty, skupiłem się na precyzyjnym modelowaniu sub-d i czystym prowadzeniu siatki, dzięki czemu model świetnie broni się w surowej formie clay i wireframe render.",
+  "descriptionEn": "One of my first fully custom 3D projects. While left untextured, the core focus was placed on clean sub-d topology and precise edge flow, creating a solid foundation that stands out in pure clay and wireframe passes.",
+  "completedDate": "12-04-2023",
+  "thumbnail": "/uploads/projects/e100/thumbnail.png",
+  "gallery": [
+    {
+      "image": "/uploads/projects/e100/gallery/0/image.png"
+    }
+  ],
+  "models": [],
+  "videos": [],
+  "wireframeComparisons": []
+}
