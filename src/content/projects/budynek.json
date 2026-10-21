@@ -1,0 +1,26 @@
+{
+  "titlePl": "Budynek",
+  "titleEn": "Building",
+  "order": 1,
+  "category": "modelling",
+  "aspectRatio": "video",
+  "descriptionPl": "Złożone zadanie rekrutacyjne zoptymalizowane pod kątem silników gier. Przeprowadziłem pełny proces wypalania map, przygotowałem zoptymalizowane tekstury w formacie ORM (Occlusion, Roughness, Metallic) oraz połączyłem autorskie materiały PBR z dopasowanymi teksturami bazowymi.",
+  "descriptionEn": "A comprehensive recruitment art test optimized for game engine workflows. The project features custom-baked maps, packed ORM (Occlusion, Roughness, Metallic) textures for efficient memory usage, and a blend of custom-made PBR materials with base textures.",
+  "tools": "Blender",
+  "completedDate": "20-10-2024",
+  "thumbnail": "/uploads/projects/budynek/thumbnail.png",
+  "gallery": [
+    {
+      "image": "/uploads/projects/budynek/gallery/0/image.png"
+    },
+    {
+      "image": "/uploads/projects/budynek/gallery/1/image.png"
+    },
+    {
+      "image": "/uploads/projects/budynek/gallery/2/image.png"
+    }
+  ],
+  "models": [],
+  "videos": [],
+  "wireframeComparisons": []
+}
