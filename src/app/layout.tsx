@@ -28,7 +28,7 @@ const michroma = localFont({
   variable: "--font-michroma",
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zenart3d.atoma.pl/test";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zenart3d.atoma.pl";
 
 const ogImageUrl = (siteSettings as any)?.ogImage
   ? `${siteUrl}${(siteSettings as any).ogImage}`

@@ -38,7 +38,7 @@ export function getOptimizedImageUrl(
   // automatycznie generuje WebP/AVIF dostosowany do przeglądarki i keszuje go na serwerze.
   // Next.js domyślnie dopuszcza wyłącznie q=75 (inne wartości wywołują błąd 400).
   const safeQuality = 75;
-  const basePath = "/test";
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
   return `${basePath}/_next/image?url=${encodeURIComponent(assetUrl)}&w=${width}&q=${safeQuality}`;
 }
 

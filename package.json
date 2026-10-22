@@ -6,8 +6,7 @@
     "dev": "next dev",
     "build": "next build --webpack",
     "postbuild": "node -e \"const fs=require('fs'); fs.mkdirSync('tmp', {recursive:true}); fs.writeFileSync('tmp/restart.txt', String(Date.now())); console.log('✓ LiteSpeed restart.txt updated');\"",
-    "start": "next start",
-    "postinstall": "node scripts/patch-keystatic.js"
+    "start": "next start"
   },
   "dependencies": {
     "@keystatic/core": "^0.6.9",

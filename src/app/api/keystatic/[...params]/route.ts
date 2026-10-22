@@ -42,8 +42,11 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
     const publicOrigin = `${proto}://${host}`;
 
     const url = new URL(req.url);
+    const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
     let pathname = url.pathname;
-    if (pathname.startsWith("/test/api/keystatic")) {
+    if (basePath && pathname.startsWith(`${basePath}/api/keystatic`)) {
+      pathname = pathname.slice(basePath.length);
+    } else if (pathname.startsWith("/test/api/keystatic")) {
       pathname = pathname.replace(/^\/test/, "");
     }
 
@@ -61,7 +64,7 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
       if (newLocation.includes("github.com/login/oauth/authorize")) {
         try {
           const authUrl = new URL(newLocation);
-          const callbackUrl = `${publicOrigin}/test/api/keystatic/github/oauth/callback`;
+          const callbackUrl = `${publicOrigin}${basePath}/api/keystatic/github/oauth/callback`;
           authUrl.searchParams.set("redirect_uri", callbackUrl);
           if (!authUrl.searchParams.has("scope")) {
             authUrl.searchParams.set("scope", "repo");
@@ -72,16 +75,16 @@ async function wrapHandler(handler: ((req: Request) => Promise<Response>) | null
         }
       }
       // 2. Jeśli to wewnętrzne przekierowanie do /keystatic (np. po pomyślnym zalogowaniu):
-      else if (newLocation.startsWith("/keystatic")) {
-        newLocation = `/test${newLocation}`;
+      else if (basePath && newLocation.startsWith("/keystatic")) {
+        newLocation = `${basePath}${newLocation}`;
       }
       // 3. Jeśli to pełny URL wskazujący na 127.0.0.1:3000 lub localhost:
       else if (newLocation.includes("127.0.0.1") || newLocation.includes("localhost")) {
         try {
           const locUrl = new URL(newLocation);
           let locPath = locUrl.pathname;
-          if (!locPath.startsWith("/test")) {
-            locPath = `/test${locPath}`;
+          if (basePath && !locPath.startsWith(basePath)) {
+            locPath = `${basePath}${locPath}`;
           }
           newLocation = `${publicOrigin}${locPath}${locUrl.search}${locUrl.hash}`;
         } catch (e) {

@@ -1,8 +1,8 @@
-const BASE_PATH = '/test';
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 /**
  * Zwraca poprawny URL do asetu (grafika, wideo, model 3D)
- * z uwzględnieniem basePath w Next.js na środowisku produkcyjnym (/test).
+ * z uwzględnieniem ewentualnego basePath w Next.js.
  */
 export function getAssetUrl(path?: string | null): string {
   if (!path) return '';
@@ -10,6 +10,9 @@ export function getAssetUrl(path?: string | null): string {
     return path;
   }
   const clean = path.startsWith('/') ? path : `/${path}`;
+  if (!BASE_PATH) {
+    return clean;
+  }
   if (clean === BASE_PATH || clean.startsWith(`${BASE_PATH}/`)) {
     return clean;
   }

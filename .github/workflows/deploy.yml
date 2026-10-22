@@ -65,7 +65,7 @@ jobs:
           SERVER="${SERVER#ftp://}"
           SERVER="${SERVER#ftps://}"
           curl -s --ftp-pasv -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
-            "ftp://${SERVER}/test/" \
+            "ftp://${SERVER}/" \
             -Q "-DELE .ftp-deploy-sync-state.json" || true
 
       - name: Wysyłanie plików przez FTP do IQHost
@@ -74,7 +74,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: test/
+          server-dir: ./
           exclude: |
             **/.git*
             **/.git*/**
@@ -91,11 +91,11 @@ jobs:
           PASS="${{ secrets.FTP_PASSWORD }}"
 
           # Bezpośredni upload .env na FTP z flagą --ftp-create-dirs
-          curl -s --ftp-pasv --ftp-create-dirs -T .env -u "$USER:$PASS" "ftp://${SERVER}/test/.env"
+          curl -s --ftp-pasv --ftp-create-dirs -T .env -u "$USER:$PASS" "ftp://${SERVER}/.env"
           echo "✓ Plik .env przesłany na serwer FTP."
 
           # Bezpośredni upload tmp/restart.txt na FTP
-          curl -s --ftp-pasv --ftp-create-dirs -T tmp/restart.txt -u "$USER:$PASS" "ftp://${SERVER}/test/tmp/restart.txt"
+          curl -s --ftp-pasv --ftp-create-dirs -T tmp/restart.txt -u "$USER:$PASS" "ftp://${SERVER}/tmp/restart.txt"
           echo "✓ Plik tmp/restart.txt przesłany na serwer FTP."
 
       - name: Synchronizacja usuniętych projektów i kategorii z serwera FTP
@@ -108,25 +108,25 @@ jobs:
           PASS="${{ secrets.FTP_PASSWORD }}"
 
           # Usuwanie projektów usuniętych z repozytorium
-          REMOTE_PROJECTS=$(curl -s -l --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/test/src/content/projects/" || true)
+          REMOTE_PROJECTS=$(curl -s -l --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/src/content/projects/" || true)
           for raw_file in $REMOTE_PROJECTS; do
             file=$(basename "$raw_file" | tr -d '\r')
             if [ -n "$file" ] && [ "$file" != "." ] && [ "$file" != ".." ] && [[ "$file" == *.json ]]; then
               if [ ! -f "src/content/projects/$file" ]; then
                 echo "Wykryto usunięty projekt na serwerze: $file - usuwam z FTP..."
-                curl -s --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/" -Q "-DELE test/src/content/projects/$file" || true
+                curl -s --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/" -Q "-DELE src/content/projects/$file" || true
               fi
             fi
           done
 
           # Usuwanie kategorii usuniętych z repozytorium
-          REMOTE_CATS=$(curl -s -l --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/test/src/content/categories/" || true)
+          REMOTE_CATS=$(curl -s -l --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/src/content/categories/" || true)
           for raw_file in $REMOTE_CATS; do
             file=$(basename "$raw_file" | tr -d '\r')
             if [ -n "$file" ] && [ "$file" != "." ] && [ "$file" != ".." ] && [[ "$file" == *.json ]]; then
               if [ ! -f "src/content/categories/$file" ]; then
                 echo "Wykryto usuniętą kategorię na serwerze: $file - usuwam z FTP..."
-                curl -s --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/" -Q "-DELE test/src/content/categories/$file" || true
+                curl -s --ftp-pasv -u "$USER:$PASS" "ftp://${SERVER}/" -Q "-DELE src/content/categories/$file" || true
               fi
             fi
           done
@@ -135,5 +135,5 @@ jobs:
         run: |
           echo "Wysyłam żądanie HTTP, aby LiteSpeed wykrył restart.txt i uruchomił nowy kod..."
           sleep 3
-          curl -s -i "https://zenart3d.atoma.pl/test" | head -n 15 || true
+          curl -s -i "https://zenart3d.atoma.pl" | head -n 15 || true
           echo "✅ Wdrożenie i automatyczny restart zakończone sukcesem!"

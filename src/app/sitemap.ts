@@ -4,7 +4,7 @@ import keystaticConfig from "../../keystatic.config";
 import { getAllProjects } from "@/utils/projects";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zenart3d.atoma.pl/test";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zenart3d.atoma.pl";
 
   let projectUrls: MetadataRoute.Sitemap = [];
   try {

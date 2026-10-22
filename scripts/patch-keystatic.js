@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const isTestBasePath = process.env.NEXT_PUBLIC_BASE_PATH === '/test';
+
 function patchFile(relativePath, replacements) {
   const fullPath = path.resolve(relativePath);
   if (!fs.existsSync(fullPath)) {
@@ -9,7 +11,9 @@ function patchFile(relativePath, replacements) {
   }
   let content = fs.readFileSync(fullPath, 'utf8');
   let changed = false;
-  for (const [search, replace] of replacements) {
+  for (const item of replacements) {
+    const search = isTestBasePath ? item[0] : item[1];
+    const replace = isTestBasePath ? item[1] : item[0];
     if (content.includes(search)) {
       content = content.replaceAll(search, replace);
       changed = true;
@@ -17,11 +21,13 @@ function patchFile(relativePath, replacements) {
   }
   if (changed) {
     fs.writeFileSync(fullPath, content, 'utf8');
-    console.log('Successfully patched:', relativePath);
+    console.log(`Successfully ${isTestBasePath ? 'patched (/test)' : 'restored (root)'}:`, relativePath);
   } else {
-    console.log('No matches or already patched:', relativePath);
+    console.log(`Already in correct state (${isTestBasePath ? '/test' : 'root'}):`, relativePath);
   }
 }
+
+console.log(`[patch-keystatic] Mode: ${isTestBasePath ? 'SUBPATH /test' : 'ROOT DOMAIN /'}`);
 
 // 1. Router in core bundle
 patchFile('node_modules/@keystatic/core/dist/index-5d64e651.js', [

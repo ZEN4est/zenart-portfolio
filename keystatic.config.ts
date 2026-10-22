@@ -59,7 +59,7 @@ const createProjectSchema = (categoryFolder: string) => fields.object({
       }),
       externalUrl: fields.text({
         label: "LUB ścieżka do pliku .glb (np. /uploads/models/plik.glb)",
-        description: "Dla plików > 20MB wgraj plik przez naszą wgrywarkę /test/upload (lub przez FTP do public/uploads/models) i wklej tutaj ścieżkę (omija limit 45MB GitHuba).",
+        description: "Dla plików > 20MB wgraj plik przez naszą wgrywarkę /upload (lub przez FTP do public/uploads/models) i wklej tutaj ścieżkę (omija limit 45MB GitHuba).",
       }),
     }),
     {
@@ -80,7 +80,7 @@ const createProjectSchema = (categoryFolder: string) => fields.object({
       }),
       externalUrl: fields.text({
         label: "LUB link do wideo (YouTube, Vimeo lub bezpośredni plik .mp4)",
-        description: "Wklej link YouTube / Vimeo LUB wgraj plik MP4 przez naszą wgrywarkę /test/upload (lub przez FTP do public/uploads/videos) i wklej tutaj ścieżkę.",
+        description: "Wklej link YouTube / Vimeo LUB wgraj plik MP4 przez naszą wgrywarkę /upload (lub przez FTP do public/uploads/videos) i wklej tutaj ścieżkę.",
       }),
     }),
     {
