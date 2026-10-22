@@ -40,7 +40,17 @@ const iconUrl = (siteSettings as any)?.favicon
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  icons: iconUrl ? { icon: iconUrl, apple: iconUrl } : undefined,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      ...(iconUrl ? [{ url: iconUrl }] : []),
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: ["/favicon.ico"],
+  },
   title: {
     default: "ZENART 3D – Michał Piwowarczyk | 3D Artist & Inżynier",
     template: "%s | ZENART 3D",
@@ -148,6 +158,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pl" className={`${mulish.variable} ${michroma.variable} dark`} suppressHydrationWarning>
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/icon.png" type="image/png" sizes="512x512" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" sizes="180x180" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
