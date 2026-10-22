@@ -18,8 +18,8 @@
   "aboutTitleEn": "ABOUT ME",
   "aboutSubtitlePl": "Michał Piwowarczyk — Artysta 3D i Magister-inżynier w dziedzinie IT",
   "aboutSubtitleEn": "Michał Piwowarczyk — 3D Artist & IT Engineer",
-  "aboutBioPl": "Łączę inżynierską precyzję z pasją do grafiki komputerowej. Jako magister inżynier Informatyki Stosowanej Akademii Górniczo-Hutniczej (AGH) w Krakowie oraz Artysta 3D z ponad 4-letnim doświadczeniem, tworzę fotorealistyczne wizualizacje produktów, zaawansowane modele hard-surface oraz zoptymalizowane pod silniki renderowania w czasie rzeczywistym. Prowadzę własną zarejestrowaną firmę, oferując elastyczną współpracę B2B oraz faktury bez VAT",
-  "aboutBioEn": "I combine engineering precision with a passion for computer graphics. As a Master of Science in Applied Computer Science from the AGH University of Science and Technology in Krakow and a 3D Artist with over 4 years of experience, I create photorealistic product visualizations, advanced hard-surface models, and assets optimized for real-time rendering engines. I run my own registered business, offering flexible B2B cooperation and VAT-exempt invoices.",
+  "aboutBioPl": "Łączę inżynierską precyzję z pasją do grafiki komputerowej. Jako magister inżynier Informatyki Stosowanej Akademii Górniczo-Hutniczej (AGH) w Krakowie oraz Artysta 3D z ponad 4-letnim doświadczeniem, tworzę fotorealistyczne wizualizacje produktów, zaawansowane modele hard-surface oraz zoptymalizowane pod silniki renderowania w czasie rzeczywistym. Prowadzę własną zarejestrowaną firmę, oferując elastyczną współpracę B2B oraz faktury",
+  "aboutBioEn": "I combine engineering precision with a passion for computer graphics. As a Master of Science in Applied Computer Science from the AGH University of Science and Technology in Krakow and a 3D Artist with over 4 years of experience, I create photorealistic product visualizations, advanced hard-surface models, and assets optimized for real-time rendering engines. I run my own registered business, offering flexible B2B cooperation and invoices.",
   "aboutEducationLabelPl": "Wykształcenie",
   "aboutEducationLabelEn": "Education",
   "aboutEducationPl": "Mgr inż. Informatyki Stosowanej (AGH w Krakowie)",
@@ -35,10 +35,10 @@
   "aboutExperienceDescEn": "Dozens of completed commercial projects, product visualizations, gamedev assets, and Blender animations.",
   "aboutCompanyLabelPl": "Działalność",
   "aboutCompanyLabelEn": "Business & B2B",
-  "aboutCompanyPl": "Własna zarejestrowana działalność — Faktury bez VAT / B2B",
-  "aboutCompanyEn": "Registered business — Invoices without VAT / B2B",
-  "aboutCompanyDescPl": "Własna zarejestrowana działalność — Faktury bez VAT / B2B i bezpieczne umowy.",
-  "aboutCompanyDescEn": "Registered business — Invoices without VAT / B2B and copyright agreements.",
+  "aboutCompanyPl": "Własna zarejestrowana działalność — Faktury / B2B",
+  "aboutCompanyEn": "Registered business — Invoices / B2B",
+  "aboutCompanyDescPl": "Własna zarejestrowana działalność — Faktury / B2B i bezpieczne umowy.",
+  "aboutCompanyDescEn": "Registered business — Invoices / B2B and copyright agreements.",
   "aboutPipelineLabelPl": "Pipeline i Narzędzia",
   "aboutPipelineLabelEn": "Pipeline & Tools",
   "aboutPipelineTitlePl": "Blender",
@@ -76,6 +76,8 @@
   "phone": "+48 795 757 323",
   "locationPl": "Radom / Zdalnie, Polska",
   "locationEn": "Radom / Remote, Poland",
+  "linkedinUrl": "https://www.linkedin.com/in/michal-piwowarczyk",
+  "instagramUrl": "https://www.instagram.com/zenart_3d",
   "clients": [
     {
       "name": "HC STUDIO",
@@ -120,7 +122,5 @@
       "name": "SADOWSKI STUDIO",
       "logoImage": "/uploads/clients/clients/8/logoImage.png"
     }
-  ],
-  "linkedinUrl": "https://www.linkedin.com/in/michal-piwowarczyk",
-  "instagramUrl": "https://www.instagram.com/zenart_3d"
+  ]
 }
