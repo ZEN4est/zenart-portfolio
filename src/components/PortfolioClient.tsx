@@ -31,12 +31,23 @@ export default function PortfolioClient({ settings, categories, projects }: any)
       const catParam = params.get("category");
       if (catParam) {
         setActiveCategory(catParam);
+        if (!window.location.hash) {
+          window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+          setTimeout(() => {
+            if (!window.location.hash) {
+              window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+            }
+          }, 60);
+        }
       }
     }
 
     const onPopState = () => {
       const params = new URLSearchParams(window.location.search);
       setActiveCategory(params.get("category"));
+      if (!window.location.hash) {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      }
     };
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);

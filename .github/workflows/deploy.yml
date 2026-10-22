@@ -25,6 +25,7 @@ jobs:
           NEXT_PUBLIC_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID }}
           KEYSTATIC_SEC: ${{ secrets.KEYSTATIC_SECRET }}
           ADMIN_PASS: ${{ secrets.ADMIN_PASSWORD || secrets.ADMIN_PASS || secrets.UPLOAD_SECRET || secrets.PASSWORD }}
+          WEB3FORMS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY || secrets.WEB3FORMS_KEY || '' }}
         run: |
           node -e "
             const fs = require('fs');
@@ -36,7 +37,8 @@ jobs:
               'KEYSTATIC_GITHUB_CLIENT_SECRET=' + (process.env.KEYSTATIC_CLIENT_SECRET || ''),
               'KEYSTATIC_SECRET=' + (process.env.KEYSTATIC_SEC || ''),
               'ADMIN_PASSWORD=' + pass,
-              'UPLOAD_SECRET=' + pass
+              'UPLOAD_SECRET=' + pass,
+              'WEB3FORMS_ACCESS_KEY=' + (process.env.WEB3FORMS_KEY || '')
             ];
             fs.writeFileSync('.env', lines.join('\n') + '\n');
             console.log('✓ Plik .env został wygenerowany pomyślnie.');
@@ -58,15 +60,10 @@ jobs:
           date +%s > tmp/restart.txt
           echo "Utworzono znacznik restartu z timestampem: $(cat tmp/restart.txt)"
 
-      - name: Reset pamięci synchronizacji FTP (zapobieganie błędowi 550)
+      - name: Czyszczenie pamięci podręcznej Next.js przed wysyłką FTP (drastyczne przyspieszenie)
         run: |
-          echo "Usuwanie ewentualnego zawieszonego pliku stanu .ftp-deploy-sync-state.json..."
-          SERVER="${{ secrets.FTP_SERVER }}"
-          SERVER="${SERVER#ftp://}"
-          SERVER="${SERVER#ftps://}"
-          curl -s --ftp-pasv -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" \
-            "ftp://${SERVER}/" \
-            -Q "-DELE .ftp-deploy-sync-state.json" || true
+          echo "Usuwanie .next/cache (tysiące zbędnych plików tymczasowych kompilatora)..."
+          rm -rf .next/cache
 
       - name: Wysyłanie plików przez FTP do IQHost
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -80,6 +77,10 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/.htaccess
+            **/.next/cache/**
+            **/.next/cache*
+            **/tmp/**
+            **/data/inquiries/**
 
       - name: Przesłanie pliku .env oraz restart.txt na FTP
         run: |

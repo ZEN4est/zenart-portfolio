@@ -38,6 +38,8 @@ export default function ProjectClientView({
     back: lang === "pl" ? "← Wróć do kategorii" : "← Back to category",
     client: lang === "pl" ? "Klient:" : "Client:",
     completed: lang === "pl" ? "Ukończono:" : "Completed:",
+    tools: lang === "pl" ? "Narzędzia:" : "Tools:",
+    polycount: lang === "pl" ? "Geometria (Trisy):" : "Polycount:",
     modelTitle: lang === "pl" ? "Model 3D (Interaktywny)" : "3D Model (Interactive)",
     videoTitle: lang === "pl" ? "Prezentacja Wideo" : "Video Presentation",
     wireframeTitle: lang === "pl" ? "Siatka modelu (Wireframe)" : "Model Wireframe",
@@ -66,6 +68,12 @@ export default function ProjectClientView({
       <article className="pt-32 pb-24 max-w-6xl mx-auto px-6">
         <Link 
           href={backHref} 
+          scroll={false}
+          onClick={() => {
+            if (typeof window !== "undefined") {
+              window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+            }
+          }}
           className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-cyanlight hover:underline mb-8 cursor-pointer active:scale-95 transition-transform"
         >
           {t.back}
@@ -86,13 +94,13 @@ export default function ProjectClientView({
           <div className="lg:col-span-4 space-y-3 text-sm pt-2">
             {project.tools && (
               <div className="flex justify-between py-1.5 border-b border-white/5">
-                <span className="text-slate-400">Tools:</span>
+                <span className="text-slate-400">{t.tools}</span>
                 <span className="font-bold text-white text-right">{project.tools}</span>
               </div>
             )}
             {project.polycount && (
               <div className="flex justify-between py-1.5 border-b border-white/5">
-                <span className="text-slate-400">Polycount:</span>
+                <span className="text-slate-400">{t.polycount}</span>
                 <span className="font-bold text-cyanlight text-right">{project.polycount}</span>
               </div>
             )}

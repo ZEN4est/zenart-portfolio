@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { getAssetUrl } from "@/utils/paths";
 
 export default function ContactFooter({ settings, lang }: { settings: any; lang: "pl" | "en" }) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -35,7 +36,7 @@ export default function ContactFooter({ settings, lang }: { settings: any; lang:
     setStatus("idle");
 
     try {
-      const res = await fetch(`https://formsubmit.co/ajax/${settings.email}`, {
+      const res = await fetch(getAssetUrl("/api/contact"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -247,7 +248,7 @@ export default function ContactFooter({ settings, lang }: { settings: any; lang:
                   {lang === "pl" 
                     ? "Napisz bezpośrednio na adres: " 
                     : "Please send an email directly to: "}
-                  <a href={`mailto:${settings.email}`} className="underline font-bold text-white">
+                  <a href={`mailto:${settings.email}?subject=${encodeURIComponent("Zapytanie ZenArt 3D - " + (formData.name || "Projekt"))}&body=${encodeURIComponent(formData.message || "")}`} className="underline font-bold text-white hover:text-cyanlight ml-1">
                     {settings.email}
                   </a>
                 </p>

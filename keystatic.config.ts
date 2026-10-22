@@ -216,8 +216,8 @@ export default config({
         ),
         aboutAvatar: fields.image({
           label: "Zdjęcie / Awatar (O Mnie)",
-          directory: "public/uploads/settings",
-          publicPath: "/uploads/settings/",
+          directory: "public/uploads/about",
+          publicPath: "/uploads/about/",
         }),
 
         /* Stopka i Kontakt */
