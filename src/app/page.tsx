@@ -33,7 +33,26 @@ export default async function HomePage() {
 
   try {
     const rawCategories = await reader.collections.categories.all();
-    categories = rawCategories.sort((a, b) => (a.entry.order || 99) - (b.entry.order || 99));
+    categories = await Promise.all(
+      rawCategories.map(async (cat: any) => {
+        let coverImage = cat.entry.coverImage;
+        if (coverImage && typeof coverImage === 'string' && coverImage.startsWith('/uploads/')) {
+          try {
+            const clean = coverImage.split('?')[0];
+            const stat = await fs.stat(path.join(rootDir, 'public', clean));
+            coverImage = `${clean}?v=${Math.floor(stat.mtimeMs)}`;
+          } catch {}
+        }
+        return {
+          ...cat,
+          entry: {
+            ...cat.entry,
+            coverImage,
+          },
+        };
+      })
+    );
+    categories.sort((a, b) => (a.entry.order || 99) - (b.entry.order || 99));
   } catch (err) {
     console.error("[HomePage] Error reading categories:", err);
   }

@@ -1,6 +1,6 @@
 import { config, fields, collection, singleton } from "@keystatic/core";
 
-const projectSchema = fields.object({
+const createProjectSchema = (categoryFolder: string) => fields.object({
   slug: fields.text({
     label: "Identyfikator URL (slug, np. ar-15)",
     description: "Będzie widoczny w adresie strony: /projects/twoj-slug. Jeśli zostawisz puste, wygeneruje się automatycznie z tytułu.",
@@ -24,8 +24,8 @@ const projectSchema = fields.object({
   completedDate: fields.text({ label: "Data ukończenia" }),
   thumbnail: fields.image({
     label: "Miniaturka główna",
-    directory: "public/uploads/projects",
-    publicPath: "/uploads/projects/",
+    directory: `public/uploads/projects/${categoryFolder}`,
+    publicPath: `/uploads/projects/${categoryFolder}/`,
   }),
   externalThumbnailUrl: fields.text({ label: "LUB zewnętrzny URL miniaturki" }),
 
@@ -34,14 +34,17 @@ const projectSchema = fields.object({
     fields.object({
       image: fields.image({
         label: "Render / Ujęcie",
-        directory: "public/uploads/projects",
-        publicPath: "/uploads/projects/",
+        directory: `public/uploads/projects/${categoryFolder}`,
+        publicPath: `/uploads/projects/${categoryFolder}/`,
       }),
       externalUrl: fields.text({ label: "LUB zewnętrzny URL" }),
       captionPl: fields.text({ label: "Podpis (PL)" }),
       captionEn: fields.text({ label: "Podpis (EN)" }),
     }),
-    { label: "Dodatkowe rendery i ujęcia" }
+    {
+      label: "Dodatkowe rendery i ujęcia",
+      itemLabel: (props: any) => props?.fields?.captionPl?.value || props?.value?.captionPl || props?.captionPl || "Ujęcie / Render",
+    }
   ),
 
   /* --- MODELE 3D (INTERAKTYWNE) --- */
@@ -61,7 +64,7 @@ const projectSchema = fields.object({
     }),
     {
       label: "Modele 3D (.glb) - Podgląd interaktywny (wiele modeli)",
-      itemLabel: (props) => props.fields?.titlePl?.value || props.fields?.titleEn?.value || "Model 3D",
+      itemLabel: (props: any) => props?.fields?.titlePl?.value || props?.value?.titlePl || props?.titlePl || props?.fields?.titleEn?.value || props?.value?.titleEn || props?.titleEn || props?.fields?.externalUrl?.value || props?.value?.externalUrl || props?.externalUrl || "Model 3D",
     }
   ),
 
@@ -82,7 +85,7 @@ const projectSchema = fields.object({
     }),
     {
       label: "Wideo i Animacje (wiele wideo)",
-      itemLabel: (props) => props.fields?.titlePl?.value || props.fields?.titleEn?.value || "Wideo",
+      itemLabel: (props: any) => props?.fields?.titlePl?.value || props?.value?.titlePl || props?.titlePl || props?.fields?.titleEn?.value || props?.value?.titleEn || props?.titleEn || props?.fields?.externalUrl?.value || props?.value?.externalUrl || props?.externalUrl || "Wideo",
     }
   ),
 
@@ -94,20 +97,20 @@ const projectSchema = fields.object({
       title: fields.text({ label: "Tytuł porównania (archiwalny)" }),
       mainImage: fields.image({
         label: "Obraz renderu kolorowego (jeśli puste, użyta zostanie miniaturka główna)",
-        directory: "public/uploads/projects",
-        publicPath: "/uploads/projects/",
+        directory: `public/uploads/projects/${categoryFolder}`,
+        publicPath: `/uploads/projects/${categoryFolder}/`,
       }),
       externalMainImageUrl: fields.text({ label: "LUB link do renderu kolorowego" }),
       wireframeImage: fields.image({
         label: "Obraz siatki (wireframe)",
-        directory: "public/uploads/projects",
-        publicPath: "/uploads/projects/",
+        directory: `public/uploads/projects/${categoryFolder}`,
+        publicPath: `/uploads/projects/${categoryFolder}/`,
       }),
       externalWireframeUrl: fields.text({ label: "LUB link do obrazka siatki" }),
     }),
     {
       label: "Porównania Wireframe (Suwaki Render vs Siatka)",
-      itemLabel: (props) => props.fields?.titlePl?.value || props.fields?.titleEn?.value || "Porównanie Siatki",
+      itemLabel: (props: any) => props?.fields?.titlePl?.value || props?.value?.titlePl || props?.titlePl || props?.fields?.titleEn?.value || props?.value?.titleEn || props?.titleEn || props?.fields?.title?.value || props?.value?.title || props?.title || "Porównanie Siatki",
     }
   ),
 });
@@ -252,9 +255,9 @@ export default config({
       path: "src/content/projects-data/modelling",
       format: "json",
       schema: {
-        projects: fields.array(projectSchema, {
+        projects: fields.array(createProjectSchema("modelling"), {
           label: "Projekty w kategorii Modelowanie (przeciągaj kafelki myszką aby zmienić kolejność)",
-          itemLabel: (props) => props.fields?.titlePl?.value || "Projekt",
+          itemLabel: (props: any) => props?.fields?.titlePl?.value || props?.value?.titlePl || props?.titlePl || props?.fields?.titleEn?.value || props?.value?.titleEn || props?.titleEn || "Projekt",
         }),
       },
     }),
@@ -265,9 +268,9 @@ export default config({
       path: "src/content/projects-data/animating",
       format: "json",
       schema: {
-        projects: fields.array(projectSchema, {
+        projects: fields.array(createProjectSchema("animating"), {
           label: "Projekty w kategorii Animacje (przeciągaj kafelki myszką aby zmienić kolejność)",
-          itemLabel: (props) => props.fields?.titlePl?.value || "Projekt",
+          itemLabel: (props: any) => props?.fields?.titlePl?.value || props?.value?.titlePl || props?.titlePl || props?.fields?.titleEn?.value || props?.value?.titleEn || props?.titleEn || "Projekt",
         }),
       },
     }),
@@ -278,9 +281,9 @@ export default config({
       path: "src/content/projects-data/visualizations",
       format: "json",
       schema: {
-        projects: fields.array(projectSchema, {
+        projects: fields.array(createProjectSchema("visualizations"), {
           label: "Projekty w kategorii Wizualizacje (przeciągaj kafelki myszką aby zmienić kolejność)",
-          itemLabel: (props) => props.fields?.titlePl?.value || "Projekt",
+          itemLabel: (props: any) => props?.fields?.titlePl?.value || props?.value?.titlePl || props?.titlePl || props?.fields?.titleEn?.value || props?.value?.titleEn || props?.titleEn || "Projekt",
         }),
       },
     }),

@@ -1,3 +1,205 @@
 {
-  "projects": []
+  "projects": [
+    {
+      "titlePl": "Wizualizacja i animacja komody – Prezentacja produktowa",
+      "titleEn": "Cabinet Assembly & Interior Visualization – Product Animation",
+      "aspectRatio": "video",
+      "descriptionPl": "Animacja 3D typu exploded view przedstawiająca montaż komody z pojedynczych komponentów w gotowy mebel, płynnie przechodząca w pełną aranżację nowoczesnej sypialni. Zadbałem o fotorealistyczne materiały drewna i matowych frontów, naturalne oświetlenie wnętrza oraz spójną kompozycję sceny łączącą detal techniczny z estetyką wnętrzarską.   ",
+      "descriptionEn": "A 3D product animation showcasing the step-by-step assembly of a modern cabinet from individual parts, transitioning smoothly into a fully dressed bedroom interior. The project highlights realistic wood and matte surface shaders, balanced natural interior lighting, and clean composition merging technical clarity with lifestyle archviz.   ",
+      "tools": "Blender",
+      "completedDate": "07-11-2025",
+      "thumbnail": "/uploads/projects/animating/projects/0/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/0/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Cabinet_visualization.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Animacja cząsteczek",
+      "titleEn": "Particle Simulation",
+      "aspectRatio": "video",
+      "descriptionPl": "Symulacja cząsteczkowa zrealizowana w Blenderze, inspirowana zjawiskiem cymatyki oraz czołówką serialu Pierścienie Władzy. Skupiłem się na proceduralnym sterowaniu polami sił, odtwarzając organiczny ruch i formowanie geometrycznych wzorów z drobnego piasku na ciemnej, teksturowanej powierzchni z subtelnym oświetleniem smugowym.",
+      "descriptionEn": "A particle simulation created in Blender, inspired by cymatics patterns and the main title sequence of The Rings of Power. The project focuses on procedural force fields driving fine sand grains into geometric forms across a dark, textured surface, rendered with grazing cinematic lighting.",
+      "tools": "Blender",
+      "completedDate": "19-07-2025",
+      "thumbnail": "/uploads/projects/animating/projects/1/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/1/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/LOTR_Animation_Final.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Animacja logo Poliman – Sekcja Hero",
+      "titleEn": "Animacja logo Poliman – Hero Section",
+      "aspectRatio": "video",
+      "descriptionPl": "Trójwymiarowa animacja logo zrealizowana dla studia Poliman z przeznaczeniem na stronę główną serwisu. Skupiłem się na minimalistycznej, nowoczesnej estetyce z neonowym podświetleniem konturów, wielowarstwowej głębi oraz precyzyjnym operowaniu światłem i odbiciami w ciemnym otoczeniu sceny.   ",
+      "descriptionEn": "A 3D logo animation created for Poliman to serve as the hero centerpiece for their website. The project emphasizes sleek motion and modern aesthetics, featuring layered neon-lit contours, volumetric depth, and precise edge specular highlights against a dark backdrop.   ",
+      "tools": "Blender",
+      "completedDate": "25-04-2024",
+      "thumbnail": "/uploads/projects/animating/projects/2/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/2/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Logo.mp4"
+        },
+        {
+          "externalUrl": "/uploads/videos/0001-0300.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Waving Blocks – Animacja proceduralna",
+      "titleEn": "Waving Blocks – Procedural Animation",
+      "aspectRatio": "square",
+      "descriptionPl": "Krótka, zapętlona animacja motion designu stworzona w Blenderze przy użyciu Geometry Nodes. Skupiłem się na proceduralnym sterowaniu ruchem klocków za pomocą pól matematycznych, płynnym przejściu pętli oraz czystym, minimalistycznym oświetleniu i cieniowaniu.",
+      "descriptionEn": "A seamless, looping motion design piece created in Blender using Geometry Nodes. The project focuses on procedural motion control driven by math functions, a clean loop cycle, and minimal studio lighting with refined shaders.",
+      "tools": "Blender",
+      "completedDate": "18-11-2024",
+      "thumbnail": "/uploads/projects/animating/projects/3/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/3/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Waving_blocks.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Pulsing Sphere – Animacja Geometry Nodes",
+      "titleEn": "Pulsing Sphere – Geometry Nodes Animation",
+      "aspectRatio": "square",
+      "descriptionPl": "An abstract, seamless looping motion design piece created in Blender. Built around a low-poly geodesic sphere, it leverages Geometry Nodes for procedural wireframe lattice generation, dynamic facet displacement, and interaction with an inner metallic core under soft studio lighting.",
+      "descriptionEn": "Abstrakcyjna, zapętlona animacja motion designu stworzona w Blenderze. Oparłem ją na geodezyjnej sferze low-poly, wykorzystując Geometry Nodes do proceduralnego sterowania strukturą drucianą (wireframe), dynamicznego wysuwania faset oraz manipulacji wewnętrznym rdzeniem z połyskliwym, metalicznym materiałem.",
+      "tools": "Blender",
+      "completedDate": "17-11-2024",
+      "thumbnail": "/uploads/projects/animating/projects/4/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/4/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Pulsing_Sphere.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Circle Chips – Animacja Geometry Nodes",
+      "titleEn": "Circle Chips – Geometry Nodes Animation",
+      "aspectRatio": "square",
+      "descriptionPl": "Abstrakcyjna, zapętlona animacja motion designu stworzona w Blenderze przy użyciu Geometry Nodes. Skupiłem się na radialnym instancjonowaniu elementów oraz dynamicznej fali deformacji i koloru sterowanej odległością (proximity), tworząc minimalistyczną, satysfakcjonującą pętlę w miękkim, studyjnym oświetleniu.",
+      "descriptionEn": "An abstract, seamless looping motion design piece created in Blender using Geometry Nodes. The project utilizes radial instancing with dynamic rotation and color transitions driven by geometry proximity, finished with clean studio lighting and soft material shading.",
+      "tools": "Blender",
+      "thumbnail": "/uploads/projects/animating/projects/5/thumbnail.png",
+      "externalThumbnailUrl": "18-11-2024",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/5/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Spiral_Proximity.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Sphere Bubbles – Animacja Geometry Nodes",
+      "titleEn": "Sphere Bubbles – Geometry Nodes Animation",
+      "aspectRatio": "square",
+      "descriptionPl": "Abstrakcyjna kompozycja motion designu zrealizowana w Blenderze przy użyciu Geometry Nodes. Skupiłem się na proceduralnym rozmieszczeniu instancji sferycznych i dyskowych elementów w objętości bryły, łącząc półprzezroczyste, żelowe materiały z metalicznymi akcentami oraz miękkim oświetleniem studyjnym.",
+      "descriptionEn": "An abstract motion design piece created in Blender using Geometry Nodes. The project focuses on procedural volume scattering of spherical and toroid instances, contrasting translucent gel-like shaders with metallic spheres under soft studio lighting.",
+      "tools": "Bledner",
+      "completedDate": "03-08-2025",
+      "thumbnail": "/uploads/projects/animating/projects/6/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/6/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Sphere_Bubbles.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Hexagons – Abstrakcyjna animacja proceduralna",
+      "titleEn": "Hexagons – Abstract procedural animation",
+      "aspectRatio": "square",
+      "descriptionPl": "Projekt motion designu i scenerii proceduralnej zrealizowany w Blenderze przy użyciu Geometry Nodes. Oparłem go na gęstej siatce heksagonalnej, wykorzystując szum matematyczny do płynnej ekstruzji kolumn na zróżnicowane wysokości, z wielowarstwowym materiałem szklano-żelowym oraz subtelną emisją światła u podstawy.",
+      "descriptionEn": "An abstract procedural environment designed in Blender using Geometry Nodes. Built on a dense hexagonal grid, it uses procedural noise to drive dynamic vertical extrusion across the columns, finished with layered glass-like shaders and subtle emission accents at the base.",
+      "tools": "Blender",
+      "thumbnail": "/uploads/projects/animating/projects/7/thumbnail.png",
+      "externalThumbnailUrl": "01-08-2025",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/7/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Hexagons.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Animacja Motion Design",
+      "titleEn": "Motion Design Animation",
+      "aspectRatio": "square",
+      "descriptionPl": "Krótka, satysfakcjonująca animacja 3D typu Rube Goldberg machine stworzona w Blenderze. Skupiłem się na precyzyjnym timingu fizyki obiektów, płynnym przejściu ruchu oraz zróżnicowaniu faktur materiałów – od półprzezroczystego szkła i tkanin po miękkie, pastelowe oświetlenie studyjne.   ",
+      "descriptionEn": "A short, satisfying 3D motion design piece inspired by kinetic Rube Goldberg mechanisms. The project focuses on rigid-body physics timing, smooth motion curves, and tactile material contrast, blending translucent glass, textured fabric shaders, and soft pastel studio lighting.",
+      "tools": "Blender",
+      "completedDate": "18-06-2025",
+      "thumbnail": "/uploads/projects/animating/projects/8/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/animating/projects/8/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "externalUrl": "/uploads/videos/Motion_graphic.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    }
+  ]
 }

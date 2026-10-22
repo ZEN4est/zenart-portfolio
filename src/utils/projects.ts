@@ -59,9 +59,25 @@ export function slugify(text: string): string {
     .replace(/^-+|-+$/g, '');
 }
 
+async function addVersionToPath(url?: string | null, rootDir?: string): Promise<string> {
+  if (!url || typeof url !== 'string') return url || '';
+  if (!url.startsWith('/uploads/')) return url;
+  if (!rootDir) return url;
+  try {
+    const cleanPath = url.split('?')[0];
+    const filePath = path.join(rootDir, 'public', cleanPath);
+    const stat = await fs.stat(filePath);
+    return `${cleanPath}?v=${Math.floor(stat.mtimeMs)}`;
+  } catch {
+    return url;
+  }
+}
+
 /**
  * Pobiera wszystkie projekty ze wszystkich 3 kategorii (Modelowanie, Animacje, Wizualizacje),
  * zachowując dokładnie taką kolejność, jaką ustawiono przeciąganiem myszką w Keystatic.
+ * Do lokalnych plików (/uploads/...) dołączany jest parametr ?v=mtime zapobiegający
+ * serwowaniu starych miniatur przez pamięć podręczną przeglądarki po zamianie kolejności.
  */
 export async function getAllProjects(rootDir: string, reader?: any): Promise<ProjectItem[]> {
   const categories = [
@@ -101,10 +117,30 @@ export async function getAllProjects(rootDir: string, reader?: any): Promise<Pro
 
     for (const p of projs) {
       const cleanSlug = p.slug && p.slug.trim() ? p.slug.trim() : slugify(p.titlePl || 'projekt');
+      const versionedThumbnail = await addVersionToPath(p.thumbnail, rootDir);
+
+      const versionedGallery = p.gallery && Array.isArray(p.gallery)
+        ? await Promise.all(p.gallery.map(async (item: any) => ({
+            ...item,
+            image: await addVersionToPath(item.image, rootDir),
+          })))
+        : p.gallery;
+
+      const versionedWireframe = p.wireframeComparisons && Array.isArray(p.wireframeComparisons)
+        ? await Promise.all(p.wireframeComparisons.map(async (wf: any) => ({
+            ...wf,
+            mainImage: await addVersionToPath(wf.mainImage, rootDir),
+            wireframeImage: await addVersionToPath(wf.wireframeImage, rootDir),
+          })))
+        : p.wireframeComparisons;
+
       allProjects.push({
         slug: cleanSlug,
         entry: {
           ...p,
+          thumbnail: versionedThumbnail,
+          gallery: versionedGallery,
+          wireframeComparisons: versionedWireframe,
           category: cat.category,
         },
       });

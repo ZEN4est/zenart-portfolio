@@ -1,3 +1,151 @@
 {
-  "projects": []
+  "projects": [
+    {
+      "titlePl": "Wizualizacja restauracji – Hybrydowy workflow 3D & AI",
+      "titleEn": "Restaurant Visualization – Hybrid 3D & AI Workflow",
+      "aspectRatio": "video",
+      "descriptionPl": "Koncepcyjna wizualizacja wnętrza restauracji stworzona w nowatorskim, hybrydowym procesie łączącym tradycyjne modelowanie 3D z narzędziem Nano Banana Pro AI. Połączenie precyzyjnej bazy geometrycznej z generatywnym uszczegóławianiem pozwoliło na szybką eksplorację nastroju, oświetlenia oraz unikalnych tekstur, łącząc pełną kontrolę nad kompozycją z dużą elastycznością koncepcyjną.",
+      "descriptionEn": "A concept interior visualization for a restaurant developed using a cutting-edge hybrid pipeline that blends 3D modeling with the Nano Banana Pro AI tool. Pairing a precise architectural base with generative refinement enabled rapid iteration of atmospheric lighting, material moodboards, and stylized details while maintaining compositional intent.",
+      "tools": "Blender, Nano Banana Pro",
+      "client": "Pracownia Dobroci",
+      "completedDate": "10-10-2025",
+      "thumbnail": "/uploads/projects/visualizations/projects/0/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/visualizations/projects/0/gallery/0/image.png"
+        },
+        {
+          "image": "/uploads/projects/visualizations/projects/0/gallery/1/image.jpg"
+        },
+        {
+          "image": "/uploads/projects/visualizations/projects/0/gallery/2/image.png"
+        },
+        {
+          "image": "/uploads/projects/visualizations/projects/0/gallery/3/image.png"
+        },
+        {
+          "image": "/uploads/projects/visualizations/projects/0/gallery/4/image.png"
+        },
+        {
+          "image": "/uploads/projects/visualizations/projects/0/gallery/5/image.png"
+        },
+        {
+          "image": "/uploads/projects/visualizations/projects/0/gallery/6/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Wizualizacja szafki",
+      "titleEn": "Cabinet Visualization",
+      "aspectRatio": "video",
+      "descriptionPl": "Fotorealistyczna wizualizacja produktowa nowoczesnej komody zaprezentowana w zaaranżowanej przestrzeni sypialni. Skupiłem się na wiernym odwzorowaniu materiałów – matowych frontów, drewnianych blatów i uchwytów – oraz na zbalansowanym, ciepłym oświetleniu wnętrza, które naturalnie integruje mebel z otoczeniem.",
+      "descriptionEn": "A photorealistic product visualization of a modern cabinet set within a styled bedroom interior. The focus was placed on accurate PBR shaders for matte surfaces and natural wood accents, paired with balanced, warm interior lighting to seamlessly embed the furniture piece into the living space.",
+      "tools": "Bledner",
+      "completedDate": "07-11-2025",
+      "thumbnail": "/uploads/projects/visualizations/projects/1/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/visualizations/projects/1/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Wizualizacja systemów rynnowych – Kalsi Group",
+      "titleEn": "Gutter Systems Visualization – Kalsi Group Configurator",
+      "aspectRatio": "video",
+      "descriptionPl": "Seria renderów produktowych przygotowanych dla Kalsi Group na potrzeby interaktywnego konfiguratora online. Projekt prezentuje zróżnicowane profile, warianty kolorystyczne i wykończenia materiałowe systemów rynnowych w zestawieniu z różnymi elewacjami, łącząc fotorealistyczne materiały PBR z czytelną prezentacją ułatwiającą wybór klientom.",
+      "descriptionEn": "A series of product visuals created for Kalsi Group's interactive online configurator. The project highlights various gutter profiles, color variants, and material finishes against diverse architectural facades, combining accurate PBR shaders with clear visual communication for end-user customization.   ",
+      "tools": "Blender",
+      "client": "Kalsi Group",
+      "completedDate": "14-11-2025",
+      "thumbnail": "/uploads/projects/visualizations/projects/2/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/visualizations/projects/2/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Wizualizacja architektoniczna – Nowoczesny dom jednorodzinny",
+      "titleEn": "Modern Residence – Architectural Visualization",
+      "aspectRatio": "video",
+      "descriptionPl": "Autorski projekt wizualizacji nowoczesnej architektury mieszkaniowej, skupiony na budowaniu nastroju, precyzyjnym operowaniu światłem i fotorealizmie materiałów. Przedstawia minimalistyczną, dwukondygnacyjną bryłę w otoczeniu gęstej zieleni, łącząc surową elegancję formy z ciepłą, zapraszającą atmosferą subtelnych tonów wieczornego oświetlenia.",
+      "descriptionEn": "A personal archviz study exploring modern residential design with a strong focus on mood, atmospheric lighting, and material fidelity. The visualization features a minimalist two-story home framed by lush vegetation, balancing clean geometric volumes with the warm, inviting ambiance of subtle dusk illumination.",
+      "tools": "Blender",
+      "completedDate": "28-08-2025",
+      "thumbnail": "/uploads/projects/visualizations/projects/3/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/visualizations/projects/3/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Dom w lesie – Wizualizacja architektoniczna",
+      "titleEn": "House in the Forest – Architectural Visualization",
+      "aspectRatio": "video",
+      "descriptionPl": "Autorski projekt archviz eksplorujący harmonijną integrację nowoczesnej architektury z surowym krajobrazem. Wizualizacja przedstawia współczesną leśną chatę wyniesioną ponad skalisty teren, co podkreśla lekkość jej konstrukcji. Skupiłem się na kontraście minimalistycznej formy bryły z organicznym otoczeniem oraz na uchwyceniu spokojnej atmosfery porannej mgły, eksponując faktury drewna, metalu i kamienia.",
+      "descriptionEn": "A personal archviz study exploring the seamless dialogue between contemporary architecture and raw nature. The scene depicts a modern forest cabin elevated above rocky ground to highlight its lightweight structural footprint. The core focus was balancing geometric minimalism with an organic landscape, captured under the serene mood of early morning mist with rich textural detail in wood, metal, and stone.",
+      "tools": "Blender",
+      "completedDate": "01-10-2025",
+      "thumbnail": "/uploads/projects/visualizations/projects/4/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/visualizations/projects/4/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Wizualizacja domu jednorodzinnego – Architektura mieszkaniowa",
+      "titleEn": "Residential House Visualization – Exterior Archviz",
+      "aspectRatio": "video",
+      "descriptionPl": "Fotorealistyczna wizualizacja zewnętrzna nowoczesnego domu jednorodzinnego. Skupiłem się na precyzyjnym odwzorowaniu detali architektonicznych, dopracowanych materiałach elewacyjnych (drewno, tynk, przeszklenia) oraz zbalansowanym oświetleniu dziennym, podkreślającym bryłę budynku i jego integrację z otaczającym krajobrazem.",
+      "descriptionEn": "A photorealistic exterior visualization of a modern single-family home. The project focuses on accurate architectural detailing, high-fidelity facade shaders (wood cladding, concrete finishes, glass), and balanced natural daylight that accentuates the building's geometric volumes and landscape integration.",
+      "tools": "Blender",
+      "thumbnail": "/uploads/projects/visualizations/projects/5/thumbnail.png",
+      "externalThumbnailUrl": "08-10-2025",
+      "gallery": [
+        {
+          "image": "/uploads/projects/visualizations/projects/5/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "titlePl": "Wizualizacja produktowa dla Neutrea",
+      "titleEn": "Neutrea – Commercial Product Visualization",
+      "aspectRatio": "video",
+      "descriptionPl": "Seria fotorealistycznych renderów produktowych przygotowanych dla marki Neutrea. Skupiłem się na precyzyjnym odwzorowaniu opakowań i etykiet, realistycznych shaderach szkła, tworzyw oraz płynów, a także na eleganckim oświetleniu studyjnym eksponującym charakter marki w materiałach marketingowych i e-commerce.",
+      "descriptionEn": "A series of photorealistic product renders developed for Neutrea. The project highlights precise packaging and label modeling, accurate PBR shaders for glass, plastic, and liquid formulations, and clean commercial studio lighting tailored for e-commerce and marketing campaigns.",
+      "tools": "Blender",
+      "client": "Neutrea",
+      "completedDate": "10-06-2025",
+      "thumbnail": "/uploads/projects/visualizations/projects/6/thumbnail.png",
+      "gallery": [
+        {
+          "image": "/uploads/projects/visualizations/projects/6/gallery/0/image.png"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    }
+  ]
 }

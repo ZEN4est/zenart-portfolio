@@ -9,6 +9,13 @@ const nextConfig: NextConfig = {
     'localhost:3000',
     '*.local',
   ],
+  images: {
+    localPatterns: [
+      {
+        pathname: '/**',
+      },
+    ],
+  },
   async headers() {
     return [
       {
@@ -16,7 +23,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=0, must-revalidate',
           },
         ],
       },
