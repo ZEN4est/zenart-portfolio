@@ -18,7 +18,6 @@ export default function AdminLockGate({
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
 
   // Sprawdzenie stanu zalogowania przy załadowaniu komponentu
   useEffect(() => {
@@ -66,18 +65,17 @@ export default function AdminLockGate({
       const data = await res.json();
 
       if (res.ok && data.ok) {
-        // Zapisujemy hasło do sessionStorage na potrzeby bezpośredniego uploadera (opcjonalnie)
         try {
           sessionStorage.setItem("zenart_admin_pass", password.trim());
         } catch {}
-        setIsAuthenticated(true);
-        setError(null);
+        // Przeładuj stronę, aby wszystkie komponenty i panele zainicjalizowały się na czysto
+        window.location.reload();
       } else {
         setError(data.error || "Nieprawidłowe hasło administratora.");
+        setIsLoading(false);
       }
     } catch {
       setError("Błąd połączenia z serwerem. Spróbuj ponownie.");
-    } finally {
       setIsLoading(false);
     }
   };
@@ -92,8 +90,8 @@ export default function AdminLockGate({
       sessionStorage.removeItem("zenart_admin_pass");
       localStorage.removeItem("zenart_upload_pass");
     } catch {}
-    setIsAuthenticated(false);
-    setPassword("");
+    // Czyste przekierowanie na stronę główną
+    window.location.href = getAssetUrl("/api/auth/logout");
   };
 
   // 1. Ekran ładowania / weryfikacji wstępnej
@@ -313,106 +311,93 @@ export default function AdminLockGate({
   }
 
   // 3. Ekran Odblokowany (Użytkownik zalogowany)
+  // Belka górna administratora ma najwyższy możliwy z-index (2147483647), więc żaden modal ani panel jej nie zasłoni
   return (
-    <>
-      {/* Pływający widget statusu administratora (nie koliduje z żadnym layoutem Keystatic ani Uploaderem) */}
-      <div
-        className="fixed bottom-4 right-4 z-[99999] select-none font-sans"
-        style={{ pointerEvents: "auto" }}
-      >
-        {isMinimized ? (
-          <button
-            onClick={() => setIsMinimized(false)}
-            title="Rozwiń pasek administratora"
-            className="flex items-center gap-2 px-3 py-2 rounded-full bg-[#100720]/90 backdrop-blur-md border border-cyan/30 text-white shadow-xl shadow-cyan/10 hover:border-cyan transition-all"
+    <div className="min-h-screen flex flex-col bg-[#07040e]">
+      {/* Pasek Administratora na samej górze */}
+      <header className="sticky top-0 left-0 right-0 z-[2147483647] bg-[#0c0618]/95 backdrop-blur-md border-b border-white/10 px-4 py-2.5 flex items-center justify-between text-xs text-white shadow-2xl">
+        <div className="flex items-center gap-3">
+          <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-bold text-slate-200">
+            Panel Administratora: <span className="text-cyan">{title}</span>
+          </span>
+          <span className="hidden md:inline text-white/20">|</span>
+          <nav className="hidden sm:flex items-center gap-2">
+            <a
+              href={getAssetUrl("/keystatic")}
+              className={`px-2.5 py-1 rounded-lg border transition-all ${
+                title.includes("Keystatic")
+                  ? "bg-cyan/20 border-cyan/40 text-cyanlight font-bold"
+                  : "bg-white/5 border-white/10 text-slate-300 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Keystatic CMS
+            </a>
+            <a
+              href={getAssetUrl("/upload")}
+              className={`px-2.5 py-1 rounded-lg border transition-all ${
+                title.includes("Uploader")
+                  ? "bg-cyan/20 border-cyan/40 text-cyanlight font-bold"
+                  : "bg-white/5 border-white/10 text-slate-300 hover:text-white hover:bg-white/10"
+              }`}
+            >
+              Uploader Plików
+            </a>
+            <a
+              href={getAssetUrl("/")}
+              target="_blank"
+              rel="noreferrer"
+              className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-slate-300 hover:text-white hover:bg-white/10 transition-all flex items-center gap-1"
+            >
+              <span>Podgląd Portfolio</span>
+              <svg
+                className="w-3 h-3 text-slate-400"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </a>
+          </nav>
+        </div>
+
+        <div className="flex items-center gap-2">
+          {/* Przycisk Wyloguj - działa zarówno przez JS jak i fallback link HTTP */}
+          <a
+            href={getAssetUrl("/api/auth/logout")}
+            onClick={async (e) => {
+              e.preventDefault();
+              await handleLogout();
+            }}
+            title="Wyloguj i zablokuj panel"
+            className="px-3 py-1.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 border border-red-500/30 text-red-400 hover:text-red-300 font-semibold text-xs transition-all flex items-center gap-1.5 shadow-lg shadow-red-500/10 cursor-pointer"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs font-semibold text-cyanlight">Admin</span>
-          </button>
-        ) : (
-          <div className="flex items-center gap-2 sm:gap-3 px-3.5 py-2 rounded-2xl bg-[#100720]/95 backdrop-blur-md border border-white/15 text-white shadow-2xl shadow-purple/20 text-xs">
-            {/* Status */}
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="font-semibold text-slate-200 hidden sm:inline">
-                Admin: {title}
-              </span>
-            </div>
-
-            <div className="h-3 w-px bg-white/10" />
-
-            {/* Szybkie skróty */}
-            <div className="flex items-center gap-2">
-              <Link
-                href="/keystatic"
-                className="px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 hover:text-cyan transition-colors text-[11px] font-medium"
-              >
-                Keystatic
-              </Link>
-              <Link
-                href="/upload"
-                className="px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 hover:text-cyan transition-colors text-[11px] font-medium"
-              >
-                Uploader
-              </Link>
-              <Link
-                href="/"
-                className="px-2 py-1 rounded-lg bg-white/5 hover:bg-white/10 hover:text-cyan transition-colors text-[11px] font-medium hidden md:inline"
-              >
-                Strona główna
-              </Link>
-            </div>
-
-            <div className="h-3 w-px bg-white/10" />
-
-            {/* Wyloguj */}
-            <button
-              onClick={handleLogout}
-              title="Zablokuj panel i wyloguj"
-              className="px-2.5 py-1 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 transition-all text-[11px] font-medium flex items-center gap-1"
+            <svg
+              className="w-3.5 h-3.5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
             >
-              <svg
-                className="w-3.5 h-3.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                />
-              </svg>
-              <span>Wyloguj</span>
-            </button>
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+              />
+            </svg>
+            <span>Wyloguj</span>
+          </a>
+        </div>
+      </header>
 
-            {/* Zwiń */}
-            <button
-              onClick={() => setIsMinimized(true)}
-              title="Zwiń pasek"
-              className="text-slate-500 hover:text-white transition-colors p-0.5"
-            >
-              <svg
-                className="w-3.5 h-3.5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-          </div>
-        )}
-      </div>
-
-      {children}
-    </>
+      {/* Główna zawartość */}
+      <main className="flex-1 relative">{children}</main>
+    </div>
   );
 }
-

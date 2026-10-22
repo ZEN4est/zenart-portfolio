@@ -254,6 +254,12 @@ export default function DirectUploaderPage() {
             >
               Portfolio
             </Link>
+            <a
+              href={getAssetUrl("/api/auth/logout")}
+              className="px-4 py-2 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-xs font-bold uppercase tracking-wider text-red-400 hover:text-red-300 transition-all flex items-center gap-1.5"
+            >
+              Wyloguj
+            </a>
           </div>
         </div>
 
