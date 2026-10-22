@@ -19,15 +19,30 @@ jobs:
           cache: 'npm'
 
       - name: Utworzenie pliku .env dla serwera produkcyjnego
+        env:
+          KEYSTATIC_CLIENT_ID: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}
+          KEYSTATIC_CLIENT_SECRET: ${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}
+          NEXT_PUBLIC_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID }}
+          KEYSTATIC_SEC: ${{ secrets.KEYSTATIC_SECRET }}
+          ADMIN_PASS: ${{ secrets.ADMIN_PASSWORD || secrets.ADMIN_PASS || secrets.UPLOAD_SECRET || secrets.PASSWORD }}
         run: |
-          echo "NODE_ENV=production" >> .env
-          echo "NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID }}" >> .env
-          echo "KEYSTATIC_GITHUB_CLIENT_SECRET=${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}" >> .env
-          echo "KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}" >> .env
-          echo "KEYSTATIC_SECRET=${{ secrets.KEYSTATIC_SECRET }}" >> .env
-          ADMIN_PASS="${{ secrets.ADMIN_PASSWORD }}"
-          if [ -z "$ADMIN_PASS" ]; then ADMIN_PASS="zenart3d"; fi
-          echo "ADMIN_PASSWORD=$ADMIN_PASS" >> .env
+          node -e "
+            const fs = require('fs');
+            const pass = process.env.ADMIN_PASS || 'zenart3d';
+            const lines = [
+              'NODE_ENV=production',
+              'NEXT_PUBLIC_KEYSTATIC_GITHUB_CLIENT_ID=' + (process.env.NEXT_PUBLIC_CLIENT_ID || ''),
+              'KEYSTATIC_GITHUB_CLIENT_ID=' + (process.env.KEYSTATIC_CLIENT_ID || ''),
+              'KEYSTATIC_GITHUB_CLIENT_SECRET=' + (process.env.KEYSTATIC_CLIENT_SECRET || ''),
+              'KEYSTATIC_SECRET=' + (process.env.KEYSTATIC_SEC || ''),
+              'ADMIN_PASSWORD=' + pass,
+              'UPLOAD_SECRET=' + pass
+            ];
+            fs.writeFileSync('.env', lines.join('\n') + '\n');
+            console.log('✓ Plik .env został wygenerowany pomyślnie.');
+          "
+          echo "!.env" > .git-ftp-include
+          echo "!tmp/restart.txt" >> .git-ftp-include
 
       - name: Instalacja pakietów
         run: npm install
@@ -65,6 +80,23 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/.htaccess
+
+      - name: Przesłanie pliku .env oraz restart.txt na FTP
+        run: |
+          echo "Wysyłanie .env i tmp/restart.txt na serwer FTP przez curl..."
+          SERVER="${{ secrets.FTP_SERVER }}"
+          SERVER="${SERVER#ftp://}"
+          SERVER="${SERVER#ftps://}"
+          USER="${{ secrets.FTP_USERNAME }}"
+          PASS="${{ secrets.FTP_PASSWORD }}"
+
+          # Bezpośredni upload .env na FTP z flagą --ftp-create-dirs
+          curl -s --ftp-pasv --ftp-create-dirs -T .env -u "$USER:$PASS" "ftp://${SERVER}/test/.env"
+          echo "✓ Plik .env przesłany na serwer FTP."
+
+          # Bezpośredni upload tmp/restart.txt na FTP
+          curl -s --ftp-pasv --ftp-create-dirs -T tmp/restart.txt -u "$USER:$PASS" "ftp://${SERVER}/test/tmp/restart.txt"
+          echo "✓ Plik tmp/restart.txt przesłany na serwer FTP."
 
       - name: Synchronizacja usuniętych projektów i kategorii z serwera FTP
         run: |
