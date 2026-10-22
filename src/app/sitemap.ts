@@ -1,17 +1,17 @@
 import { MetadataRoute } from "next";
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../../keystatic.config";
+import { getAllProjects } from "@/utils/projects";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Docelowy adres domeny
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://zenart3d.atoma.pl/test";
 
   let projectUrls: MetadataRoute.Sitemap = [];
   try {
     const reader = createReader(process.cwd(), keystaticConfig);
-    const slugs = await reader.collections.projects.list();
-    projectUrls = slugs.map((slug) => ({
-      url: `${siteUrl}/projects/${slug}`,
+    const projects = await getAllProjects(process.cwd(), reader);
+    projectUrls = projects.map((p) => ({
+      url: `${siteUrl}/projects/${p.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,
       priority: 0.8,
@@ -30,4 +30,3 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...projectUrls,
   ];
 }
-

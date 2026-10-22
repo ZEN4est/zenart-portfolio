@@ -1,6 +1,7 @@
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../../keystatic.config";
 import PortfolioClient from '../components/PortfolioClient';
+import { getAllProjects } from "@/utils/projects";
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -12,7 +13,6 @@ export default async function HomePage() {
   let settings: any = null;
   let categories: any[] = [];
   let projects: any[] = [];
-  let projectsOrder: string[] = [];
 
   try {
     settings = await reader.singletons.siteSettings.read();
@@ -31,29 +31,6 @@ export default async function HomePage() {
     }
   }
 
-  // Odczyt kolejności projektów
-  try {
-    const orderData = await reader.singletons.projectsOrder.read();
-    if (orderData && Array.isArray(orderData.projects)) {
-      projectsOrder = (orderData.projects as (string | null)[]).filter((p): p is string => Boolean(p));
-    }
-  } catch (err) {
-    console.error("[HomePage] Error reading projectsOrder via reader:", err);
-  }
-
-  if (projectsOrder.length === 0) {
-    try {
-      const orderJsonPath = path.join(rootDir, 'src/content/settings/projects-order.json');
-      const raw = await fs.readFile(orderJsonPath, 'utf-8');
-      const parsed = JSON.parse(raw);
-      if (parsed && Array.isArray(parsed.projects)) {
-        projectsOrder = parsed.projects.filter(Boolean);
-      }
-    } catch (fallbackErr) {
-      console.error("[HomePage] Fallback projects-order.json read failed:", fallbackErr);
-    }
-  }
-
   try {
     const rawCategories = await reader.collections.categories.all();
     categories = rawCategories.sort((a, b) => (a.entry.order || 99) - (b.entry.order || 99));
@@ -62,20 +39,7 @@ export default async function HomePage() {
   }
 
   try {
-    const rawProjects = await reader.collections.projects.all();
-    projects = rawProjects.sort((a, b) => {
-      const indexA = projectsOrder.indexOf(a.slug);
-      const indexB = projectsOrder.indexOf(b.slug);
-
-      // Jeśli oba projekty są w liście kolejności, sortuj wg ich pozycji
-      if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-      // Jeśli tylko A jest na liście, A pojawia się wcześniej
-      if (indexA !== -1) return -1;
-      // Jeśli tylko B jest na liście, B pojawia się wcześniej
-      if (indexB !== -1) return 1;
-      // Pozostałe projekty sortuj alfabetycznie
-      return a.slug.localeCompare(b.slug);
-    });
+    projects = await getAllProjects(rootDir, reader);
   } catch (err) {
     console.error("[HomePage] Error reading projects:", err);
   }

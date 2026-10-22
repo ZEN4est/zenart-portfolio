@@ -1,0 +1,459 @@
+{
+  "projects": [
+    {
+      "slug": "ar-15",
+      "titlePl": "AR-15",
+      "titleEn": "AR-15",
+      "aspectRatio": "square",
+      "descriptionPl": "Precyzyjny model broni AR-15 wykonany techniką hard-surface w Blenderze. Cały proces – od szczegółowej geometrii high-poly po w pełni autorskie tekstury i shadery proceduralne – zrealizowałem samodzielnie, stawiając na wierne odwzorowanie mechaniki oraz realistyczne wykończenie powierzchni.",
+      "descriptionEn": "A detailed hard-surface recreation of an AR-15 rifle created and textured entirely in Blender. The project features high-poly geometry with an emphasis on mechanical accuracy, complemented by custom-made PBR textures and shaders developed from scratch.",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "",
+      "completedDate": "01-06-2025",
+      "thumbnail": "/uploads/projects/ar-15/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/ar-15/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/ar-15/gallery/1/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/ar-15/gallery/2/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/ar-15/gallery/3/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/ar-15/gallery/4/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "modelFile": null,
+          "externalUrl": "/uploads/models/AR15_HighPoly_4K_1723.glb"
+        }
+      ],
+      "videos": [],
+      "wireframeComparisons": [
+        {
+          "mainImage": "/uploads/projects/ar-15/wireframeComparisons/0/mainImage.png",
+          "wireframeImage": "/uploads/projects/ar-15/wireframeComparisons/0/wireframeImage.png",
+          "titlePl": "",
+          "titleEn": ""
+        }
+      ]
+    },
+    {
+      "slug": "camaro-zl-1",
+      "titlePl": "Camaro ZL1",
+      "titleEn": "CamaroZL1",
+      "aspectRatio": "video",
+      "descriptionPl": "Mój dotychczas najbardziej złożony projekt, zrealizowany całkowicie od zera na wczesnym etapie nauki 3D. Mimo że topologia odzwierciedla początki mojej drogi modelarskiej, skala sceny, dbałość o bryłę oraz ogrom pracy włożony w detale sprawiają, że projekt stanowi ważny kamień milowy w moim portfolio.",
+      "descriptionEn": "My most ambitious early project, built entirely from scratch. While the topology reflects an early stage in my 3D journey, the sheer scale of the asset, intricate detailing, and overall form make it a defining milestone in my development as a 3D artist.",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "",
+      "completedDate": "24-10-2023",
+      "thumbnail": "/uploads/projects/camaro-zl-1/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/camaro-zl-1/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/camaro-zl-1/gallery/1/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/camaro-zl-1/gallery/2/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/camaro-zl-1/gallery/3/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/camaro-zl-1/gallery/4/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "videoFile": null,
+          "externalUrl": "/uploads/videos/camaro_clip_FINAL.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "slug": "wizualizacja-willi-dla-sadowski-studio-web3-d",
+      "titlePl": "Wizualizacja willi dla Sadowski Studio – Web3D",
+      "titleEn": "Modern Villa for Sadowski Studio – Web3D Asset",
+      "aspectRatio": "video",
+      "descriptionPl": "Model architektoniczny nowoczesnej willi zrealizowany dla firmy Sadowski Studio z przeznaczeniem na stronę internetową. Skupiłem się na mocnej optymalizacji geometrii i lekkich materiałach czasu rzeczywistego, gwarantując płynne działanie w przeglądarce przy zachowaniu wysokiej estetyki bryły.",
+      "descriptionEn": "An architectural 3D model of a modern villa developed for Sadowski Studio for web integration. The project prioritized aggressive polygon optimization and lightweight real-time materials, ensuring seamless browser performance without sacrificing visual quality.",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "Sadowski Studio",
+      "completedDate": "",
+      "thumbnail": "/uploads/projects/wizualizacja-willi-dla-sadowski-studio-web3-d/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/wizualizacja-willi-dla-sadowski-studio-web3-d/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/wizualizacja-willi-dla-sadowski-studio-web3-d/gallery/1/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/wizualizacja-willi-dla-sadowski-studio-web3-d/gallery/2/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "modelFile": null,
+          "externalUrl": "/uploads/models/Willa_compressed_jpgTextures.glb"
+        }
+      ],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "slug": "makiety-aplikacji-mobilnych-dla-poliman",
+      "titlePl": "Makiety aplikacji mobilnych dla Poliman",
+      "titleEn": "Mobile App Mockups for Poliman",
+      "aspectRatio": "video",
+      "descriptionPl": "Seria fotorealistycznych makiet 3D przygotowanych do prezentacji aplikacji mobilnych w portfolio studia Poliman. Od podstaw stworzyłem customowy model smartfona o czystej topologii, dopracowałem shadery materiałów oraz minimalistyczne oświetlenie studyjne eksponujące interfejsy.",
+      "descriptionEn": "A set of photorealistic 3D mockups designed to showcase mobile applications for Poliman’s portfolio. I created a custom smartphone model from scratch with clean topology, realistic material shaders, and subtle studio lighting focused on highlighting the UI.",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "Poliman",
+      "completedDate": "29-05-2024",
+      "thumbnail": "/uploads/projects/makiety-aplikacji-mobilnych-dla-poliman/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/makiety-aplikacji-mobilnych-dla-poliman/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/makiety-aplikacji-mobilnych-dla-poliman/gallery/1/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/makiety-aplikacji-mobilnych-dla-poliman/gallery/2/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "videoFile": null,
+          "externalUrl": "/uploads/videos/mob3.mp4"
+        },
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "videoFile": null,
+          "externalUrl": "/uploads/videos/mob2.mp4"
+        },
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "videoFile": null,
+          "externalUrl": "/uploads/videos/mob1.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "slug": "makiety-laptopa-dla-poliman",
+      "titlePl": "Makiety laptopa dla Poliman",
+      "titleEn": "Laptop Mockups for Poliman",
+      "aspectRatio": "video",
+      "descriptionPl": "Zestaw fotorealistycznych makiet 3D stworzonych do prezentacji projektów stron internetowych w portfolio studia Poliman. Od podstaw zamodelowałem laptopa z dbałością o czystą geometrię, realistyczne materiały i studyjne oświetlenie, które skupia wzrok na interfejsach webowych.",
+      "descriptionEn": "A set of photorealistic 3D mockups crafted to showcase web design projects for Poliman’s portfolio. I modeled the custom laptop from scratch, featuring clean geometry, realistic material shaders, and balanced studio lighting designed to highlight the web UI.",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "Poliman",
+      "completedDate": "29-05-2024",
+      "thumbnail": "/uploads/projects/makiety-laptopa-dla-poliman/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/makiety-laptopa-dla-poliman/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/makiety-laptopa-dla-poliman/gallery/1/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/makiety-laptopa-dla-poliman/gallery/2/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [],
+      "videos": [
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "videoFile": null,
+          "externalUrl": "/uploads/videos/web1.mp4"
+        },
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "videoFile": null,
+          "externalUrl": "/uploads/videos/web3.mp4"
+        },
+        {
+          "titlePl": "",
+          "titleEn": "",
+          "videoFile": null,
+          "externalUrl": "/uploads/videos/web2.mp4"
+        }
+      ],
+      "wireframeComparisons": []
+    },
+    {
+      "slug": "e100",
+      "titlePl": "E100",
+      "titleEn": "E100",
+      "aspectRatio": "square",
+      "descriptionPl": "Jeden z moich pierwszych w pełni autorskich projektów 3D. Choć etap teksturowania został pominięty, skupiłem się na precyzyjnym modelowaniu sub-d i czystym prowadzeniu siatki, dzięki czemu model świetnie broni się w surowej formie clay i wireframe render.",
+      "descriptionEn": "One of my first fully custom 3D projects. While left untextured, the core focus was placed on clean sub-d topology and precise edge flow, creating a solid foundation that stands out in pure clay and wireframe passes.",
+      "tools": "",
+      "polycount": "",
+      "client": "",
+      "completedDate": "12-04-2023",
+      "thumbnail": "/uploads/projects/e100/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/e100/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "slug": "budynek",
+      "titlePl": "Budynek",
+      "titleEn": "Building",
+      "aspectRatio": "video",
+      "descriptionPl": "Złożone zadanie rekrutacyjne zoptymalizowane pod kątem silników gier. Przeprowadziłem pełny proces wypalania map, przygotowałem zoptymalizowane tekstury w formacie ORM (Occlusion, Roughness, Metallic) oraz połączyłem autorskie materiały PBR z dopasowanymi teksturami bazowymi.",
+      "descriptionEn": "A comprehensive recruitment art test optimized for game engine workflows. The project features custom-baked maps, packed ORM (Occlusion, Roughness, Metallic) textures for efficient memory usage, and a blend of custom-made PBR materials with base textures.",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "",
+      "completedDate": "20-10-2024",
+      "thumbnail": "/uploads/projects/budynek/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/budynek/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/budynek/gallery/1/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/budynek/gallery/2/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "slug": "demon",
+      "titlePl": "Demon",
+      "titleEn": "Demon",
+      "aspectRatio": "square",
+      "descriptionPl": "Projekt studyjny skupiony na rzeźbieniu w ZBrushu w oparciu o zaawansowane techniki organiczne. Po etapie sculptingu wykonałem pełny proces teksturowania PBR w Substance 3D Painterze, a finalną scenę z dopracowanym oświetleniem i shaderami wyrenderowałem w Blenderze.",
+      "descriptionEn": "A sculpting exercise focused on developing organic modeling workflows in ZBrush. The high-poly sculpt was textured from scratch using PBR workflows in Substance 3D Painter, with final shading, studio lighting, and rendering handled in Blender.",
+      "tools": "Zbrush",
+      "polycount": "",
+      "client": "",
+      "completedDate": "18-12-2023",
+      "thumbnail": "/uploads/projects/demon/thumbnail.jpg",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/demon/gallery/0/image.jpg",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        },
+        {
+          "image": "/uploads/projects/demon/gallery/1/image.jpg",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": [
+        {
+          "mainImage": "/uploads/projects/demon/wireframeComparisons/0/mainImage.jpg",
+          "wireframeImage": "/uploads/projects/demon/wireframeComparisons/0/wireframeImage.png",
+          "titlePl": "Porównanie modelu bez tekstur",
+          "titleEn": "Comparison of the model without textures"
+        }
+      ]
+    },
+    {
+      "slug": "domek",
+      "titlePl": "Domek",
+      "titleEn": "House",
+      "aspectRatio": "square",
+      "descriptionPl": "Zadanie rekrutacyjne zrealizowane dla studia gier AAA. Przygotowałem zoptymalizowany asset wraz z kompletem własnoręcznie wypieczonych i opracowanych tekstur, a całość zaprezentowałem w rzucie ortogonalnym z dopracowanym oświetleniem podkreślającym detale i formę modelu.",
+      "descriptionEn": "A recruitment art test created for an AAA game studio. I developed an optimized 3D asset featuring custom-baked PBR textures, presented in an orthographic view with tailored lighting designed to accentuate surface details and silhouette.",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "",
+      "completedDate": "08-08-2024",
+      "thumbnail": "/uploads/projects/domek/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/domek/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "",
+          "captionEn": ""
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    },
+    {
+      "slug": "emperor",
+      "titlePl": "Emperor",
+      "titleEn": "Emperor",
+      "aspectRatio": "vertical",
+      "descriptionPl": "Modele budynków stworzone do gry Emperor, którą rozwijałem wraz z moim zespołem będącym częścią AGH Code Industry",
+      "descriptionEn": "Building models made for Emperor game that I was developing with my team which is part of AGH Code Industry",
+      "tools": "Blender",
+      "polycount": "",
+      "client": "Emperor",
+      "completedDate": "19-08-2023",
+      "thumbnail": "/uploads/projects/emperor/thumbnail.png",
+      "externalThumbnailUrl": "",
+      "gallery": [
+        {
+          "image": "/uploads/projects/emperor/gallery/0/image.png",
+          "externalUrl": "",
+          "captionPl": "Kopalnia zlota",
+          "captionEn": "Gold mine"
+        },
+        {
+          "image": "/uploads/projects/emperor/gallery/1/image.png",
+          "externalUrl": "",
+          "captionPl": "Kopalnia żelaza",
+          "captionEn": "Iron mine"
+        },
+        {
+          "image": "/uploads/projects/emperor/gallery/2/image.png",
+          "externalUrl": "",
+          "captionPl": "Farma warzyw",
+          "captionEn": "Vegetable farm"
+        },
+        {
+          "image": "/uploads/projects/emperor/gallery/3/image.png",
+          "externalUrl": "",
+          "captionPl": "Płatnerz",
+          "captionEn": "Armorer"
+        },
+        {
+          "image": "/uploads/projects/emperor/gallery/4/image.png",
+          "externalUrl": "",
+          "captionPl": "Farma zboża",
+          "captionEn": "Grain farm"
+        },
+        {
+          "image": "/uploads/projects/emperor/gallery/5/image.png",
+          "externalUrl": "",
+          "captionPl": "Fletcher",
+          "captionEn": "Fletcher"
+        }
+      ],
+      "models": [],
+      "videos": [],
+      "wireframeComparisons": []
+    }
+  ]
+}

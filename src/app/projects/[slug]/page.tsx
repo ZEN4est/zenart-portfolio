@@ -2,6 +2,7 @@ import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../../../../keystatic.config";
 import { notFound } from "next/navigation";
 import ProjectClientView from '../../../components/ProjectClientView';
+import { getAllProjects } from "@/utils/projects";
 import fs from 'fs/promises';
 import path from 'path';
 
@@ -11,8 +12,8 @@ export async function generateStaticParams() {
   const rootDir = process.env.PROJECT_DIR || process.cwd();
   try {
     const reader = createReader(rootDir, keystaticConfig);
-    const slugs = await reader.collections.projects.list();
-    return slugs.map((slug) => ({ slug }));
+    const projects = await getAllProjects(rootDir, reader);
+    return projects.map((p) => ({ slug: p.slug }));
   } catch {
     return [];
   }
@@ -29,9 +30,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   let rawCategories: any[] = [];
 
   try {
-    project = await reader.collections.projects.read(slug);
+    const allProjects = await getAllProjects(rootDir, reader);
+    const found = allProjects.find((p) => p.slug === slug);
+    if (found) {
+      project = found.entry;
+    }
   } catch (err) {
-    console.error(`[ProjectPage] Error reading project ${slug} via reader:`, err);
+    console.error(`[ProjectPage] Error reading project ${slug}:`, err);
   }
 
   // Fallback z dysku jeśli reader nie znalazł projektu

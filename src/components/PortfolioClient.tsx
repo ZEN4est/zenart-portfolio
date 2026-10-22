@@ -328,6 +328,13 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                         alt={cat.entry.titlePl} 
                         loading="lazy"
                         decoding="async"
+                        onError={(e) => {
+                          const t = e.currentTarget;
+                          if (!t.dataset.fallback) {
+                            t.dataset.fallback = "true";
+                            t.src = getAssetUrl(imgSrc);
+                          }
+                        }}
                         className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-[1.03] transition-all duration-500 ease-out" 
                       />
                     )}
@@ -366,10 +373,17 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   >
                     {imgSrc && (
                       <img 
-                        src={getOptimizedImageUrl(imgSrc, 384, 70)} 
+                        src={getOptimizedImageUrl(imgSrc, 384)} 
                         alt={cat.entry.titlePl} 
                         loading="lazy"
                         decoding="async"
+                        onError={(e) => {
+                          const t = e.currentTarget;
+                          if (!t.dataset.fallback) {
+                            t.dataset.fallback = "true";
+                            t.src = getAssetUrl(imgSrc);
+                          }
+                        }}
                         className="w-full h-full object-cover opacity-75" 
                       />
                     )}
@@ -626,16 +640,16 @@ export default function PortfolioClient({ settings, categories, projects }: any)
             </div>
           </div>
 
-          {/* Galeria projektów: Smart Masonry (kolumny bez pustych dziur) */}
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 sm:gap-8 [column-fill:_balance]">
-            {filteredProjects.map((proj: any) => {
+          {/* Funkcja renderująca pojedynczy kafelek projektu */}
+          {(() => {
+            const renderProjectCard = (proj: any) => {
               const thumb = proj.entry.thumbnail || proj.entry.externalThumbnailUrl;
               return (
                 <Link 
                   href={`/projects/${proj.slug}`} 
                   prefetch={false}
                   key={proj.slug} 
-                  className="break-inside-avoid mb-6 sm:mb-8 block group cursor-pointer active:scale-[0.98] transition-all duration-300 transform-gpu"
+                  className="block group cursor-pointer active:scale-[0.98] transition-all duration-300 transform-gpu w-full"
                 >
                   <div className={`relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_45px_rgba(6,182,212,0.22)] ${aspectClass(proj.entry.aspectRatio)}`}>
                     <img 
@@ -643,6 +657,13 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                       alt={proj.entry.titlePl} 
                       loading="lazy"
                       decoding="async"
+                      onError={(e) => {
+                        const t = e.currentTarget;
+                        if (!t.dataset.fallback) {
+                          t.dataset.fallback = "true";
+                          t.src = getAssetUrl(thumb);
+                        }
+                      }}
                       className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
                     />
                     
@@ -658,8 +679,39 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   </div>
                 </Link>
               );
-            })}
-          </div>
+            };
+
+            return (
+              <>
+                {/* Desktopy (3 kolumny: 1, 2, 3 w rzędzie 1; 4, 5, 6 w rzędzie 2 itd. - czytanie od lewej do prawej) */}
+                <div className="hidden lg:grid grid-cols-3 gap-4 lg:gap-5 items-start">
+                  {[0, 1, 2].map((colIndex) => (
+                    <div key={colIndex} className="flex flex-col gap-4 lg:gap-5 w-full">
+                      {filteredProjects
+                        .filter((_: any, i: number) => i % 3 === colIndex)
+                        .map((proj: any) => renderProjectCard(proj))}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tablety (2 kolumny: 1, 2 w rzędzie 1; 3, 4 w rzędzie 2 itd.) */}
+                <div className="hidden sm:grid lg:hidden grid-cols-2 gap-3.5 sm:gap-4 items-start">
+                  {[0, 1].map((colIndex) => (
+                    <div key={colIndex} className="flex flex-col gap-3.5 sm:gap-4 w-full">
+                      {filteredProjects
+                        .filter((_: any, i: number) => i % 2 === colIndex)
+                        .map((proj: any) => renderProjectCard(proj))}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Telefony (1 kolumna w kolejności od góry do dołu) */}
+                <div className="flex sm:hidden flex-col gap-3.5 w-full">
+                  {filteredProjects.map((proj: any) => renderProjectCard(proj))}
+                </div>
+              </>
+            );
+          })()}
         </section>
       )}
 
