@@ -35,29 +35,48 @@ export default function ContactFooter({ settings, lang }: { settings: any; lang:
     setSubmitting(true);
     setStatus("idle");
 
+    const scope = selectedTags.join(", ") || (lang === "pl" ? "Ogólne" : "General");
+    const web3Key = settings?.web3formsKey || process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+
     try {
-      const res = await fetch(getAssetUrl("/api/contact"), {
+      // 1. Zapis kopii zapasowej na własnym serwerze (nigdy nie tracimy klienta)
+      fetch(getAssetUrl("/api/contact"), {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
           message: formData.message,
-          project_scope: selectedTags.join(", ") || (lang === "pl" ? "Ogólne" : "General"),
-          _subject: `Nowe zapytanie — ZenArt 3D (${selectedTags.join(", ") || (lang === "pl" ? "Wycena" : "Quote")})`,
+          project_scope: scope,
         }),
-      });
+      }).catch((err) => console.warn("Lokalny zapis zapytania:", err));
 
-      if (res.ok) {
-        setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
-        setSelectedTags([]);
-      } else {
-        setStatus("error");
+      // 2. Natychmiastowa wysyłka powiadomienia e-mail (Web3Forms)
+      if (web3Key) {
+        const emailRes = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            access_key: web3Key,
+            from_name: formData.name,
+            email: formData.email,
+            subject: `Nowe zapytanie — ZenArt 3D (${scope})`,
+            message: `Od: ${formData.name} <${formData.email}>\nZakres: ${scope}\n\nWiadomość:\n${formData.message}`,
+          }),
+        });
+
+        const emailData = await emailRes.json();
+        if (!emailData.success) {
+          console.warn("Web3Forms response status:", emailData);
+        }
       }
+
+      setStatus("success");
+      setFormData({ name: "", email: "", message: "" });
+      setSelectedTags([]);
     } catch (err) {
       console.error("Błąd wysyłania formularza:", err);
       setStatus("error");

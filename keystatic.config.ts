@@ -224,6 +224,10 @@ export default config({
         contactIntroPl: fields.text({ label: "Kontakt - Tekst zachęcający (PL)", multiline: true }),
         contactIntroEn: fields.text({ label: "Kontakt - Tekst zachęcający (EN)", multiline: true }),
         email: fields.text({ label: "Adres E-mail", defaultValue: "kontakt@zenart3d.com" }),
+        web3formsKey: fields.text({
+          label: "Klucz Web3Forms (Powiadomienia E-mail)",
+          description: "Darmowy klucz z https://web3forms.com (Access Key) do natychmiastowej wysyłki powiadomień z formularza na Twojego maila.",
+        }),
         phone: fields.text({ label: "Numer telefonu", defaultValue: "+48 000 000 000" }),
         locationPl: fields.text({ label: "Lokalizacja (PL)", defaultValue: "Kraków, Polska / Zdalnie" }),
         locationEn: fields.text({ label: "Lokalizacja (EN)", defaultValue: "Cracow, Poland / Remote" }),
