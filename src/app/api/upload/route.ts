@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
+import { isAuthorizedAdmin } from "@/utils/auth";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -54,11 +55,10 @@ export async function POST(req: NextRequest) {
     const password = (formData.get("password") as string | null) || "";
     const requestedFolder = (formData.get("folder") as string | null) || "auto";
 
-    // Sprawdzenie hasła dostępu (domyślnie 'zenart3d' lub zmienna środowiskowa UPLOAD_SECRET)
-    const expectedSecret = process.env.UPLOAD_SECRET || "zenart3d";
-    if (password !== expectedSecret) {
+    // Weryfikacja uprawnień administratora
+    if (!isAuthorizedAdmin(req, password)) {
       return NextResponse.json(
-        { error: "Nieprawidłowe hasło dostępu do uploadera. Domyślne hasło: zenart3d" },
+        { error: "Brak autoryzacji. Wymagane poprawne hasło administratora." },
         { status: 401 }
       );
     }
@@ -136,8 +136,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// Pobieranie listy wgranych plików na serwerze (do wygodnego kopiowania linków)
-export async function GET() {
+// Pobieranie listy wgranych plików na serwerze (wymaga autoryzacji administratora)
+export async function GET(req: NextRequest) {
+  if (!isAuthorizedAdmin(req)) {
+    return NextResponse.json(
+      { error: "Brak autoryzacji do przeglądania plików serwera." },
+      { status: 401 }
+    );
+  }
   try {
     const rootDir = process.env.PROJECT_DIR || process.cwd();
     const uploadsDir = path.join(rootDir, "public", "uploads");

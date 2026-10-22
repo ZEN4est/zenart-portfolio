@@ -20,7 +20,7 @@ interface QueueItem {
 }
 
 export default function DirectUploaderPage() {
-  const [password, setPassword] = useState("zenart3d");
+  const [password, setPassword] = useState("");
   const [folder, setFolder] = useState<"auto" | "models" | "videos">("auto");
   const [queue, setQueue] = useState<QueueItem[]>([]);
   const [isUploadingAll, setIsUploadingAll] = useState(false);
@@ -38,19 +38,32 @@ export default function DirectUploaderPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("zenart_upload_pass");
+    let saved = "";
+    try {
+      saved = sessionStorage.getItem("zenart_admin_pass") || localStorage.getItem("zenart_upload_pass") || "";
+    } catch {}
     if (saved) setPassword(saved);
-    fetchServerFiles();
+    fetchServerFiles(saved);
   }, []);
 
   const handlePasswordChange = (val: string) => {
     setPassword(val);
-    localStorage.setItem("zenart_upload_pass", val);
+    try {
+      localStorage.setItem("zenart_upload_pass", val);
+    } catch {}
   };
 
-  const fetchServerFiles = async () => {
+  const fetchServerFiles = async (passOverride?: string) => {
     try {
-      const res = await fetch(getAssetUrl("/api/upload"));
+      const activePass = passOverride !== undefined ? passOverride : password;
+      const headers: Record<string, string> = {};
+      if (activePass) {
+        headers["x-admin-password"] = activePass;
+      }
+      const res = await fetch(getAssetUrl("/api/upload"), {
+        headers,
+        cache: "no-store",
+      });
       if (res.ok) {
         const data = await res.json();
         setServerFiles({
@@ -262,13 +275,13 @@ export default function DirectUploaderPage() {
           <div className="p-4 rounded-2xl bg-[#110921] border border-white/10 space-y-2">
             <label className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
               <span>Klucz dostępu (Hasło)</span>
-              <span className="text-[10px] text-cyanlight lowercase">domyślne: zenart3d</span>
+              <span className="text-[10px] text-emerald-400 font-semibold lowercase">● autoryzacja aktywna</span>
             </label>
             <input
               type="password"
               value={password}
               onChange={(e) => handlePasswordChange(e.target.value)}
-              placeholder="Wpisz hasło..."
+              placeholder="Hasło sesji aktywne..."
               className="w-full bg-[#07040e] border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan"
             />
           </div>

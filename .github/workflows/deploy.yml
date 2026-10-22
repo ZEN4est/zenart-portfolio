@@ -25,6 +25,9 @@ jobs:
           echo "KEYSTATIC_GITHUB_CLIENT_SECRET=${{ secrets.KEYSTATIC_GITHUB_CLIENT_SECRET }}" >> .env
           echo "KEYSTATIC_GITHUB_CLIENT_ID=${{ secrets.KEYSTATIC_GITHUB_CLIENT_ID }}" >> .env
           echo "KEYSTATIC_SECRET=${{ secrets.KEYSTATIC_SECRET }}" >> .env
+          ADMIN_PASS="${{ secrets.ADMIN_PASSWORD }}"
+          if [ -z "$ADMIN_PASS" ]; then ADMIN_PASS="zenart3d"; fi
+          echo "ADMIN_PASSWORD=$ADMIN_PASS" >> .env
 
       - name: Instalacja pakietów
         run: npm install
