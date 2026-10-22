@@ -1,7 +1,6 @@
 {
   "titlePl": "AR-15",
   "titleEn": "AR-15",
-  "order": 1,
   "category": "modelling",
   "aspectRatio": "square",
   "descriptionPl": "Precyzyjny model broni AR-15 wykonany techniką hard-surface w Blenderze. Cały proces – od szczegółowej geometrii high-poly po w pełni autorskie tekstury i shadery proceduralne – zrealizowałem samodzielnie, stawiając na wierne odwzorowanie mechaniki oraz realistyczne wykończenie powierzchni.",
@@ -28,7 +27,7 @@
   ],
   "models": [
     {
-      "externalUrl": "/uploads/models/AR15_HighPoly_4K.glb"
+      "externalUrl": "/uploads/models/AR15_HighPoly_4K_1723.glb"
     }
   ],
   "videos": [],

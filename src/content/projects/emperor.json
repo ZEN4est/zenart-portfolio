@@ -1,7 +1,6 @@
 {
   "titlePl": "Emperor",
   "titleEn": "Emperor",
-  "order": 1,
   "category": "modelling",
   "aspectRatio": "vertical",
   "descriptionPl": "Modele budynków stworzone do gry Emperor, którą rozwijałem wraz z moim zespołem będącym częścią AGH Code Industry",
@@ -41,5 +40,8 @@
       "captionPl": "Fletcher",
       "captionEn": "Fletcher"
     }
-  ]
+  ],
+  "models": [],
+  "videos": [],
+  "wireframeComparisons": []
 }

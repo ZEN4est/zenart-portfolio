@@ -139,11 +139,28 @@ export default config({
         ),
       },
     }),
+    projectsOrder: singleton({
+      label: "2. Kolejność projektów na stronie",
+      path: "src/content/settings/projects-order",
+      format: "json",
+      schema: {
+        projects: fields.array(
+          fields.relationship({
+            label: "Projekt",
+            collection: "projects",
+          }),
+          {
+            label: "Projekty na stronie głównej (przeciągaj w górę/dół aby ustalić kolejność)",
+            itemLabel: (props) => props.value ?? "Wybierz projekt",
+          }
+        ),
+      },
+    }),
   },
 
   collections: {
     categories: collection({
-      label: "2. Kategorie Portfolio",
+      label: "3. Kategorie Portfolio",
       slugField: "titlePl",
       path: "src/content/categories/*",
       format: "json",
@@ -161,14 +178,13 @@ export default config({
     }),
 
     projects: collection({
-      label: "3. Projekty 3D",
+      label: "4. Projekty 3D",
       slugField: "titlePl",
       path: "src/content/projects/*",
       format: "json",
       schema: {
         titlePl: fields.slug({ name: { label: "Tytuł projektu (PL)" } }),
         titleEn: fields.text({ label: "Tytuł projektu (EN)" }),
-        order: fields.integer({ label: "Kolejność (1 = pierwszy)", defaultValue: 1 }),
         category: fields.relationship({ label: "Kategoria", collection: "categories" }),
         aspectRatio: fields.select({
           label: "Proporcje kafelka w galerii",

@@ -1,7 +1,6 @@
 {
   "titlePl": "Budynek",
   "titleEn": "Building",
-  "order": 1,
   "category": "modelling",
   "aspectRatio": "video",
   "descriptionPl": "Złożone zadanie rekrutacyjne zoptymalizowane pod kątem silników gier. Przeprowadziłem pełny proces wypalania map, przygotowałem zoptymalizowane tekstury w formacie ORM (Occlusion, Roughness, Metallic) oraz połączyłem autorskie materiały PBR z dopasowanymi teksturami bazowymi.",

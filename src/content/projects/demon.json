@@ -1,7 +1,6 @@
 {
   "titlePl": "Demon",
   "titleEn": "Demon",
-  "order": 2,
   "category": "modelling",
   "aspectRatio": "square",
   "descriptionPl": "Projekt studyjny skupiony na rzeźbieniu w ZBrushu w oparciu o zaawansowane techniki organiczne. Po etapie sculptingu wykonałem pełny proces teksturowania PBR w Substance 3D Painterze, a finalną scenę z dopracowanym oświetleniem i shaderami wyrenderowałem w Blenderze.",
