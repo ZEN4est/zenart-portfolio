@@ -40,6 +40,9 @@ const iconUrl = (siteSettings as any)?.favicon
   ? `${siteUrl}${(siteSettings as any).favicon}`
   : undefined;
 
+const siteTitle = (siteSettings as any)?.seoTitle || "ZENART 3D – Michał Piwowarczyk | 3D Artist & Inżynier";
+const siteDescription = (siteSettings as any)?.seoDescription || "Fotorealistyczne wizualizacje 3D, zaawansowane modele Hard-Surface, animacje reklamowe oraz assety do gier (Unreal Engine 5 / Unity).";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   icons: {
@@ -54,10 +57,10 @@ export const metadata: Metadata = {
     shortcut: ["/favicon.ico"],
   },
   title: {
-    default: "ZENART 3D – Michał Piwowarczyk | 3D Artist & Inżynier",
+    default: siteTitle,
     template: "%s | ZENART 3D",
   },
-  description: "Fotorealistyczne wizualizacje 3D, zaawansowane modele Hard-Surface, animacje reklamowe oraz assety do gier (Unreal Engine 5 / Unity). Usługi B2B, faktury VAT 23%, Kraków i współpraca zdalna.",
+  description: siteDescription,
   keywords: [
     "3D Artist",
     "Michał Piwowarczyk",
@@ -80,21 +83,21 @@ export const metadata: Metadata = {
     locale: "pl_PL",
     url: siteUrl,
     siteName: "ZENART 3D Portfolio",
-    title: "ZENART 3D – Michał Piwowarczyk | 3D Artist & Inżynier",
-    description: "Fotorealistyczne wizualizacje 3D, modele Hard-Surface, animacje reklamowe oraz zoptymalizowane assety gamedev.",
+    title: siteTitle,
+    description: siteDescription,
     images: [
       {
         url: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: "ZENART 3D – Michał Piwowarczyk Portfolio",
+        alt: siteTitle,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ZENART 3D – Michał Piwowarczyk | 3D Artist",
-    description: "Fotorealistyczne wizualizacje 3D, modele Hard-Surface i animacje produktowe w Blenderze.",
+    title: siteTitle,
+    description: siteDescription,
     images: [ogImageUrl],
   },
   robots: {

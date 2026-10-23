@@ -126,6 +126,17 @@ export default config({
       format: "json",
       schema: {
         /* Identyfikacja wizualna i Social Media */
+        seoTitle: fields.text({
+          label: "Tytuł strony przy wysyłaniu linka (Social Share / SEO Title)",
+          description: "Tytuł wyświetlany w dymku po wysłaniu linka na Discordzie, Messengerze, WhatsAppie, LinkedIn itp.",
+          defaultValue: "ZENART 3D – Michał Piwowarczyk | 3D Artist & Inżynier",
+        }),
+        seoDescription: fields.text({
+          label: "Opis strony przy wysyłaniu linka (Social Share / SEO Description)",
+          description: "Krótki opis widoczny pod tytułem w podglądzie linka.",
+          multiline: true,
+          defaultValue: "Fotorealistyczne wizualizacje 3D, zaawansowane modele Hard-Surface, animacje reklamowe oraz assety do gier (Unreal Engine 5 / Unity).",
+        }),
         favicon: fields.image({
           label: "Ikonka strony (Favicon - PNG, min. 192x192 px)",
           directory: "public/uploads/settings",
