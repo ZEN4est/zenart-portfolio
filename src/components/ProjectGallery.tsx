@@ -26,7 +26,9 @@ export default function ProjectGallery({
           >
             {/* Zdjęcie w galerii ładuje się w zoptymalizowanym, ultra-lekkim formacie WebP */}
             <img 
-              src={getOptimizedImageUrl(img.url, 1080)} 
+              src={getOptimizedImageUrl(img.url, 1200)} 
+              srcSet={`${getOptimizedImageUrl(img.url, 828)} 828w, ${getOptimizedImageUrl(img.url, 1200)} 1200w, ${getOptimizedImageUrl(img.url, 1920)} 1920w`}
+              sizes="(max-width: 640px) 100vw, 50vw" 
               alt={img.caption || (lang === "pl" ? `Ujęcie ${idx + 1}` : `Shot ${idx + 1}`)} 
               loading="lazy"
               decoding="async"

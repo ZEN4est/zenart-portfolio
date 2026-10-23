@@ -335,9 +335,9 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   >
                     {imgSrc && (
                       <img 
-                        src={getOptimizedImageUrl(imgSrc, 1200)} 
-                        srcSet={`${getOptimizedImageUrl(imgSrc, 1080)} 1080w, ${getOptimizedImageUrl(imgSrc, 1920)} 1920w`}
-                        sizes="(max-width: 1024px) 50vw, 33vw" 
+                        src={getOptimizedImageUrl(imgSrc, 1920)} 
+                        srcSet={`${getOptimizedImageUrl(imgSrc, 1200)} 1200w, ${getOptimizedImageUrl(imgSrc, 1920)} 1920w`}
+                        sizes="(max-width: 1024px) 50vw, (max-width: 1536px) 45vw, 35vw" 
                         alt={cat.entry.titlePl} 
                         loading="lazy"
                         decoding="async"
@@ -348,10 +348,10 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                             t.src = getAssetUrl(imgSrc);
                           }
                         }}
-                        className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500 ease-out" 
+                        className="absolute inset-0 w-full h-full object-cover opacity-92 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500 ease-out" 
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-void via-void/25 to-transparent group-hover:via-void/10 transition-all duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-void via-void/20 to-transparent group-hover:via-void/5 transition-all duration-500" />
 
                     <div className="absolute bottom-8 left-8 right-8 z-10">
                       <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2 drop-shadow-xl group-hover:text-cyanlight transition-colors duration-300">
@@ -674,7 +674,9 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                 >
                   <div className={`relative rounded-3xl overflow-hidden shadow-2xl transition-all duration-500 group-hover:shadow-[0_20px_45px_rgba(6,182,212,0.22)] ${aspectClass(proj.entry.aspectRatio)}`}>
                     <img 
-                      src={getOptimizedImageUrl(thumb, 828)} 
+                      src={getOptimizedImageUrl(thumb, 1080)} 
+                      srcSet={`${getOptimizedImageUrl(thumb, 750)} 750w, ${getOptimizedImageUrl(thumb, 1080)} 1080w, ${getOptimizedImageUrl(thumb, 1200)} 1200w`}
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" 
                       alt={proj.entry.titlePl} 
                       loading="lazy"
                       decoding="async"
