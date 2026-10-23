@@ -64,7 +64,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
     if (typeof window !== "undefined") {
       const newUrl = slug ? `?category=${slug}` : window.location.pathname;
       window.history.pushState({}, '', newUrl);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     }
   };
 
@@ -346,10 +346,10 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                             t.src = getAssetUrl(imgSrc);
                           }
                         }}
-                        className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-85 group-hover:scale-[1.03] transition-all duration-500 ease-out" 
+                        className="absolute inset-0 w-full h-full object-cover opacity-85 group-hover:opacity-100 group-hover:scale-[1.03] transition-all duration-500 ease-out" 
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 to-transparent group-hover:via-void/25 transition-all duration-500" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-void via-void/25 to-transparent group-hover:via-void/10 transition-all duration-500" />
 
                     <div className="absolute bottom-8 left-8 right-8 z-10">
                       <h3 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white mb-2 drop-shadow-xl group-hover:text-cyanlight transition-colors duration-300">
@@ -395,10 +395,10 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                             t.src = getAssetUrl(imgSrc);
                           }
                         }}
-                        className="w-full h-full object-cover opacity-75" 
+                        className="w-full h-full object-cover brightness-100 opacity-95" 
                       />
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-transparent" />
+                    <div className="absolute bottom-0 inset-x-0 h-3/4 bg-gradient-to-t from-void via-void/30 to-transparent pointer-events-none" />
 
                     <div className="absolute bottom-6 inset-x-6 z-10">
                       <h3 className="text-3xl font-black uppercase tracking-tight text-white mb-3 drop-shadow-lg">
@@ -441,7 +441,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                           decoding="async"
                           width={112}
                           height={64}
-                          className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain opacity-70"
+                          className="max-h-16 sm:max-h-28 md:max-h-32 max-w-full object-contain opacity-85 hover:opacity-100 transition-opacity"
                         />
                       ) : (
                         <ClientDefaultIcon name={client.name} />
@@ -659,6 +659,12 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                 <Link 
                   href={`/projects/${proj.slug}`} 
                   prefetch={false}
+                  scroll={false}
+                  onClick={() => {
+                    if (typeof window !== "undefined") {
+                      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+                    }
+                  }}
                   key={proj.slug} 
                   className="block group cursor-pointer active:scale-[0.98] transition-all duration-300 transform-gpu w-full"
                 >
@@ -675,15 +681,15 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                           t.src = getAssetUrl(thumb);
                         }
                       }}
-                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
+                      className="w-full h-full object-cover brightness-100 group-hover:scale-[1.03] transition-transform duration-700 ease-out" 
                     />
                     
                     {/* Tytuł projektu: Na telefonie ZAWSZE widoczny (opacity-100), na komputerze pojawia się po najechaniu (lg:opacity-0 lg:group-hover:opacity-100) */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
-                      <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-md">
+                    <div className="absolute bottom-0 inset-x-0 pt-20 pb-5 px-5 sm:px-6 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex flex-col justify-end transition-all duration-300 lg:opacity-0 lg:group-hover:opacity-100 pointer-events-none">
+                      <h3 className="text-xl sm:text-2xl font-black text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)]">
                         {lang === "pl" ? proj.entry.titlePl : (proj.entry.titleEn || proj.entry.titlePl)}
                       </h3>
-                      <span className="text-xs font-bold uppercase tracking-wider text-cyanlight mt-1.5 flex items-center gap-1.5">
+                      <span className="text-xs font-bold uppercase tracking-wider text-cyanlight mt-1.5 flex items-center gap-1.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.95)]">
                         {lang === "pl" ? "Zobacz projekt" : "View project"} →
                       </span>
                     </div>

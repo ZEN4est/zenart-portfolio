@@ -27,6 +27,9 @@ export default function ProjectClientView({
     const saved = localStorage.getItem("zenart_lang") as "pl" | "en";
     if (saved) setLang(saved);
     setMounted(true);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
   }, []);
 
   if (!mounted) return null;

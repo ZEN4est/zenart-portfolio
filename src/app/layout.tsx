@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import localFont from "next/font/local";
 import siteSettings from "@/content/settings/site.json";
+import NavigationScrollManager from "@/components/NavigationScrollManager";
 import "./globals.css";
 
 const mulish = localFont({
@@ -167,6 +169,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="bg-void font-sans min-h-screen selection:bg-cyan selection:text-black relative overflow-x-hidden">
+        <Suspense fallback={null}>
+          <NavigationScrollManager />
+        </Suspense>
         {/* Żywe, zoptymalizowane poświaty w tle (Ultra-efficient radial-gradient bez ciężkiego filtru blur) */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
           <div className="ambient-orb-1 absolute -top-32 -right-20 w-[550px] sm:w-[750px] h-[550px] sm:h-[750px] rounded-full bg-[radial-gradient(circle_at_center,color-mix(in_srgb,var(--accent)_18%,transparent)_0%,color-mix(in_srgb,var(--accent)_5%,transparent)_40%,transparent_70%)] opacity-80" />
