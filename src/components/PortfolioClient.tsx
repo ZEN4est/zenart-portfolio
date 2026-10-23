@@ -335,7 +335,9 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   >
                     {imgSrc && (
                       <img 
-                        src={getOptimizedImageUrl(imgSrc, 1080)} 
+                        src={getOptimizedImageUrl(imgSrc, 1200)} 
+                        srcSet={`${getOptimizedImageUrl(imgSrc, 1080)} 1080w, ${getOptimizedImageUrl(imgSrc, 1920)} 1920w`}
+                        sizes="(max-width: 1024px) 50vw, 33vw" 
                         alt={cat.entry.titlePl} 
                         loading="lazy"
                         decoding="async"
@@ -384,7 +386,9 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   >
                     {imgSrc && (
                       <img 
-                        src={getOptimizedImageUrl(imgSrc, 384)} 
+                        src={getOptimizedImageUrl(imgSrc, 1080)} 
+                        srcSet={`${getOptimizedImageUrl(imgSrc, 750)} 750w, ${getOptimizedImageUrl(imgSrc, 1080)} 1080w`}
+                        sizes="(max-width: 640px) 85vw, 400px" 
                         alt={cat.entry.titlePl} 
                         loading="lazy"
                         decoding="async"
