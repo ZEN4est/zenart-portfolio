@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import ContactFooter from "@/components/ContactFooter";
 import { getAssetUrl } from "@/utils/paths";
@@ -20,6 +20,20 @@ export default function PortfolioClient({ settings, categories, projects }: any)
   const [lang, setLangState] = useState<"pl" | "en">("pl");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.defaultMuted = true;
+      videoRef.current.muted = true;
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Ignored if browser requires user gesture or low-power mode restricts autoplay
+        });
+      }
+    }
+  }, [settings.showreelUrl, settings.showreelMobileUrl]);
 
   useEffect(() => {
     const savedLang = localStorage.getItem("zenart_lang") as "pl" | "en";
@@ -255,35 +269,50 @@ export default function PortfolioClient({ settings, categories, projects }: any)
       {!activeCategory && (
         <main>
           {/* Sekcja Hero: Zapełnia całą stronę (100vh) + spokojny, elegancki fade-in napisów */}
-          <section className="relative h-screen min-h-screen w-full flex items-end pb-16 md:pb-24 pt-24 px-6 md:px-16 overflow-hidden border-b border-white/5">
+          <section className="relative h-[100dvh] min-h-[100dvh] w-full flex items-end pb-10 sm:pb-16 md:pb-24 pt-20 sm:pt-24 px-5 sm:px-6 md:px-16 overflow-hidden border-b border-white/5">
             {settings.showreelUrl && (
               <video
-                key={settings.showreelUrl}
+                ref={videoRef}
+                key={`${settings.showreelUrl}_${settings.showreelMobileUrl || ""}`}
                 autoPlay
                 loop
                 muted
                 playsInline
-                preload="metadata"
+                preload="auto"
                 aria-hidden="true"
                 tabIndex={-1}
-                className="absolute inset-0 w-full h-full object-cover opacity-40 scale-100 pointer-events-none"
-                style={{ transform: "translate3d(0, 0, 0)", backfaceVisibility: "hidden" }}
+                className="absolute inset-0 w-full h-full min-w-full min-h-full object-cover object-center pointer-events-none opacity-85 sm:opacity-75 md:opacity-60 transition-opacity duration-700"
+                style={{
+                  objectFit: "cover",
+                  objectPosition: "center",
+                  width: "100%",
+                  height: "100%",
+                  transform: "translate3d(0, 0, 0)",
+                  backfaceVisibility: "hidden",
+                }}
               >
+                {settings.showreelMobileUrl && (
+                  <source
+                    src={`${getAssetUrl(settings.showreelMobileUrl)}?v=2`}
+                    media="(max-width: 768px)"
+                    type="video/mp4"
+                  />
+                )}
                 <source src={`${getAssetUrl(settings.showreelUrl)}?v=2`} type="video/mp4" />
                 <track kind="captions" srcLang="pl" label="Wideo w tle bez lektora" />
               </video>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-void via-void/50 to-void/25 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-void via-void/40 via-40% to-transparent pointer-events-none" />
 
             <div className="relative z-10 max-w-6xl mx-auto w-full flex flex-col lg:flex-row lg:items-end justify-between gap-8">
               <div>
-                <p className="animate-hero-sub text-cyanlight text-xs md:text-sm font-bold tracking-[0.25em] uppercase mb-4">
+                <p className="animate-hero-sub text-cyanlight text-xs md:text-sm font-bold tracking-[0.25em] uppercase mb-3 sm:mb-4 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
                   {lang === "pl" ? settings.brandSubheaderPl : (settings.brandSubheaderEn || settings.brandSubheaderPl)}
                 </p>
-                <h1 className="animate-hero-title text-4xl sm:text-6xl md:text-7xl font-extrabold max-w-4xl leading-[1.08] mb-6 tracking-tight text-white drop-shadow-md">
+                <h1 className="animate-hero-title text-3xl sm:text-5xl md:text-7xl font-extrabold max-w-4xl leading-[1.1] mb-4 sm:mb-6 tracking-tight text-white drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
                   {lang === "pl" ? settings.heroTitlePl : (settings.heroTitleEn || settings.heroTitlePl)}
                 </h1>
-                <p className="animate-hero-desc text-slate-200 max-w-2xl text-lg md:text-xl font-light leading-relaxed mb-8">
+                <p className="animate-hero-desc text-slate-100 max-w-2xl text-base sm:text-lg md:text-xl font-light leading-relaxed mb-6 sm:mb-8 drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
                   {lang === "pl" ? settings.heroSubPl : (settings.heroSubEn || settings.heroSubPl)}
                 </p>
 
@@ -299,7 +328,7 @@ export default function PortfolioClient({ settings, categories, projects }: any)
                   <a 
                     href="#contact"
                     onClick={(e) => { e.preventDefault(); handleNavClick("contact"); }}
-                    className="px-6 py-3.5 rounded-xl border border-white/15 bg-white/5 hover:border-cyan/50 text-white font-bold text-xs tracking-wider uppercase transition active:scale-95 cursor-pointer"
+                    className="px-6 py-3.5 rounded-xl border border-white/15 bg-white/5 hover:border-cyan/50 text-white font-bold text-xs tracking-wider uppercase transition active:scale-95 cursor-pointer backdrop-blur-sm"
                   >
                     {lang === "pl" ? "Wycena projektu" : "Request a quote"}
                   </a>

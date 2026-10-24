@@ -155,7 +155,13 @@ export default config({
         heroSubPl: fields.text({ label: "Opis pod tytułem Hero (PL)", multiline: true }),
         heroSubEn: fields.text({ label: "Opis pod tytułem Hero (EN)", multiline: true }),
         showreelUrl: fields.file({
-          label: "Wideo w tle (Strona główna .mp4)",
+          label: "Wideo w tle (Strona główna - wersja pozioma .mp4)",
+          directory: "public/uploads/settings",
+          publicPath: "/uploads/settings/",
+        }),
+        showreelMobileUrl: fields.file({
+          label: "Wideo w tle na telefon (opcjonalnie, format pionowy 9:16 .mp4)",
+          description: "Jeśli wgrasz tutaj wideo pionowe (9:16), na telefonach wyświetli się ono automatycznie zamiast wersji poziomej.",
           directory: "public/uploads/settings",
           publicPath: "/uploads/settings/",
         }),
